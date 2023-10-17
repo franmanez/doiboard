@@ -1,5 +1,5 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <img alt="Logo" src="./assets/doi-logo.png" class="mb-2">
   <router-view></router-view>
 </template>
 

@@ -27,11 +27,12 @@
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
-    <router-link to="/doi">Go to About</router-link>
+    <router-link to="/doi">DOI</router-link>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'HelloWorld',
   props: {
