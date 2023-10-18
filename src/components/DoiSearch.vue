@@ -1,8 +1,8 @@
 <template>
   <div class="align-content-center">
 
-    <input v-model="prefix" placeholder="10.5821">
-    <button @click="getPrefix">Get Prefix</button>
+
+
     <div class="alert alert-warning mt-2" v-if="Object.keys(contentPrefix) != 0">
       <div v-for="(value, index) in contentPrefix.facets" :key="value.id">
         <p>{{index}}: {{value}}</p>
@@ -45,7 +45,6 @@
 
     setup(){
 
-      const prefix = ref('10.5821');
       const contentPrefix = ref({})
 
       const doi = ref('10.5821/ace.18.52.11871');
@@ -53,6 +52,41 @@
 
       const cont = ref(0)
       const error = ref(null);
+
+      let map = {}
+
+      map["Edited Book"] = "edited-book"
+      map["Journal Article"] = "journal-article"
+      map["Dissertation"] = "dissertation"
+      map["Dataset"] = "dataset"
+      map["Database"] = "database"
+      map["Conference Paper"] = "proceedings-article"
+
+      /*"book-section"
+      "monograph"
+      "report-component"
+      "report"
+      "peer-review"
+      "book-track"
+      "book-part"
+      "other"
+      "journal-volume"
+      "book-set"
+      "reference-entry"
+      "journal"
+      "component"
+      "book-chapter"
+      "proceedings-series"
+      "report-series"
+      "proceedings"
+      "database"
+      "standard"
+      "reference-book"
+      "posted-content"
+      "journal-issue"
+      "grant"
+      "book-series"*/
+
 
 
       const clear = () => {
@@ -65,10 +99,9 @@
         cont.value = cont.value + 1
       }
 
-      const getPrefix = async () => {
-        clear()
+      const getPrefix = async (prefix) => {
         try {
-          const response = await http.get('/prefixes/'+prefix.value+'/works?facet=type-name:*&rows=0')
+          const response = await http.get('/prefixes/'+prefix+'/works?facet=type-name:*&rows=0')
           //const responseJson = await response.data
 
           contentPrefix.value = {
@@ -77,9 +110,21 @@
             'facets': response.data.message.facets['type-name'].values
           }
 
-          /*for(let key in contentPrefix.value.facets) {
-            console.log("name: " + key + ", value: "+ contentPrefix.value.facets[key]);
-          }*/
+          for(let keyTypeName in contentPrefix.value.facets) {
+            await getPublishedByTypeName(prefix, map[keyTypeName])
+            console.log("name: " + keyTypeName + ", value: "+ contentPrefix.value.facets[keyTypeName]);
+          }
+
+        } catch (e) {
+          error.value = 'Request ERROR: ' + e.message;
+        }
+      }
+
+      const getPublishedByTypeName = async (prefix, typeName) => {
+
+        try {
+          const response = await http.get('/prefixes/'+prefix+'/works?filter=type:'+typeName+'&facet=published:*&rows=0')
+          alert(typeName + ": " + JSON.stringify(response.data.message.facets.published.values))
 
         } catch (e) {
           error.value = 'Request ERROR: ' + e.message;
@@ -88,6 +133,8 @@
 
       const getDOI = async () => {
         clear()
+        let prefix = doi.value.split("/")[0]
+
         try {
           const response = await http.get('/works/'+doi.value)
           if (response.status === 200) {
@@ -108,6 +155,7 @@
           error.value = 'Request ERROR: ' + e.message;
         }
 
+        await getPrefix(prefix)
 
 
       }
@@ -119,7 +167,6 @@
         contentDOI,
         cont,
         increment,
-        prefix,
         getPrefix,
         getDOI,
         doi,
