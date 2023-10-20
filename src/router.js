@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HelloWorld from "@/components/HelloWorld.vue";
+import HelloWorld from "@/views/HelloWorld.vue";
 
 const routes = [
   {
@@ -13,7 +13,15 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ './components/DoiSearch.vue')
+    component: () => import(/* webpackChunkName: "about" */ './views/DoiSearch.vue')
+  },
+  {
+    path: '/prefix',
+    name: 'prefix',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ './views/PrefixSearch.vue')
   },
   {
     path: '/table',
@@ -21,7 +29,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ './components/TablePagination.vue')
+    component: () => import(/* webpackChunkName: "about" */ './views/SamplePage.vue')
   },
     { path: '/:pathMatch(.*)*', name: 'error', component: Error },
 ]

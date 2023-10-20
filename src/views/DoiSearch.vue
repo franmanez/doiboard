@@ -105,7 +105,7 @@
 
 <script>
 
-  import http from '@/http-common'
+  import http from '@/http-common';
   import {ref} from "vue";
   export default {
     name: "DoiSearch",
@@ -118,61 +118,13 @@
       const contentDOI = ref({});
 
       const cont = ref(0)
+
+
+
       const error = ref(null);
 
-      let map = {}
-
-      const bootstrapClasses = [
-        "border-primary",
-        "border-secondary",
-        "border-success",
-        "border-danger",
-        "border-warning",
-        "border-info",
-        "border-light",
-        "border-dark",
-      ];
-
-      const color = (index) => {
-        console.log(index % bootstrapClasses.length)
-        return bootstrapClasses[index % bootstrapClasses.length];
-      };
-
-      map["Edited Book"] = "edited-book"
-      map["Journal Article"] = "journal-article"
-      map["Dissertation"] = "dissertation"
-      map["Dataset"] = "dataset"
-      map["Database"] = "database"
-      map["Conference Paper"] = "proceedings-article"
-
-      /*"book-section"
-      "monograph"
-      "report-component"
-      "report"
-      "peer-review"
-      "book-track"
-      "book-part"
-      "other"
-      "book"
-      "journal-volume"
-      "book-set"
-      "reference-entry"
-      "journal"
-      "component"
-      "book-chapter"
-      "proceedings-series"
-      "report-series"
-      "proceedings"
-      "database"
-      "standard"
-      "reference-book"
-      "posted-content"
-      "journal-issue"
-      "grant"
-      "book-series"*/
 
       const clear = () => {
-        contentPrefix.value = ''
         contentDOI.value = ''
         error.value = null
         increment()
@@ -181,41 +133,11 @@
         cont.value = cont.value + 1
       }
 
-      const getPrefix = async (prefix) => {
-        try {
-          const response = await http.get('/prefixes/'+prefix+'/works?facet=type-name:*&rows=0')
-          //const responseJson = await response.data
 
-          contentPrefix.value = {
-            'status': response.data.status,
-            'total': response.data.message['total-results'],
-            'facets': response.data.message.facets['type-name'].values
-          }
-
-          for(let keyTypeName in contentPrefix.value.facets) {
-            await getPublishedByTypeName(prefix, map[keyTypeName])
-            console.log("name: " + keyTypeName + ", value: "+ contentPrefix.value.facets[keyTypeName]);
-          }
-
-        } catch (e) {
-          error.value = 'Request ERROR: ' + e.message;
-        }
-      }
-
-      const getPublishedByTypeName = async (prefix, typeName) => {
-
-        try {
-          const response = await http.get('/prefixes/'+prefix+'/works?filter=type:'+typeName+'&facet=published:*&rows=0')
-          console.log(typeName + ": " + JSON.stringify(response.data.message.facets.published.values))
-
-        } catch (e) {
-          error.value = 'Request ERROR: ' + e.message;
-        }
-      }
 
       const getDOI = async () => {
         clear()
-        let prefix = doi.value.split("/")[0]
+        //let prefix = doi.value.split("/")[0]
 
         try {
           const response = await http.get('/works/'+doi.value)
@@ -242,24 +164,25 @@
           error.value = 'Request ERROR: ' + e.message;
         }
 
-        await getPrefix(prefix)
-
-
-
-
       }
 
-      //getWorks()
+
+
+
+
+
+
+
+
+
 
       return{
         contentPrefix,
         contentDOI,
         cont,
         increment,
-        getPrefix,
         getDOI,
         doi,
-        color,
         error,
       }
 
