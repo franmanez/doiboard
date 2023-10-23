@@ -1,6 +1,8 @@
 <template>
 
   <div>
+
+
     <img alt="Logo" src="../assets/doi-logo.png" class="mb-3 mx-auto d-block">
 
 
@@ -18,22 +20,67 @@
 
 
     <div class="container" v-if="Object.keys(contentPrefix) != 0">
-      <hr class="mt-0 mb-4">
-      <div>
-      <h2>Data prefix {{prefix.split("/")[0]}} </h2>
-      <h3><p class="badge bg-danger">TOTAL {{contentPrefix.total}}</p></h3>
+      <div class="row">
+
+        <h1>Information for DOI prefix {{prefix}} </h1>
+        <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
+
+        <div class="card bg-danger mb-5">
+          <div class="card-body text-light">
+            <div class="d-flex justify-content-between p-md-1">
+              <div class="d-flex flex-row">
+                <div class="align-self-center">
+                  <i class="bi bi-file-earmark text-light me-5" style="font-size: 3rem;"></i>
+                </div>
+                <div>
+                  <h2>TOTAL</h2>
+                  <p class="mb-0">Total number of deposited DOIs</p>
+                </div>
+              </div>
+              <div class="align-self-center">
+                <h2 class="h1 mb-0">{{contentPrefix.total.toLocaleString()}}</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
       </div>
 
-      <div class="card-group" >
 
-        <div v-for="(value, index, cont) in contentPrefix.facets" :key="value.id">
-          <div class="card me-3 mb-3 text-center" :class="color(cont)" style="width: 17rem;">
-            <div class="card-header" :class="color(cont)">
-              <h4 class="font-weight-normal">{{ index }}</h4>
-            </div>
+
+      <div class="row">
+
+
+
+
+        <div v-for="(value, index) in contentPrefix.facets" :key="value.id" class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+
+
+          <div class="card mb-5">
+
             <div class="card-body">
-              <h1 class="card-title">{{value}}</h1>
+
+              <h4 class="card-title font-weight-bold">{{ index }}</h4>
+
+              <hr style="height:3px; border:none;" :style="colorBackgroundByType(index)" />
+
+              <div class="d-flex justify-content-between">
+                <h1 class="">{{value.toLocaleString()}}</h1>
+                <i class="bi bi-info-circle-fill me-1" style="font-size: 2.3rem;" :style="colorByType(index)"></i>
+              </div>
+
             </div>
+
+            <div class="card-footer">
+
+              <a class="btn btn-light btn-sm" href="#" role="button"><i class="bi bi-pie-chart-fill"></i> PUBLICATION DATE</a>
+              <a class="btn btn-light btn-sm" href="#" role="button"><i class="bi bi-bar-chart"></i> DEPOSITED DATE</a>
+
+            </div>
+
           </div>
         </div>
       </div>
@@ -43,9 +90,9 @@
     <hr>
 
     <div class="container-lg">
-      <button class="btn btn-primary mx-3" @click="addSerie('edited-book')">Book</button>
-      <button class="btn btn-danger mx-3" @click="addSerie('journal-article')">Journal article</button>
-      <button class="btn btn-success mx-3" @click="addSerie('dataset')">Dataset</button>
+      <button class="btn btn-primary mx-3" @click="getData('edited-book')">Book</button>
+      <button class="btn btn-danger mx-3" @click="getData('journal-article')">Journal article</button>
+      <button class="btn btn-success mx-3" @click="getData('dataset')">Dataset</button>
       <div ref="chartRef"></div>
     </div>
 
@@ -72,7 +119,7 @@
       const prefix = ref('10.5821');
 
       const chartRef = ref(null);
-      const chartOptions2 = ref({
+      const chartOptions = ref({
         chart: {
           type: 'column',
         },
@@ -102,7 +149,7 @@
 
       let map = {}
 
-      const bootstrapClasses = [
+      /*const bootstrapClasses = [
         "border-primary",
         "border-secondary",
         "border-success",
@@ -111,12 +158,33 @@
         "border-info",
         "border-light",
         "border-dark",
-      ];
+      ];*/
 
-      const color = (index) => {
-        //console.log(index % bootstrapClasses.length)
+      /*const color = (index) => {
         return bootstrapClasses[index % bootstrapClasses.length];
-      };
+      };*/
+
+      const colorBackgroundByType = (type) => {
+        return "background-color:"+color(type)
+      }
+
+      const colorByType = (type) => {
+        return "color:"+color(type)
+      }
+
+      const color = (type) => {
+        if(type === "Edited Book") return "#017698;"
+        else if(type === "Journal Article") return "#e3506b;"
+        else if(type === "Conference Paper") return "#ff0000;"
+        else if(type === "Dissertation") return "#e3c85b;"
+        else if(type === "Dataset") return "#365fa9;"
+        else if(type === "Database") return "#64ea7a;"
+        else return "#3a3939;"
+      }
+
+
+
+
 
       map["Edited Book"] = "edited-book"
       map["Journal Article"] = "journal-article"
@@ -124,35 +192,33 @@
       map["Dataset"] = "dataset"
       map["Database"] = "database"
       map["Conference Paper"] = "proceedings-article"
-
-      /*"book-section"
-      "monograph"
-      "report-component"
-      "report"
-      "peer-review"
-      "book-track"
-      "book-part"
-      "other"
-      "book"
-      "journal-volume"
-      "book-set"
-      "reference-entry"
-      "journal"
-      "component"
-      "book-chapter"
-      "proceedings-series"
-      "report-series"
-      "proceedings"
-      "database"
-      "standard"
-      "reference-book"
-      "posted-content"
-      "journal-issue"
-      "grant"
-      "book-series"*/
+      map["Book section"] = "book-section"
+      map["Monograph"] = "monograph"
+      map["Report component"] = "report-component"
+      map["Report"] = "report"
+      map["Peer review"] = "peer-review"
+      map["Book track"] = "book-track"
+      map["Book part"] = "book-part"
+      map["Other"] = "other"
+      map["Book"] = "book"
+      map["Journal volume"] = "journal-volume"
+      map["Book set"] = "book-set"
+      map["Reference entry"] = "reference-entry"
+      map["Journal"] = "journal"
+      map["Component"] = "component"
+      map["Book-chapter"] = "book-chapter"
+      map["Proceedings-series"] = "proceedings-series"
+      map["Report-series"] = "report-series"
+      map["Proceedings"] = "proceedings"
+      map["Standard"] = "standard"
+      map["Reference book"] = "reference-book"
+      map["Posted content"] = "posted-content"
+      map["Journal-issue"] = "journal-issue"
+      map["Grant"] = "grant"
+      map["Book series"] = "book-series"
 
       onMounted(async () => {
-        createChart2();
+        createChart();
       });
 
       const clear = () => {
@@ -215,13 +281,16 @@
       }
 
 
+      const getData = async (type) => {
+        getDataByFirstDepositDate(type)
+        getDataByPublicationDate(type)
+      }
 
-      const addSerie = async (type) => {
+
+      const getDataByPublicationDate = async (type) => {
 
 
         try {
-
-
           CrossrefService.getPublishedDate(prefix.value, type).then((result) => {
 
 
@@ -242,9 +311,9 @@
             };
 
 
-            chartOptions2.value.xAxis.categories = resultKeys
-            chartOptions2.value.series.push(newSeries);
-            createChart2()
+            chartOptions.value.xAxis.categories = resultKeys
+            chartOptions.value.series.push(newSeries);
+            createChart()
 
           })
 
@@ -256,11 +325,31 @@
       };
 
 
-      const createChart2 = () => {
+
+      const getDataByFirstDepositDate = async (type) => {
+
+
+        CrossrefService.getYearFirstDepositByType(prefix.value, type).then((result) => {
+          const firstYear = result
+
+          for(let year = firstYear; year <= new Date().getFullYear(); year++){
+            console.log(year)
+          }
+
+        })
+
+
+      };
+
+
+
+
+
+      const createChart = () => {
         if (chartRef.value) {
           console.log(chartRef.value)
-          console.log(chartOptions2)
-          Highcharts.chart(chartRef.value, chartOptions2.value);
+          console.log(chartOptions)
+          Highcharts.chart(chartRef.value, chartOptions.value);
         }
       };
 
@@ -276,9 +365,11 @@
         getPrefix,
         prefix,
         color,
-        addSerie,
+        colorByType,
+        colorBackgroundByType,
+        getData,
         chartRef,
-        createChart2,
+        createChart,
         error,
       }
 
@@ -301,5 +392,15 @@
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(to right bottom, rgb(1, 118, 152), rgb(1, 118, 152))
 }
+
+
+.btn-sm, .btn-group-sm > .btn {
+  --bs-btn-padding-y: 0.25rem;
+  --bs-btn-padding-x: 0.5rem;
+  --bs-btn-font-size: 0.775rem;
+  --bs-btn-border-radius: var(--bs-border-radius-sm);
+}
+
+
 
 </style>

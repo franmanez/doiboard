@@ -79,7 +79,23 @@ class CrossrefService {
     }
 
 
+    getYearFirstDepositByType = async (prefix, type) => {
+        try {
+            const response = await http.get(`${this.ENDPOINT_PREFIXES}/${prefix}/works?filter=type:${type}&sort=created&order=asc&rows=1`)
+            return response.data.message.items[0].created['date-parts'][0][0]
+        } catch (e) {
+            alert('Request ERROR: ' + e.message);
+        }
+    }
 
+    mostReferenced = async (prefix, number) => {
+        try {
+            const response = await http.get(`${this.ENDPOINT_PREFIXES}/${prefix}/works?select=title,DOI,type,is-referenced-by-count&sort=is-referenced-by-count&order=desc&rows=${number}`)
+            return response.data.message.items
+        } catch (e) {
+            alert('Request ERROR: ' + e.message);
+        }
+    }
 
 }
 
