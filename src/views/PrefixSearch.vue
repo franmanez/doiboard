@@ -13,7 +13,7 @@
 
         </div>
         <div class="col-2">
-          <button type="button" class="btn btn-warning btn-lg rounded-0" @click="getPrefix">Search Prefix</button>
+          <button type="button" class="btn btn-warning btn-lg rounded-0" @click="getMemberInfo">Search Prefix</button>
         </div>
       </div>
     </div>
@@ -56,7 +56,7 @@
 
 
 
-        <div v-for="(value, index) in contentPrefix.facets" :key="value.id" class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+        <div v-for="(value, index) in contentPrefix.all" :key="value.id" class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
 
 
           <div class="card mb-5">
@@ -76,6 +76,7 @@
 
             <div class="card-footer">
 
+              <a class="btn btn-light btn-sm" href="#" @click="getData('edited-book')" role="button"><i class="bi bi-info"></i> DETAILS</a>
               <a class="btn btn-light btn-sm" href="#" role="button"><i class="bi bi-pie-chart-fill"></i> PUBLICATION DATE</a>
               <a class="btn btn-light btn-sm" href="#" role="button"><i class="bi bi-bar-chart"></i> DEPOSITED DATE</a>
 
@@ -90,7 +91,7 @@
     <hr>
 
     <div class="container-lg">
-      <button class="btn btn-primary mx-3" @click="getData('edited-book')">Book</button>
+      <button class="btn btn-primary mx-3" @click="getMemberInfo(prefix)">GET INFO MEMBER</button>
       <button class="btn btn-danger mx-3" @click="getData('journal-article')">Journal article</button>
       <button class="btn btn-success mx-3" @click="getData('dataset')">Dataset</button>
       <div ref="chartRef"></div>
@@ -231,6 +232,13 @@
         cont.value = cont.value + 1
       }
 
+
+      const getMemberInfo = async () => {
+        let result = await CrossrefService.memberInfo(prefix.value)
+        contentPrefix.value = result
+
+      }
+
       const getPrefix = async () => {
         clear()
         try {
@@ -243,16 +251,17 @@
             'facets': response.data.message.facets['type-name'].values
           }
 
-          for(let keyTypeName in contentPrefix.value.facets) {
+          /*for(let keyTypeName in contentPrefix.value.facets) {
             await getPublishedByTypeName(prefix.value, map[keyTypeName])
             //console.log("name: " + keyTypeName + ", value: "+ contentPrefix.value.facets[keyTypeName]);
-          }
+          }*/
 
         } catch (e) {
           error.value = 'Request ERROR: ' + e.message;
         }
       }
 
+      // eslint-disable-next-line
       const getPublishedByTypeName = async (prefix, typeName) => {
 
         try {
@@ -285,6 +294,8 @@
         getDataByFirstDepositDate(type)
         getDataByPublicationDate(type)
       }
+
+
 
 
       const getDataByPublicationDate = async (type) => {
@@ -368,6 +379,7 @@
         colorByType,
         colorBackgroundByType,
         getData,
+        getMemberInfo,
         chartRef,
         createChart,
         error,

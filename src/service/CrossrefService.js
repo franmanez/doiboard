@@ -4,6 +4,27 @@ class CrossrefService {
 
     ENDPOINT_PREFIXES = '/prefixes';
 
+
+    MAILTO = "&mailto=info.idp@upc.edu"
+
+
+    memberInfo = async (prefix) => {
+        try {
+            const response = await http.get(`/members?filter=prefix:${prefix}${this.MAILTO}`)
+            //return response.data.message.items
+
+            let result = {
+                'all': response.data.message.items[0]['counts-type'].all,
+                'total': '10000',
+                //'total': response.data.message['total-results'],
+                //'facets': response.data.message.facets['type-name'].values
+            }
+            return result
+        } catch (e) {
+            alert('Request ERROR: ' + e.message);
+        }
+    }
+
     getApprovedDate = async (prefix, type) => {
         let map = new Map()
         let offset = 0
@@ -92,6 +113,22 @@ class CrossrefService {
         try {
             const response = await http.get(`${this.ENDPOINT_PREFIXES}/${prefix}/works?select=title,DOI,type,is-referenced-by-count&sort=is-referenced-by-count&order=desc&rows=${number}`)
             return response.data.message.items
+        } catch (e) {
+            alert('Request ERROR: ' + e.message);
+        }
+    }
+
+    details = async (prefix) => {
+        try {
+            const response = await http.get(`${this.ENDPOINT_PREFIXES}/${prefix}/works?select=title,DOI,type,is-referenced-by-count&sort=is-referenced-by-count&order=desc&rows=0`)
+            //return response.data.message.items
+
+            let contentPrefix = {
+                'status': response.data.status,
+                //'total': response.data.message['total-results'],
+                //'facets': response.data.message.facets['type-name'].values
+            }
+            return contentPrefix
         } catch (e) {
             alert('Request ERROR: ' + e.message);
         }
