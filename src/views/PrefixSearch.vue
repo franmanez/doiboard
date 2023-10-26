@@ -129,6 +129,19 @@
       <div class="row mb-3" v-if="showPublished">
         <h2>Charts</h2>
         <div ref="chartRef"></div>
+
+        <div class="alert alert-success" role="alert">
+          {{chartOptions}}
+        </div>
+
+        <vue-highcharts
+            type="chart"
+            :options="chartOptions2"
+            :redrawOnUpdate="true"
+            :oneToOneUpdate="false"
+            :animateOnUpdate="true"
+            @rendered="onRender"/>
+        <button class="btn btn-danger mr-2" @click="fetchData">UPDATE DATA</button>
       </div>
 
       <div class="row mb-5"></div>
@@ -148,11 +161,16 @@
 <script>
 
 import CrossrefService from '@/service/CrossrefService';
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import Highcharts from "highcharts";
+import VueHighcharts from 'vue3-highcharts';
 
 export default {
     name: "DoiSearch",
+
+    components: {
+      VueHighcharts,
+    },
 
     setup(){
 
@@ -162,6 +180,10 @@ export default {
       const showCoverage = ref(false)
       const showPublished = ref(false)
       const showDeposited = ref(false)
+
+      const seriesName = ref('')
+      const seriesData = ref([]);
+      const categoriesData = ref([]);
 
       const chartRef = ref(null);
       const chartOptions = ref({
@@ -190,6 +212,29 @@ export default {
         }*/]
       });
 
+      const chartOptions2 = computed(() => ({
+        chart: {
+          type: 'line',
+        },
+        title: {
+          text: 'Number of project stars',
+        },
+        xAxis: {
+          categories: categoriesData.value
+        },
+        yAxis: {
+          title: {
+            text: 'Number of stars',
+          },
+        },
+        //series: seriesData.value
+        series: [{
+          name: seriesName.value,
+          data: seriesData.value,
+        }],
+
+      }));
+
       const cont = ref(0)
       const error = ref(null);
 
@@ -209,6 +254,32 @@ export default {
       /*const color = (index) => {
         return bootstrapClasses[index % bootstrapClasses.length];
       };*/
+
+      const updateDataSeries = () => {
+        chartOptions.value.series = [
+          {
+            name: 'Series 2',
+            data: [5, 4, 3, 2, 1],
+          },
+        ];
+
+      };
+
+
+      const fetchData = async () => {
+
+        try {
+          categoriesData.value = ['fran','manez','sanchez']
+          seriesName.value = 'alsdk'
+          seriesData.value = [1, 1, 1]
+
+
+
+
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
       const colorBackgroundByType = (type) => {
         return "background-color:"+color(type)
@@ -264,7 +335,9 @@ export default {
       map["Book series"] = "book-series"
 
       onMounted(async () => {
-        createChart();
+        seriesName.value = "initial"
+        seriesData.value = [5, 4, 3, 2, 1]
+
       });
 
       const clear = () => {
@@ -373,12 +446,15 @@ export default {
         getCoverage,
         getPublicationDate,
         getDepositedDate,
+        fetchData,
         chartRef,
         createChart,
         showCoverage,
         showPublished,
         showDeposited,
         error,
+        chartOptions2,
+        updateDataSeries,
       }
 
     }
