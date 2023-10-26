@@ -3,16 +3,19 @@
   <div>
 
 
-    <img alt="Logo" src="../assets/doi-logo.png" class="mb-3 mx-auto d-block">
-
 
     <div class="container mb-5" >
       <div class="row col-12">
-        <div class="col-10">
+        <div class="col-1">
+
+          <img src="../assets/doi-logo.png" width="80" class="rounded-circle">
+
+        </div>
+        <div class="col-9 mt-3">
           <input class="form-control form-control-lg rounded-0" v-model="prefix" placeholder="10.nnnnnn">
 
         </div>
-        <div class="col-2">
+        <div class="col-2 mt-3">
           <button type="button" class="btn btn-warning btn-lg rounded-0" @click="getMemberInfo">Search Prefix</button>
         </div>
       </div>
@@ -25,12 +28,12 @@
         <h1>Information for DOI prefix {{prefix}} </h1>
         <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
 
-        <div class="card bg-danger mb-5">
-          <div class="card-body text-light">
+        <div class="card bg-warning mb-5 bg-opacity-75">
+          <div class="card-body text-dark">
             <div class="d-flex justify-content-between p-md-1">
               <div class="d-flex flex-row">
                 <div class="align-self-center">
-                  <i class="bi bi-file-earmark text-light me-5" style="font-size: 3rem;"></i>
+                  <i class="bi bi-file-earmark text-dark me-5" style="font-size: 3rem;"></i>
                 </div>
                 <div>
                   <h2>TOTAL</h2>
@@ -44,60 +47,97 @@
           </div>
         </div>
 
-
-
-
       </div>
 
 
 
       <div class="row">
 
-
-
-
         <div v-for="(value, index) in contentPrefix.all" :key="value.id" class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-
-
           <div class="card mb-5">
 
             <div class="card-body">
-
               <h4 class="card-title font-weight-bold">{{ index }}</h4>
-
               <hr style="height:3px; border:none;" :style="colorBackgroundByType(index)" />
-
               <div class="d-flex justify-content-between">
                 <h1 class="">{{value.toLocaleString()}}</h1>
                 <i class="bi bi-info-circle-fill me-1" style="font-size: 2.3rem;" :style="colorByType(index)"></i>
               </div>
-
             </div>
 
             <div class="card-footer">
-
-              <a class="btn btn-light btn-sm" href="#" @click="getData('edited-book')" role="button"><i class="bi bi-info"></i> DETAILS</a>
-              <a class="btn btn-light btn-sm" href="#" role="button"><i class="bi bi-pie-chart-fill"></i> PUBLICATION DATE</a>
-              <a class="btn btn-light btn-sm" href="#" role="button"><i class="bi bi-bar-chart"></i> DEPOSITED DATE</a>
-
+              <a class="btn btn-light btn-sm" @click="getCoverage(index)" role="button"><i class="bi bi-wifi"></i> COVERAGE</a>
+              <a class="btn btn-light btn-sm" @click="getPublicationDate(index)" v-show="index != 'dissertation'" role="button"><i class="bi bi-pie-chart-fill"></i> PUBLICATION</a>
+              <a class="btn btn-light btn-sm" @click="getDepositedDate(index)" role="button"><i class="bi bi-bar-chart"></i> DEPOSITED</a>
             </div>
 
           </div>
         </div>
       </div>
 
+      <div class="row" v-if="typeSelected != ''">
+        <h1>Type Selected: <span class="text-warning">{{typeSelected}}</span> </h1>
+        <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
+      </div>
+
+      <div class="row mb-3" v-if="showCoverage">
+        <h2>Coverage</h2>
+        <p class="blockquote-footer">Percentage of content items that include this values in their metadata.</p>
+
+        <div class="row">
+
+          <div class="col-xl-12">
+            <div class="card proj-progress-card">
+              <div class="card-block">
+                <div class="row">
+                  <div class="col-xl-3 col-md-6">
+                    <h5>Abstracts</h5>
+                    <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].abstracts * 100).toFixed(0) }} %</h4>
+                    <div class="progress">
+                      <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].abstracts * 100).toFixed(0) + '%'}"></div>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-md-6">
+                    <h5>ORCIDs</h5>
+                    <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].orcids * 100).toFixed(0) }} %</h4>
+                    <div class="progress">
+                      <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].orcids * 100).toFixed(0) + '%'}"></div>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-md-6">
+                    <h5>Licenses</h5>
+                    <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].licenses * 100).toFixed(0) }} %</h4>
+                    <div class="progress">
+                      <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].licenses * 100).toFixed(0) + '%'}"></div>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-md-6">
+                    <h5>References</h5>
+                    <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].references * 100).toFixed(0) }} %</h4>
+                    <div class="progress">
+                      <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].references * 100).toFixed(0) + '%'}"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row mb-3" v-if="showPublished">
+        <h2>Charts</h2>
+        <div ref="chartRef"></div>
+      </div>
+
+      <div class="row mb-5"></div>
+
+
+
+
+
     </div>
-
-    <hr>
-
-    <div class="container-lg">
-      <button class="btn btn-primary mx-3" @click="getMemberInfo(prefix)">GET INFO MEMBER</button>
-      <button class="btn btn-danger mx-3" @click="getData('journal-article')">Journal article</button>
-      <button class="btn btn-success mx-3" @click="getData('dataset')">Dataset</button>
-      <div ref="chartRef"></div>
-    </div>
-
-
 
 
     <div class="alert alert-danger mt-4" v-if="error != null">{{error}}</div>
@@ -107,17 +147,21 @@
 
 <script>
 
-  import http from '@/http-common';
-  import CrossrefService from '@/service/CrossrefService';
-  import {onMounted, ref} from "vue";
-  import Highcharts from "highcharts";
-  export default {
+import CrossrefService from '@/service/CrossrefService';
+import {onMounted, ref} from "vue";
+import Highcharts from "highcharts";
+
+export default {
     name: "DoiSearch",
 
     setup(){
 
       const contentPrefix = ref({})
       const prefix = ref('10.5821');
+      const typeSelected = ref('')
+      const showCoverage = ref(false)
+      const showPublished = ref(false)
+      const showDeposited = ref(false)
 
       const chartRef = ref(null);
       const chartOptions = ref({
@@ -125,7 +169,7 @@
           type: 'column',
         },
         title: {
-          text: 'Items published by document type and year',
+          text: '',
         },
         xAxis: {
           categories: [],
@@ -135,6 +179,7 @@
             text: '#',
           },
         },
+        colors: ['#ffc72c'],
         //series: seriesData.value
         series: [/*{
           name: 'Dissertation',
@@ -225,41 +270,21 @@
       const clear = () => {
         contentPrefix.value = ''
         error.value = null
-        increment()
       }
 
-      const increment = () => {
-        cont.value = cont.value + 1
+      const showStatus = (coverage, published, deposited) => {
+        showCoverage.value = coverage
+        showPublished.value = published
+        showDeposited.value = deposited
       }
 
 
       const getMemberInfo = async () => {
-        let result = await CrossrefService.memberInfo(prefix.value)
-        contentPrefix.value = result
-
-      }
-
-      const getPrefix = async () => {
         clear()
-        try {
-          const response = await http.get('/prefixes/'+prefix.value+'/works?facet=type-name:*&rows=0')
-          //const responseJson = await response.data
-
-          contentPrefix.value = {
-            'status': response.data.status,
-            'total': response.data.message['total-results'],
-            'facets': response.data.message.facets['type-name'].values
-          }
-
-          /*for(let keyTypeName in contentPrefix.value.facets) {
-            await getPublishedByTypeName(prefix.value, map[keyTypeName])
-            //console.log("name: " + keyTypeName + ", value: "+ contentPrefix.value.facets[keyTypeName]);
-          }*/
-
-        } catch (e) {
-          error.value = 'Request ERROR: ' + e.message;
-        }
+        contentPrefix.value = await CrossrefService.memberInfo(prefix.value)
       }
+
+
 
       // eslint-disable-next-line
       const getPublishedByTypeName = async (prefix, typeName) => {
@@ -289,77 +314,46 @@
         }
       }
 
-
-      const getData = async (type) => {
-        getDataByFirstDepositDate(type)
-        getDataByPublicationDate(type)
+      const getCoverage = async (type) => {
+        showStatus(true, false, false)
+        typeSelected.value = type
       }
 
 
+      const getPublicationDate = async (type) => {
+        showStatus(false, true, false)
+        typeSelected.value = type
+
+        let result = await CrossrefService.getPublishedDate(prefix.value, type)
+
+        const resultKeys = Object.keys(result);
+        const resultValues = Object.values(result);
+
+        const newSeries = {
+          name: type,
+          data: resultValues,
+        };
+
+        chartOptions.value.title.text =  typeSelected.value + " published by years"
+        chartOptions.value.xAxis.categories = resultKeys
+        chartOptions.value.series = []
+        chartOptions.value.series.push(newSeries)
+        createChart()
 
 
-      const getDataByPublicationDate = async (type) => {
 
+      }
 
-        try {
-          CrossrefService.getPublishedDate(prefix.value, type).then((result) => {
-
-
-            const resultKeys = Object.keys(result);
-            const resultValues = Object.values(result);
-
-            console.log(resultKeys)
-
-            /*let values = resultValues.map(function (element) {
-              return element
-            })*/
-
-
-
-            const newSeries = {
-              name: type,
-              data: resultValues,
-            };
-
-
-            chartOptions.value.xAxis.categories = resultKeys
-            chartOptions.value.series.push(newSeries);
-            createChart()
-
-          })
-
-        } catch (error) {
-          console.error(error);
+      const getDepositedDate = async (type) => {
+        let result = await CrossrefService.getYearFirstDepositByType(prefix.value, type)
+        for(let year = result; year <= new Date().getFullYear(); year++){
+          console.log(year)
         }
-
-
-      };
-
-
-
-      const getDataByFirstDepositDate = async (type) => {
-
-
-        CrossrefService.getYearFirstDepositByType(prefix.value, type).then((result) => {
-          const firstYear = result
-
-          for(let year = firstYear; year <= new Date().getFullYear(); year++){
-            console.log(year)
-          }
-
-        })
-
-
-      };
-
-
-
+      }
 
 
       const createChart = () => {
         if (chartRef.value) {
-          console.log(chartRef.value)
-          console.log(chartOptions)
           Highcharts.chart(chartRef.value, chartOptions.value);
         }
       };
@@ -367,21 +361,23 @@
 
 
 
-
-
       return{
         contentPrefix,
         cont,
-        increment,
-        getPrefix,
         prefix,
+        typeSelected,
         color,
         colorByType,
         colorBackgroundByType,
-        getData,
         getMemberInfo,
+        getCoverage,
+        getPublicationDate,
+        getDepositedDate,
         chartRef,
         createChart,
+        showCoverage,
+        showPublished,
+        showDeposited,
         error,
       }
 
@@ -406,12 +402,84 @@
 }
 
 
-.btn-sm, .btn-group-sm > .btn {
-  --bs-btn-padding-y: 0.25rem;
-  --bs-btn-padding-x: 0.5rem;
-  --bs-btn-font-size: 0.775rem;
-  --bs-btn-border-radius: var(--bs-border-radius-sm);
+.stretch-card>.card {
+  width: 100%;
+  min-width: 100%
 }
+
+
+@media (max-width:991.98px) {
+  .padding {
+    padding: 1.5rem
+  }
+}
+
+@media (max-width:767.98px) {
+  .padding {
+    padding: 1rem
+  }
+}
+
+.padding {
+  padding: 3rem
+}
+
+.card {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -ms-box-shadow: none
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #3da5f;
+  border-radius: 0
+}
+
+.card .card-block {
+  padding: 1.25rem;
+}
+
+
+.proj-progress-card .progress {
+  height: 7px;
+  overflow: visible;
+  margin-bottom: 10px;
+}
+
+.proj-progress-card .progress .progress-bar {
+  position: relative;
+}
+
+.progress .progress-bar {
+  height: 100%;
+  color: inherit;
+}
+
+
+.progress .progress-bar:after {
+  content: "";
+  display: inline-block;
+  width: 15px;
+  background: #fa9302;
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  right: -5px;
+  z-index: 1;
+  transform: rotate(30deg)
+}
+
+
+
+
 
 
 

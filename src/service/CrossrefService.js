@@ -3,19 +3,20 @@ import http from "../http-common";
 class CrossrefService {
 
     ENDPOINT_PREFIXES = '/prefixes';
-
-
     MAILTO = "&mailto=info.idp@upc.edu"
 
 
     memberInfo = async (prefix) => {
         try {
             const response = await http.get(`/members?filter=prefix:${prefix}${this.MAILTO}`)
-            //return response.data.message.items
+
+            let obj = response.data.message.items[0]['counts-type'].all
+            const total = Object.values(obj).reduce((count, value) => count + value, 0);
 
             let result = {
                 'all': response.data.message.items[0]['counts-type'].all,
-                'total': '10000',
+                'total': total,
+                'coverage': response.data.message.items[0]['coverage-type'].all,
                 //'total': response.data.message['total-results'],
                 //'facets': response.data.message.facets['type-name'].values
             }
@@ -24,6 +25,29 @@ class CrossrefService {
             alert('Request ERROR: ' + e.message);
         }
     }
+
+    /*const getPrefix = async () => {
+        clear()
+        try {
+            const response = await http.get('/prefixes/'+prefix.value+'/works?facet=type-name:*&rows=0')
+            //const responseJson = await response.data
+
+            contentPrefix.value = {
+                'status': response.data.status,
+                'total': response.data.message['total-results'],
+                'facets': response.data.message.facets['type-name'].values
+            }
+
+            //for(let keyTypeName in contentPrefix.value.facets) {
+              //await getPublishedByTypeName(prefix.value, map[keyTypeName])
+              //console.log("name: " + keyTypeName + ", value: "+ contentPrefix.value.facets[keyTypeName]);
+            //}
+
+        } catch (e) {
+            error.value = 'Request ERROR: ' + e.message;
+        }
+    }
+    */
 
     getApprovedDate = async (prefix, type) => {
         let map = new Map()
