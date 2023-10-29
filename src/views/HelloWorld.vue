@@ -2,7 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
 
-    <router-link to="/doi">DOI</router-link>
+
     <br>
     <router-link to="/prefix">Prefix</router-link>
     <br>

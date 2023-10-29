@@ -158,6 +158,16 @@ class CrossrefService {
         }
     }
 
+    getDois = async (prefix, page, size) => {
+        try {
+            const response = await http.get(`/prefixes/${prefix}/works?select=DOI,title,type&sort=created&rows=${size}${this.MAILTO}`)
+            return response.data.message
+        } catch (e) {
+            alert('Request ERROR: ' + e.message);
+        }
+    }
+
+
 }
 
 export default new CrossrefService()

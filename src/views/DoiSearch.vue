@@ -6,12 +6,8 @@
 
     <div class="container mb-5" >
       <div class="row col-12">
-        <div class="col-1">
 
-          <img src="../assets/doi-logo.png" width="80" class="rounded-circle">
-
-        </div>
-        <div class="col-9 mt-3">
+        <div class="col-10 mt-3">
           <input class="form-control form-control-lg rounded-0" v-model="doi" placeholder="10.nnnnnn/example">
 
         </div>

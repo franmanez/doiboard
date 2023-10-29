@@ -12,123 +12,48 @@
 
         </div>
         <div class="col-2 mt-3">
-          <button type="button" class="btn btn-warning btn-lg rounded-0" @click="getMemberInfo">Search Prefix</button>
+          <button type="button" class="btn btn-warning btn-lg rounded-0" @click="getDois">Search Prefix</button>
         </div>
       </div>
     </div>
 
 
-    <div class="container" v-if="Object.keys(contentPrefix) != 0">
+    <div class="container">
+
       <div class="row">
 
         <h1>Information for DOI prefix {{prefix}} </h1>
         <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
 
-        <div class="card bg-warning mb-5 bg-opacity-75">
-          <div class="card-body text-dark">
-            <div class="d-flex justify-content-between p-md-1">
-              <div class="d-flex flex-row">
-                <div class="align-self-center">
-                  <i class="bi bi-file-earmark text-dark me-5" style="font-size: 3rem;"></i>
-                </div>
-                <div>
-                  <h2>TOTAL</h2>
-                  <p class="mb-0">Total number of deposited DOIs</p>
-                </div>
-              </div>
-              <div class="align-self-center">
-                <h2 class="h1 mb-0">{{contentPrefix.total.toLocaleString()}}</h2>
-              </div>
-            </div>
-          </div>
+        <div class="col-sm-12 col-md-9">
+          <PaginationTable
+              class="container"
+              :show-pagination="true"
+              v-model:current-page="currentPage"
+              v-model:page-size="pageSize"
+              :total="totalElements"
+              :handle-size-change="handleSizeChange"
+              :handle-current-change="handleCurrentChange">
+          </PaginationTable>
+
+          {{contentPrefix}}
         </div>
 
-      </div>
-
-
-
-      <div class="row">
-
-        <div v-for="(value, index) in contentPrefix.all" :key="value.id" class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-          <div class="card mb-5">
-
-            <div class="card-body">
-              <h4 class="card-title font-weight-bold">{{ index }}</h4>
-              <hr style="height:3px; border:none;" :style="colorBackgroundByType(index)" />
-              <div class="d-flex justify-content-between">
-                <h1 class="">{{value.toLocaleString()}}</h1>
-                <i class="bi bi-info-circle-fill me-1" style="font-size: 2.3rem;" :style="colorByType(index)"></i>
-              </div>
-            </div>
-
-            <div class="card-footer">
-              <a class="btn btn-light btn-sm" @click="getCoverage(index)" role="button"><i class="bi bi-wifi"></i> COVERAGE</a>
-              <a class="btn btn-light btn-sm" @click="getPublicationDate(index)" v-show="index != 'dissertation'" role="button"><i class="bi bi-pie-chart-fill"></i> PUBLICATION</a>
-              <a class="btn btn-light btn-sm" @click="getDepositedDate(index)" role="button"><i class="bi bi-bar-chart"></i> DEPOSITED</a>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="row" v-if="typeSelected != ''">
-        <h1>Type Selected: <span class="text-warning">{{typeSelected}}</span> </h1>
-        <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
-      </div>
-
-      <div class="row mb-3" v-if="showCoverage">
-        <h2>Coverage</h2>
-        <p class="blockquote-footer">Percentage of content items that include this values in their metadata.</p>
-
-        <div class="row">
-
-          <div class="col-xl-12">
-            <div class="card proj-progress-card">
-              <div class="card-block">
-                <div class="row">
-                  <div class="col-xl-3 col-md-6">
-                    <h5>Abstracts</h5>
-                    <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].abstracts * 100).toFixed(0) }} %</h4>
-                    <div class="progress">
-                      <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].abstracts * 100).toFixed(0) + '%'}"></div>
-                    </div>
-                  </div>
-                  <div class="col-xl-3 col-md-6">
-                    <h5>ORCIDs</h5>
-                    <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].orcids * 100).toFixed(0) }} %</h4>
-                    <div class="progress">
-                      <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].orcids * 100).toFixed(0) + '%'}"></div>
-                    </div>
-                  </div>
-                  <div class="col-xl-3 col-md-6">
-                    <h5>Licenses</h5>
-                    <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].licenses * 100).toFixed(0) }} %</h4>
-                    <div class="progress">
-                      <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].licenses * 100).toFixed(0) + '%'}"></div>
-                    </div>
-                  </div>
-                  <div class="col-xl-3 col-md-6">
-                    <h5>References</h5>
-                    <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].references * 100).toFixed(0) }} %</h4>
-                    <div class="progress">
-                      <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].references * 100).toFixed(0) + '%'}"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
       </div>
+
+
+
+
+
+
+
 
       <div class="row mb-3" v-if="showPublished">
         <h2>Charts</h2>
         <div ref="chartRef"></div>
 
-        <div class="alert alert-success" role="alert">
-          {{chartOptions}}
-        </div>
+
 
         <vue-highcharts
             type="chart"
@@ -157,7 +82,9 @@
 <script>
 
 import CrossrefService from '@/service/CrossrefService';
+import PaginationTable from "@/components/PaginationTable.vue"
 import {computed, onMounted, ref} from "vue";
+import { useStore } from 'vuex'
 import Highcharts from "highcharts";
 import VueHighcharts from 'vue3-highcharts';
 
@@ -166,9 +93,11 @@ export default {
 
     components: {
       VueHighcharts,
+      PaginationTable
     },
 
     setup(){
+      const store = useStore()
 
       const contentPrefix = ref({})
       const prefix = ref('10.5821');
@@ -176,6 +105,10 @@ export default {
       const showCoverage = ref(false)
       const showPublished = ref(false)
       const showDeposited = ref(false)
+
+      const currentPage = ref(0)
+      const pageSize = computed(() => { return store.getters.pageSize})
+      const totalElements = ref(0)
 
       const seriesName = ref('')
       const seriesData = ref([]);
@@ -250,6 +183,25 @@ export default {
       /*const color = (index) => {
         return bootstrapClasses[index % bootstrapClasses.length];
       };*/
+
+      const handleSizeChange = (size) => {
+        store.commit('setPageSize', size)
+        fetchDataItems(currentPage.value)
+        currentPage.value = 1
+      }
+
+      const handleCurrentChange = (page) => {
+        fetchDataItems(page-1)
+      }
+
+      const fetchDataItems = async (currentPage) => {
+        //isLoading.value = true
+        alert(currentPage)
+        contentPrefix.value = await CrossrefService.getDois(prefix.value, currentPage*store.getters.pageSize, store.getters.pageSize)
+        //isLoading.value = false
+
+
+      }
 
       const updateDataSeries = () => {
         chartOptions.value.series = [
@@ -348,9 +300,12 @@ export default {
       }
 
 
-      const getMemberInfo = async () => {
+      const getDois = async (currentPage) => {
         clear()
-        contentPrefix.value = await CrossrefService.memberInfo(prefix.value)
+
+        let result = await CrossrefService.getDois(prefix.value, currentPage*store.getters.pageSize, store.getters.pageSize)
+        contentPrefix.value = result.items
+        totalElements.value = result['total-results']
       }
 
 
@@ -438,7 +393,7 @@ export default {
         color,
         colorByType,
         colorBackgroundByType,
-        getMemberInfo,
+        getDois,
         getCoverage,
         getPublicationDate,
         getDepositedDate,
@@ -451,6 +406,12 @@ export default {
         error,
         chartOptions2,
         updateDataSeries,
+
+        currentPage,
+        pageSize,
+        totalElements,
+        handleSizeChange,
+        handleCurrentChange
       }
 
     }

@@ -1,11 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HelloWorld from "@/views/HelloWorld.vue";
+import ListDois from "@/views/ListDois.vue";
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HelloWorld
+    redirect: '/doi'
   },
   {
     path: '/doi',
@@ -30,6 +29,11 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ './views/SamplePage.vue')
+  },
+  {
+    path: '/list',
+    name: 'listDois',
+    component: ListDois
   },
     { path: '/:pathMatch(.*)*', name: 'error', component: Error },
 ]
