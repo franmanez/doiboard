@@ -14,12 +14,14 @@ class CrossrefService {
             const total = Object.values(obj).reduce((count, value) => count + value, 0);
 
             let result = {
+                'name':response.data.message.items[0]['primary-name'],
                 'all': response.data.message.items[0]['counts-type'].all,
                 'total': total,
                 'coverage': response.data.message.items[0]['coverage-type'].all,
                 //'total': response.data.message['total-results'],
                 //'facets': response.data.message.facets['type-name'].values
             }
+
             return result
         } catch (e) {
             alert('Request ERROR: ' + e.message);
@@ -142,6 +144,15 @@ class CrossrefService {
         }
     }
 
+    orcid = async (prefix, number) => {
+        try {
+            const response = await http.get(`${this.ENDPOINT_PREFIXES}/${prefix}/works?&rows=0&facet=orcid:${number}${this.MAILTO}`)
+            return response.data.message.facets.orcid
+        } catch (e) {
+            alert('Request ERROR: ' + e.message);
+        }
+    }
+
     details = async (prefix) => {
         try {
             const response = await http.get(`${this.ENDPOINT_PREFIXES}/${prefix}/works?select=title,DOI,type,is-referenced-by-count&sort=is-referenced-by-count&order=desc&rows=0`)
@@ -158,9 +169,13 @@ class CrossrefService {
         }
     }
 
-    getDois = async (prefix, page, size) => {
+    getDois = async (prefix, page, size, query) => {
         try {
-            const response = await http.get(`/prefixes/${prefix}/works?select=DOI,title,type&sort=created&rows=${size}${this.MAILTO}`)
+            let filterQuery = ''
+            if(query){
+                filterQuery = `&query=${query}`
+            }
+            const response = await http.get(`/prefixes/${prefix}/works?select=DOI,title,type,deposited,author&sort=deposited&order=desc&offset=${page}&rows=${size}${filterQuery}${this.MAILTO}`)
             return response.data.message
         } catch (e) {
             alert('Request ERROR: ' + e.message);

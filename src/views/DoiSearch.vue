@@ -65,7 +65,7 @@
                   </div>
                   <hr class="mt-0 mb-4">
                   <div class="d-flex justify-content-start">
-                    <a :href="contentDOI.resource" target="_blank" style="font-size: 1.3rem; color: #017698FF;"><i class="bi bi-link-45deg" ></i> {{contentDOI.resource}}</a>
+                    <a :href="contentDOI.resource" target="_blank" style="font-size: 1.3rem;"><i class="bi bi-link-45deg" ></i> {{contentDOI.resource}}</a>
                   </div>
                 </div>
               </div>

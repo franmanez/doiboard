@@ -21,7 +21,7 @@
     <div class="container" v-if="Object.keys(contentPrefix) != 0">
       <div class="row">
 
-        <h1>Information for DOI prefix {{prefix}} </h1>
+        <h1 class="text-dark">{{contentPrefix.name}} </h1>
         <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
 
         <div class="card bg-warning mb-5 bg-opacity-75">
@@ -160,6 +160,7 @@ import CrossrefService from '@/service/CrossrefService';
 import {computed, onMounted, ref} from "vue";
 import Highcharts from "highcharts";
 import VueHighcharts from 'vue3-highcharts';
+import {useStore} from "vuex";
 
 export default {
     name: "DoiSearch",
@@ -170,6 +171,7 @@ export default {
 
     setup(){
 
+      const store = useStore()
       const contentPrefix = ref({})
       const prefix = ref('10.5821');
       const typeSelected = ref('')
@@ -351,6 +353,7 @@ export default {
       const getMemberInfo = async () => {
         clear()
         contentPrefix.value = await CrossrefService.memberInfo(prefix.value)
+        store.commit('setMemberName', contentPrefix.value.name)
       }
 
 

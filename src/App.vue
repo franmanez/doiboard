@@ -11,26 +11,27 @@
           </a>
 
           <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0">
-            <li class="mt-3 mx-2 text-white">
+            <li class="mt-3 mx-3 text-white">
               <router-link  to="/doi" active-class="text-warning" style="color: white; text-decoration: none;">
                 DOI search
               </router-link>
             </li>
-            <li class="mt-3 mx-2 text-white">
+            <li class="mt-3 mx-3 text-white">
               <router-link to="/prefix" active-class="text-warning" style="color: white; text-decoration: none;">
                 Prefix search
               </router-link>
             </li>
-            <li class="mt-3 mx-2 text-white">
+            <li class="mt-3 mx-3 text-white">
               <router-link to="/list" active-class="text-warning" style="color: white; text-decoration: none;">
                 List DOIs
               </router-link>
             </li>
-            <li class="mt-3 mx-2 text-white">
-              <router-link to="/table" active-class="text-warning" style="color: white; text-decoration: none;">
-                TEST
+            <li class="mt-3 mx-3 text-white">
+              <router-link to="/referenced" active-class="text-warning" style="color: white; text-decoration: none;">
+                Most referenced DOIs
               </router-link>
             </li>
+
           </ul>
         </div>
       </div>

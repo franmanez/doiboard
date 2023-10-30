@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ListDois from "@/views/ListDois.vue";
+import MostReferenceDois from "@/views/MostReferenceDois.vue";
 
 const routes = [
   {
@@ -34,6 +35,11 @@ const routes = [
     path: '/list',
     name: 'listDois',
     component: ListDois
+  },
+  {
+    path: '/referenced',
+    name: 'mostReferenced',
+    component: MostReferenceDois
   },
     { path: '/:pathMatch(.*)*', name: 'error', component: Error },
 ]

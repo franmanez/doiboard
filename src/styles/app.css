@@ -15,3 +15,12 @@
 .center {
     text-align: center;
 }
+
+a {
+    text-decoration: none; /* Para quitar el subrayado predeterminado */
+    color: #017698FF; /* Cambia el color a tu preferencia */
+}
+
+a:hover {
+    text-decoration: underline; /* Subrayado al pasar el ratón sobre el enlace */
+}
