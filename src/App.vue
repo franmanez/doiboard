@@ -5,10 +5,9 @@
     <div class="px-3 py-2 text-bg-dark border-bottom">
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-
+          <router-link  to="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none" style="color: white; text-decoration: none;">
             <img src="@/assets/doi-logo.png" width="70" class="rounded-circle mx-3">
-          </a>
+          </router-link>
 
           <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0">
             <li class="mt-3 mx-3 text-white">

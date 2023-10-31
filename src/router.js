@@ -2,11 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ListDois from "@/views/ListDois.vue";
 import MostReferenceDois from "@/views/MostReferenceDois.vue";
 import MostReferenceOrcids from "@/views/MostReferenceOrcids.vue";
+import HelloWorld from "@/views/HelloWorld.vue";
 
 const routes = [
   {
     path: '/',
-    redirect: '/doiboard/doi'
+    name: 'Home',
+    component: HelloWorld
   },
   {
     path: '/doi',

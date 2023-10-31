@@ -1,12 +1,12 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-
-
-    <br>
-    <router-link to="/prefix">Prefix</router-link>
-    <br>
-    <router-link to="/table">Sample Table Pagination</router-link>
+  <div>
+    <div class="container" >
+      <div class="row col-12 center">
+        <hr>
+        <h1>DOIBoard Application</h1>
+        <hr>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -20,20 +20,5 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 </style>
