@@ -31,6 +31,11 @@
                 Most referenced DOIs
               </router-link>
             </li>
+            <li class="mt-3 mx-3 text-white">
+              <router-link to="/referencedOrcid" active-class="text-warning" style="color: white; text-decoration: none;">
+                Most referenced ORCIDs
+              </router-link>
+            </li>
 
           </ul>
         </div>
@@ -40,35 +45,11 @@
   </header>
 
 
-  <br><br>
+  <div style="margin-top: 100px; margin-bottom: 100px;">
+    <router-view></router-view>
+  </div>
 
-  <!--header class="mb-5">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 
-      <a class="navbar-brand " href="#">
-        <img src="@/assets/doi-logo.png" width="70" class="rounded-circle mx-3">
-      </a>
-
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active mx-2">
-            <router-link class="nav-link" to="/doi">DOI search</router-link>
-          </li>
-          <li class="nav-item mx-2">
-            <router-link class="nav-link" to="/prefix">Prefix search</router-link>
-          </li>
-          <li class="nav-item mx-2">
-            <router-link class="nav-link" to="/table">TEST</router-link>
-          </li>
-        </ul>
-
-      </div>
-    </nav>
-  </header-->
-  <router-view></router-view>
 </template>
 
 <script>
@@ -90,8 +71,5 @@ header {
   z-index: 1000; /* Puedes ajustar el valor de z-index según tus necesidades */
 }
 
-.active-link {
-  background-color: red; /* Cambia el color a tu elección */
-  /* Puedes aplicar otros estilos, como fondo o efectos de texto, según tus necesidades */
-}
+
 </style>

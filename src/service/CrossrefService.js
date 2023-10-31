@@ -2,7 +2,6 @@ import http from "../http-common";
 
 class CrossrefService {
 
-    ENDPOINT_PREFIXES = '/prefixes';
     MAILTO = "&mailto=info.idp@upc.edu"
 
 
@@ -51,7 +50,7 @@ class CrossrefService {
     }
     */
 
-    getApprovedDate = async (prefix, type) => {
+    getApprovedDateForDissertation = async (prefix, type) => {
         let map = new Map()
         let offset = 0
         let result = {}
@@ -59,7 +58,7 @@ class CrossrefService {
         do {
             try {
                 //console.log(`${this.ENDPOINT_PREFIXES}/${prefix}/works?filter=type:dissertation&select=approved&offset=${offset}&rows=1000`)
-                const response = await http.get(`${this.ENDPOINT_PREFIXES}/${prefix}/works?filter=type:${type}&select=approved&offset=${offset}&rows=1000`)
+                const response = await http.get(`/prefixes/${prefix}/works?filter=type:${type}&select=approved&offset=${offset}&rows=1000${this.MAILTO}`)
 
                 result = {
                     'items': response.data.message.items,
@@ -95,7 +94,7 @@ class CrossrefService {
 
 
         try {
-            const response = await http.get(`${this.ENDPOINT_PREFIXES}/${prefix}/works?filter=type:${type}&facet=published:*&rows=0`)
+            const response = await http.get(`/prefixes/${prefix}/works?filter=type:${type}&facet=published:*&rows=0${this.MAILTO}`)
 
             result = {
                 'items': response.data.message.facets.published.values,
@@ -128,8 +127,29 @@ class CrossrefService {
 
     getYearFirstDepositByType = async (prefix, type) => {
         try {
-            const response = await http.get(`${this.ENDPOINT_PREFIXES}/${prefix}/works?filter=type:${type}&sort=created&order=asc&rows=1`)
+            const response = await http.get(`/prefixes/${prefix}/works?filter=type:${type}&sort=created&order=asc&rows=1${this.MAILTO}`)
             return response.data.message.items[0].created['date-parts'][0][0]
+        } catch (e) {
+            alert('Request ERROR: ' + e.message);
+        }
+    }
+
+    getDepositByType = async (prefix, type) => {
+        try {
+            let yearFirstDeposit = await this.getYearFirstDepositByType(prefix, type)
+            const jsonData = {};
+            for (let year = yearFirstDeposit; year <= new Date().getFullYear(); year++) {
+                const response = await http.get(`/prefixes/${prefix}/works?filter=type:${type},from-created-date:${year},until-created-date:${year}&rows=0${this.MAILTO}`)
+                if(response.data.message['total-results'] > 0){
+                    console.log(year + ": " + response.data.message['total-results'])
+                    jsonData[year] = response.data.message['total-results']
+                }
+
+            }
+
+            return jsonData
+
+
         } catch (e) {
             alert('Request ERROR: ' + e.message);
         }
@@ -137,7 +157,7 @@ class CrossrefService {
 
     mostReferenced = async (prefix, number) => {
         try {
-            const response = await http.get(`${this.ENDPOINT_PREFIXES}/${prefix}/works?select=title,DOI,type,is-referenced-by-count&sort=is-referenced-by-count&order=desc&rows=${number}`)
+            const response = await http.get(`/prefixes/${prefix}/works?select=title,DOI,type,is-referenced-by-count&sort=is-referenced-by-count&order=desc&rows=${number}${this.MAILTO}`)
             return response.data.message.items
         } catch (e) {
             alert('Request ERROR: ' + e.message);
@@ -146,8 +166,17 @@ class CrossrefService {
 
     orcid = async (prefix, number) => {
         try {
-            const response = await http.get(`${this.ENDPOINT_PREFIXES}/${prefix}/works?&rows=0&facet=orcid:${number}${this.MAILTO}`)
-            return response.data.message.facets.orcid
+            const response = await http.get(`/prefixes/${prefix}/works?rows=0&facet=orcid:${number}${this.MAILTO}`)
+            let values = response.data.message.facets.orcid.values
+
+            //transformar de JSON en array de Objects
+            const result = Object.keys(values).map(function(key) {
+                return { orcid: key, count: values[key] };
+            });
+
+            return result
+
+
         } catch (e) {
             alert('Request ERROR: ' + e.message);
         }
@@ -155,7 +184,7 @@ class CrossrefService {
 
     details = async (prefix) => {
         try {
-            const response = await http.get(`${this.ENDPOINT_PREFIXES}/${prefix}/works?select=title,DOI,type,is-referenced-by-count&sort=is-referenced-by-count&order=desc&rows=0`)
+            const response = await http.get(`/prefixes/${prefix}/works?select=title,DOI,type,is-referenced-by-count&sort=is-referenced-by-count&order=desc&rows=0${this.MAILTO}`)
             //return response.data.message.items
 
             let contentPrefix = {

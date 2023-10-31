@@ -12,20 +12,17 @@
 
         </div>
         <div class="col-2 mt-3">
-          <button type="button" class="btn btn-warning btn-lg rounded-0 form-control " @click="getDois">Search Prefix</button>
+          <button type="button" class="btn btn-warning btn-lg rounded-0 form-control" @click="getDois">Search Prefix</button>
         </div>
       </div>
     </div>
 
+    <div class="container"  v-if="content !== null">
 
-    <div class="container" v-if="Object.keys(content) != 0">
-
-      <div class="row ">
+      <div class="row col-12">
 
         <h1>{{memberName}} </h1>
         <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
-
-
 
         <div class="row mb-5">
 
@@ -42,20 +39,19 @@
         </div>
 
 
-        <div class="col-12">
-          <PaginationTable
-              class="container"
-              :show-pagination="true"
-              v-model:current-page="currentPage"
-              v-model:page-size="pageSize"
-              :total="totalElements"
-              :handle-size-change="handleSizeChange"
-              :handle-current-change="handleCurrentChange">
-          </PaginationTable>
+        <PaginationTable
+            class="container"
+            :show-pagination="true"
+            v-model:current-page="currentPage"
+            v-model:page-size="pageSize"
+            :total="totalElements"
+            :handle-size-change="handleSizeChange"
+            :handle-current-change="handleCurrentChange">
+        </PaginationTable>
 
-          <TableList :content="content"></TableList>
+        <TableList :content="content"></TableList>
 
-        </div>
+
 
       </div>
 
@@ -87,7 +83,7 @@ export default {
     setup(){
       const store = useStore()
 
-      const content = ref({})
+      const content = ref(null)
       const prefix = ref('10.5821');
 
       const query = ref('')
@@ -105,6 +101,7 @@ export default {
         store.commit('setPageSize', size)
         currentPage.value = 1
         getDois()
+        clear()
 
       }
 
@@ -124,7 +121,7 @@ export default {
 
 
       const getDois = async () => {
-        clear()
+        //clear()
 
         let result = await CrossrefService.getDois(prefix.value, (currentPage.value-1)*store.getters.pageSize, store.getters.pageSize, query.value)
         content.value = result.items

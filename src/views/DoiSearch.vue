@@ -12,7 +12,7 @@
 
         </div>
         <div class="col-2 mt-3">
-          <button type="button" class="btn btn-warning btn-lg rounded-0" @click="getDOI">DOI Search</button>
+          <button type="button" class="btn btn-warning btn-lg rounded-0 form-control" @click="getDOI">DOI Search</button>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@
     <div v-for="(item, index) in content" :key="index" class="list-group-item list-group-item-action flex-column align-items-start">
 
       <div class="mt-2 mb-2 row">
-        <div class="col-md-12">
+        <div class="col-md-9">
 
           <div>
             <div class="mb-1 text-secondary" v-if="item.title">
@@ -18,20 +18,6 @@
               <span class="h6 text-dark">Deposited date: </span> {{ item.deposited['date-time'].substring(0,10)  }}
             </div>
 
-            <span class="h6 text-dark" v-if="item.author">Author</span>
-            <div class="text-secondary mb-1 me-5"  v-for="(author, index) in item.author" :key="index">
-              <div v-if="author.family" class="mx-2">
-
-                <i class="bi bi-person-fill text-secondary me-1"></i>
-                <span class="small">
-                {{author.family}}, {{author.given}}
-                <a v-if="author.ORCID" :href="author.ORCID"><img src="@/assets/logo-orcid-mini.png" height="18"></a>
-              </span>
-              </div>
-
-            </div>
-
-
             <div class="mt-1 text-dark badge bg-warning" v-if="item.type">
               {{(item.type)}}
             </div>
@@ -44,9 +30,22 @@
 
         </div>
 
+        <div class="col-md-3">
+          <!--span class="h6 text-dark" v-if="item.author">Author</span-->
+          <div class="text-secondary mb-1 me-5"  v-for="(author, index) in item.author" :key="index">
+            <div v-if="author.family" class="mx-2">
+
+              <i class="bi bi-person-fill text-secondary me-1"></i>
+              <span class="small">
+                {{author.family}}, {{author.given}}
+                <a v-if="author.ORCID" :href="author.ORCID"><img src="@/assets/logo-orcid-mini.png" height="18" alt="ORCID"></a>
+              </span>
+            </div>
+          </div>
+        </div>
+
         <!--div class="col-md-1 col-xs-12 d-none d-lg-block" >
           <div class="mt-1 text-dark badge bg-warning" v-if="item.type">
-
             {{(item.type)}}
           </div>
         </div-->
@@ -75,16 +74,20 @@
 
       },
 
-      methods:{
-        hideShow(index){
-          let x = document.getElementById(index)
-          if (x.style.display === "none") {
-            x.style.display = "block";
-          } else {
-            x.style.display = "none";
-          }
-        },
-      }
 }
 
 </script>
+
+
+<style scoped>
+
+.list-group .list-group-item:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
+.list-group .list-group-item:nth-child(even) {
+  background-color: #ffffff;
+}
+
+</style>
+
