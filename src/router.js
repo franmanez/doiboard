@@ -6,7 +6,7 @@ import MostReferenceOrcids from "@/views/MostReferenceOrcids.vue";
 const routes = [
   {
     path: '/',
-    redirect: '/doi'
+    redirect: '/doiboard/doi'
   },
   {
     path: '/doi',
