@@ -1,4 +1,5 @@
 <template>
+  <div id="Pagination">
     <el-pagination
         v-if="showPagination"
         v-model:currentPage="page"
@@ -8,8 +9,10 @@
         :total="total"
         @size-change="handlePaginationSizeChange"
         @current-change="handlePaginationCurrentChange"
+        background
     >
     </el-pagination>
+  </div>
 </template>
 
 <script>
@@ -63,8 +66,8 @@ export default {
 </script>
 
 <style scoped>
-
-
-
+#Pagination {
+  --el-color-primary: #000000;
+}
 </style>
 

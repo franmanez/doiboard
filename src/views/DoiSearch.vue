@@ -2,38 +2,29 @@
 
   <div>
 
-
-
-    <div class="container mb-5" >
-      <div class="row col-12">
-
-        <div class="col-10 mt-3">
-          <input class="form-control form-control-lg rounded-0" v-model="doi" placeholder="10.nnnnnn/example">
-
-        </div>
-        <div class="col-2 mt-3">
-          <button type="button" class="btn btn-warning btn-lg rounded-0 form-control" @click="getDOI">DOI Search</button>
+    <div class="container mb-5">
+      <div class="row mb-2 mt-3">
+        <h4 class="mb-3">DOI search</h4>
+        <div class="input-group">
+          <input type="text" class="form-control form-control-lg rounded-0" v-model="doi" placeholder="10.nnnnnn">
+          <button class="btn btn-lg btn-warning rounded-0" type="button" @click="getDOI">Search</button>
         </div>
       </div>
     </div>
-
-
-    <!--img alt="Logo" src="../assets/doi-logo.png" class="mb-3 mx-auto d-block"-->
 
 
     <div class="container" v-if="Object.keys(contentDOI) != 0">
 
       <div class="row d-flex justify-content-center align-items-center">
         <div class="col col-lg-12 mb-4">
-          <div class="card mb-3" style="border-radius: .5rem;">
+          <div class="card mb-3 rounded-0">
             <div class="row g-0">
-              <div class="col-md-2 gradient-custom text-center text-white"
-                   style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+              <div class="col-md-2 gradient-custom text-center text-white">
                 <img src="../assets/doi-logo.png" alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
               </div>
               <div class="col-md-10">
                 <div class="card-body p-4">
-                  <h5>DOI Information</h5>
+                  <h5><p class="text-dark badge bg-warning">{{contentDOI.type}}</p></h5>
                   <hr class="mt-0 mb-4">
                   <div class="row pt-1">
                     <div class="col-12 mb-3">
@@ -42,14 +33,11 @@
                     </div>
 
                     <div class="row pt-1">
-                      <div class="col-10 mb-3">
+                      <div class="col-12 mb-3">
                         <h6>Publisher</h6>
                         <p class="text-muted">{{contentDOI.publisher}}</p>
                       </div>
-                      <div class="col-2 mb-3">
-                        <h6>Type</h6>
-                        <p class="text-dark badge bg-warning">{{contentDOI.type}}</p>
-                      </div>
+
                     </div>
                   </div>
                   <hr class="mt-0 mb-4">
@@ -58,9 +46,9 @@
                       <h6>Publication date</h6>
                       <p class="text-muted">{{contentDOI.published}}</p>
                     </div>
-                    <div class="col-6 mb-3">
+                    <div class="col-6 mb-3 text-end">
                       <h6>First deposited date</h6>
-                      <p class="text-muted">{{contentDOI.created}}</p>
+                      <p class="text-muted">{{contentDOI.created.substring(0, 10)}}</p>
                     </div>
                   </div>
                   <hr class="mt-0 mb-4">

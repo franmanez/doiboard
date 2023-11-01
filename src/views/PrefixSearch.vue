@@ -2,59 +2,54 @@
 
   <div>
 
-
-
-    <div class="container mb-5" >
-      <div class="row col-12">
-
-        <div class="col-10 mt-3">
-          <input class="form-control form-control-lg rounded-0" v-model="prefix" placeholder="10.nnnnnn">
-
-        </div>
-        <div class="col-2 mt-3">
-          <button type="button" class="btn btn-warning btn-lg rounded-0 form-control" @click="getMemberInfo">Search Prefix</button>
+    <div class="container mb-5">
+      <div class="row mb-2 mt-3">
+        <h4 class="mb-3">Prefix search</h4>
+        <div class="input-group">
+          <input type="text" class="form-control form-control-lg rounded-0" v-model="prefix" placeholder="10.nnnnnn">
+          <button class="btn btn-lg btn-warning rounded-0" type="button" @click="getMemberInfo">Search</button>
         </div>
       </div>
     </div>
 
 
     <div class="container" v-if="Object.keys(contentPrefix) != 0">
-      <div class="row col-12">
 
-        <h1 class="text-dark">{{contentPrefix.name}} </h1>
-        <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
+      <div class="row mb-2">
+        <div class="col-md-12">
+          <h1 class="text-dark">{{contentPrefix.name}} </h1>
+          <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
 
-        <div class="card bg-warning mb-5 bg-opacity-75">
-          <div class="card-body text-dark">
-            <div class="d-flex justify-content-between p-md-1">
-              <div class="d-flex flex-row">
+          <div class="card bg-warning mb-5 bg-opacity-75">
+            <div class="card-body text-dark">
+              <div class="d-flex justify-content-between p-md-1">
+                <div class="d-flex flex-row">
+                  <div class="align-self-center">
+                    <i class="bi bi-file-earmark text-dark me-5" style="font-size: 3rem;"></i>
+                  </div>
+                  <div>
+                    <h2>TOTAL</h2>
+                    <p class="mb-0">Total number of deposited DOIs</p>
+                  </div>
+                </div>
                 <div class="align-self-center">
-                  <i class="bi bi-file-earmark text-dark me-5" style="font-size: 3rem;"></i>
+                  <h2 class="h1 mb-0">{{contentPrefix.total.toLocaleString()}}</h2>
                 </div>
-                <div>
-                  <h2>TOTAL</h2>
-                  <p class="mb-0">Total number of deposited DOIs</p>
-                </div>
-              </div>
-              <div class="align-self-center">
-                <h2 class="h1 mb-0">{{contentPrefix.total.toLocaleString()}}</h2>
               </div>
             </div>
           </div>
         </div>
-
       </div>
 
 
 
-      <div class="row col-12">
+      <div class="row mb-2">
 
         <div v-for="(value, index) in contentPrefix.all" :key="value.id" class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
           <div class="card mb-5">
-
             <div class="card-body">
               <h4 class="card-title font-weight-bold">{{ map[index] }}</h4>
-              <hr style="height:3px; border:none;" />
+              <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
               <div class="d-flex justify-content-between">
                 <h1 class="">{{value.toLocaleString()}}</h1>
                 <i class="bi bi-info-circle-fill me-1" style="font-size: 2.3rem;"></i>
@@ -71,46 +66,51 @@
         </div>
       </div>
 
-      <div class="row col-12" v-if="typeSelected != ''">
-        <h2>Type Selected: <span class="text-warning">{{map[typeSelected]}}</span> </h2>
-        <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
+
+      <div class="row mb-2" v-if="typeSelected != ''">
+        <div class="col-md-12">
+          <h2>Type Selected: <span class="text-warning">{{map[typeSelected]}}</span> </h2>
+          <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
+        </div>
       </div>
 
-      <div class="row" v-if="showCoverage">
-        <h3>Coverage</h3>
-        <p class="blockquote-footer">Percentage of content items that include this values in their metadata.</p>
+      <div class="row mb-2" v-if="showCoverage">
+        <div class="col-md-12">
+          <h3>Coverage</h3>
+          <p class="blockquote-footer mt-2">Percentage of content items that include this values in their metadata.</p>
 
-        <div class="row">
-          <div class="col-xl-12">
-            <div class="card proj-progress-card">
-              <div class="card-block">
-                <div class="row">
-                  <div class="col-xl-3 col-md-6">
-                    <h5>Abstracts</h5>
-                    <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].abstracts * 100).toFixed(0) }} %</h4>
-                    <div class="progress">
-                      <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].abstracts * 100).toFixed(0) + '%'}"></div>
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="card proj-progress-card">
+                <div class="card-block">
+                  <div class="row">
+                    <div class="col-xl-3 col-md-6">
+                      <h5>Abstracts</h5>
+                      <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].abstracts * 100).toFixed(0) }} %</h4>
+                      <div class="progress">
+                        <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].abstracts * 100).toFixed(0) + '%'}"></div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-xl-3 col-md-6">
-                    <h5>ORCIDs</h5>
-                    <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].orcids * 100).toFixed(0) }} %</h4>
-                    <div class="progress">
-                      <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].orcids * 100).toFixed(0) + '%'}"></div>
+                    <div class="col-xl-3 col-md-6">
+                      <h5>ORCIDs</h5>
+                      <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].orcids * 100).toFixed(0) }} %</h4>
+                      <div class="progress">
+                        <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].orcids * 100).toFixed(0) + '%'}"></div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-xl-3 col-md-6">
-                    <h5>Licenses</h5>
-                    <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].licenses * 100).toFixed(0) }} %</h4>
-                    <div class="progress">
-                      <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].licenses * 100).toFixed(0) + '%'}"></div>
+                    <div class="col-xl-3 col-md-6">
+                      <h5>Licenses</h5>
+                      <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].licenses * 100).toFixed(0) }} %</h4>
+                      <div class="progress">
+                        <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].licenses * 100).toFixed(0) + '%'}"></div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-xl-3 col-md-6">
-                    <h5>References</h5>
-                    <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].references * 100).toFixed(0) }} %</h4>
-                    <div class="progress">
-                      <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].references * 100).toFixed(0) + '%'}"></div>
+                    <div class="col-xl-3 col-md-6">
+                      <h5>References</h5>
+                      <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].references * 100).toFixed(0) }} %</h4>
+                      <div class="progress">
+                        <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].references * 100).toFixed(0) + '%'}"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -118,6 +118,7 @@
             </div>
           </div>
         </div>
+
 
       </div>
 

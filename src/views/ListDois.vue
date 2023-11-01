@@ -3,57 +3,56 @@
   <div>
 
 
-
-    <div class="container mb-5" >
-      <div class="row col-12">
-
-        <div class="col-10 mt-3">
-          <input class="form-control form-control-lg rounded-0" v-model="prefix" placeholder="10.nnnnnn">
-
-        </div>
-        <div class="col-2 mt-3">
-          <button type="button" class="btn btn-warning btn-lg rounded-0 form-control" @click="getDois">Search Prefix</button>
+    <div class="container mb-5">
+      <div class="row mb-2 mt-3">
+        <h4 class="mb-3">List DOIs</h4>
+        <div class="input-group">
+          <input type="text" class="form-control form-control-lg rounded-0" v-model="prefix" placeholder="10.nnnnnn">
+          <button class="btn btn-lg btn-warning rounded-0" type="button" @click="getDois">Search</button>
         </div>
       </div>
+
+
     </div>
 
     <div class="container"  v-if="content !== null">
 
-      <div class="row col-12">
+      <div class="row mb-2">
+        <div class="col-12">
 
-        <h1>{{memberName}} </h1>
-        <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
+          <h1>{{memberName}} </h1>
+          <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
 
-        <div class="row mb-5">
+          <div class="row mb-5">
 
-          <div class="col-md-10">
-            <label for="query" class="form-label">Free form search</label>
-            <input type="text" class="form-control rounded-0" v-model="query" id="query" aria-describedby="queryHelp" >
-            <div id="queryHelp" class="form-text text-secondary"><b>Free form search queries</b> can be made, for example, works that include <b>architecture</b> or <b>Fran</b> (or both)</div>
+            <div class="col-md-12">
+              <div class="input-group">
+                <input type="text" class="form-control form-control-lg rounded-0" v-model="query" id="query" aria-describedby="queryHelp">
+                <button class="btn btn-lg btn-dark rounded-0" type="button" @click="getDois">Filter</button>
+              </div>
+              <div id="queryHelp" class="form-text text-secondary"><b>Free form search queries</b> can be made, for example, works that include <b>architecture</b> or <b>Fran</b> (or both)</div>
+            </div>
 
           </div>
-          <div class="col-md-2">
-            <label for="title" class="form-label">&nbsp;</label>
-            <button @click="getDois" class="form-control btn btn-dark rounded-0">Filter DOIs</button>
-          </div>
+
+
+          <PaginationTable
+              class="container"
+              :show-pagination="true"
+              v-model:current-page="currentPage"
+              v-model:page-size="pageSize"
+              :total="totalElements"
+              :handle-size-change="handleSizeChange"
+              :handle-current-change="handleCurrentChange">
+          </PaginationTable>
+
+          <TableList :content="content"></TableList>
+
+
+
         </div>
-
-
-        <PaginationTable
-            class="container"
-            :show-pagination="true"
-            v-model:current-page="currentPage"
-            v-model:page-size="pageSize"
-            :total="totalElements"
-            :handle-size-change="handleSizeChange"
-            :handle-current-change="handleCurrentChange">
-        </PaginationTable>
-
-        <TableList :content="content"></TableList>
-
-
-
       </div>
+
 
 
     </div>
