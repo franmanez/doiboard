@@ -2,6 +2,8 @@
 
   <div>
 
+    <LoadingComponent :is-loading="isLoading"></LoadingComponent>
+
     <div class="container mb-5">
       <div class="row mb-2 mt-3">
         <h4 class="mb-3">DOI search</h4>
@@ -19,22 +21,22 @@
         <div class="col col-lg-12 mb-4">
           <div class="card mb-3 rounded-0">
             <div class="row g-0">
-              <div class="col-md-2 gradient-custom text-center text-white">
-                <img src="../assets/doi-logo.png" alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+              <div class="col-md-1 gradient-custom text-center text-white">
+
               </div>
-              <div class="col-md-10">
+              <div class="col-md-11">
                 <div class="card-body p-4">
                   <h5><p class="text-dark badge bg-warning">{{contentDOI.type}}</p></h5>
                   <hr class="mt-0 mb-4">
                   <div class="row pt-1">
                     <div class="col-12 mb-3">
-                      <h6>Title</h6>
-                      <p class="text-muted">{{contentDOI.title}}</p>
+                      <h5>Title</h5>
+                      <p class="text-muted ">{{contentDOI.title}}</p>
                     </div>
 
                     <div class="row pt-1">
                       <div class="col-12 mb-3">
-                        <h6>Publisher</h6>
+                        <h5>Publisher</h5>
                         <p class="text-muted">{{contentDOI.publisher}}</p>
                       </div>
 
@@ -43,17 +45,17 @@
                   <hr class="mt-0 mb-4">
                   <div class="row pt-1">
                     <div class="col-6 mb-3">
-                      <h6>Publication date</h6>
+                      <h5>Publication date</h5>
                       <p class="text-muted">{{contentDOI.published}}</p>
                     </div>
                     <div class="col-6 mb-3 text-end">
-                      <h6>First deposited date</h6>
+                      <h5>First deposited date</h5>
                       <p class="text-muted">{{contentDOI.created.substring(0, 10)}}</p>
                     </div>
                   </div>
                   <hr class="mt-0 mb-4">
                   <div class="d-flex justify-content-start">
-                    <a :href="contentDOI.resource" target="_blank" style="font-size: 1.3rem;"><i class="bi bi-link-45deg" ></i> {{contentDOI.resource}}</a>
+                    <a :href="contentDOI.resource" target="_blank" style="font-size: 1.5rem;"><i class="bi bi-link-45deg" ></i> {{contentDOI.resource}}</a>
                   </div>
                 </div>
               </div>
@@ -96,37 +98,27 @@
 
   import http from '@/http-common';
   import {ref} from "vue";
+  import LoadingComponent from "@/components/Loading.vue";
   export default {
     name: "DoiSearch",
+    components: {LoadingComponent},
 
     setup(){
-
+      const isLoading = ref(false)
       const contentPrefix = ref({})
-
       const doi = ref('10.5821/ace.18.52.11871');
       const contentDOI = ref({});
-
-      const cont = ref(0)
-
-
-
       const error = ref(null);
 
 
       const clear = () => {
         contentDOI.value = ''
         error.value = null
-        increment()
       }
-      const increment = () => {
-        cont.value = cont.value + 1
-      }
-
-
 
       const getDOI = async () => {
+        isLoading.value = true
         clear()
-        //let prefix = doi.value.split("/")[0]
 
         try {
           const response = await http.get('/works/'+doi.value)
@@ -152,26 +144,15 @@
         } catch (e) {
           error.value = 'Request ERROR: ' + e.message;
         }
-
+        isLoading.value = false
       }
-
-
-
-
-
-
-
-
-
-
 
       return{
         contentPrefix,
         contentDOI,
-        cont,
-        increment,
         getDOI,
         doi,
+        isLoading,
         error,
       }
 
@@ -183,6 +164,10 @@
 </script>
 
 <style scoped>
+
+p {
+  font-size: 1.2rem;
+}
 
 .gradient-custom {
   /* fallback for old browsers */

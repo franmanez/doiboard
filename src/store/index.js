@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     pageSize: 10,
-    memberName: 'NO_NAME',
+    memberName: '',
   },
   getters: {
     pageSize: state => state.pageSize,

@@ -2,6 +2,7 @@
 
   <div>
 
+    <LoadingComponent :is-loading="isLoading"></LoadingComponent>
 
     <div class="container mb-5">
       <div class="row mb-2 mt-3">
@@ -20,7 +21,7 @@
       <div class="row mb-2">
         <div class="col-12">
 
-          <h1>{{memberName}} </h1>
+          <h1>DOI List for {{prefix}} </h1>
           <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
 
           <div class="row mb-5">
@@ -70,17 +71,20 @@ import PaginationTable from "@/components/PaginationTable.vue"
 import TableList from "@/components/TableList.vue"
 import {computed, onMounted, ref} from "vue";
 import { useStore } from 'vuex'
+import LoadingComponent from "@/components/Loading.vue";
 
 export default {
     name: "DoiSearch",
 
     components: {
+      LoadingComponent,
       PaginationTable,
       TableList
     },
 
     setup(){
       const store = useStore()
+      const isLoading = ref(false)
 
       const content = ref(null)
       const prefix = ref('10.5821');
@@ -120,11 +124,11 @@ export default {
 
 
       const getDois = async () => {
-        //clear()
-
+        isLoading.value = true
         let result = await CrossrefService.getDois(prefix.value, (currentPage.value-1)*store.getters.pageSize, store.getters.pageSize, query.value)
         content.value = result.items
         totalElements.value = result['total-results']
+        isLoading.value = false
       }
 
 
@@ -140,7 +144,8 @@ export default {
         totalElements,
         handleSizeChange,
         handleCurrentChange,
-        memberName
+        memberName,
+        isLoading
       }
 
     }

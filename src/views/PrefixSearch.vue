@@ -2,6 +2,8 @@
 
   <div>
 
+    <LoadingComponent :is-loading="isLoading"></LoadingComponent>
+
     <div class="container mb-5">
       <div class="row mb-2 mt-3">
         <h4 class="mb-3">Prefix search</h4>
@@ -12,9 +14,7 @@
       </div>
     </div>
 
-
     <div class="container" v-if="Object.keys(contentPrefix) != 0">
-
       <div class="row mb-2">
         <div class="col-md-12">
           <h1 class="text-dark">{{contentPrefix.name}} </h1>
@@ -122,7 +122,7 @@
 
       </div>
 
-      <div class="row" v-if="showPublished || showDeposited">
+      <div class="row" v-if="showPublished || showDeposited" ref="customDiv">
 
         <h3 v-if="showPublished">Chart published date</h3>
         <p v-if="showPublished" class="blockquote-footer mb-2">Show the number of items per publication year.</p>
@@ -156,12 +156,15 @@ import CrossrefService from '@/service/CrossrefService';
 import {computed, onMounted, ref} from "vue";
 import VueHighcharts from 'vue3-highcharts';
 import {useStore} from "vuex";
+import LoadingComponent from "@/components/Loading.vue";
 
 export default {
     name: "DoiSearch",
 
     components: {
+      LoadingComponent,
       VueHighcharts,
+
     },
 
     setup(){
@@ -179,6 +182,8 @@ export default {
       const chartCategoriesData = ref([]);
       const chartTitle = ref('');
       const chartColors = ref([])
+
+      const isLoading = ref(false)
 
       const chartRef = ref(null);
       const chartOptions = computed(() => ({
@@ -248,7 +253,7 @@ export default {
       });
 
       const clear = () => {
-        contentPrefix.value = ''
+        //contentPrefix.value = ''
         error.value = null
       }
 
@@ -260,9 +265,11 @@ export default {
 
 
       const getMemberInfo = async () => {
+        isLoading.value = true
         clear()
         contentPrefix.value = await CrossrefService.memberInfo(prefix.value)
         store.commit('setMemberName', contentPrefix.value.name)
+        isLoading.value = false
       }
 
       const getCoverage = async (type) => {
@@ -272,6 +279,7 @@ export default {
 
 
       const getPublicationDate = async (type) => {
+        isLoading.value = true
         showStatus(false, true, false)
         typeSelected.value = type
 
@@ -285,24 +293,29 @@ export default {
         chartSeriesName.value = type
         chartSeriesData.value = resultValues
         chartColors.value = ['#ffc72c']
+        isLoading.value = false
 
       }
 
       const getDepositedDate = async (type) => {
 
-        showStatus(false, false, true)
-        typeSelected.value = type
+        if (window.confirm('WARNING slow query \n\nThis query takes some time because it makes multiple requests to the CrossRef API to retrieve all the data. Please be patient.')) {
+          isLoading.value = true
+          showStatus(false, false, true)
+          typeSelected.value = type
 
-        let result = await CrossrefService.getDepositByType(prefix.value, type)
+          let result = await CrossrefService.getDepositByType(prefix.value, type)
 
-        const resultKeys = Object.keys(result);
-        const resultValues = Object.values(result);
+          const resultKeys = Object.keys(result);
+          const resultValues = Object.values(result);
 
-        chartTitle.value = map[typeSelected.value] + " first deposited by years"
-        chartCategoriesData.value = resultKeys
-        chartSeriesName.value = type
-        chartSeriesData.value = resultValues
-        chartColors.value = ['#fc2828']
+          chartTitle.value = map[typeSelected.value] + " first deposited by years"
+          chartCategoriesData.value = resultKeys
+          chartSeriesName.value = type
+          chartSeriesData.value = resultValues
+          chartColors.value = ['#017698FF']
+          isLoading.value = false
+        }
       }
 
 
@@ -324,6 +337,7 @@ export default {
         showDeposited,
         error,
         chartOptions,
+        isLoading,
       }
 
     }
