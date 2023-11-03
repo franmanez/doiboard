@@ -4,21 +4,12 @@
 
     <LoadingComponent :is-loading="isLoading"></LoadingComponent>
 
-    <div class="container mb-5">
-      <div class="row mb-2 mt-3">
-        <h4 class="mb-3">Prefix search</h4>
-        <div class="input-group">
-          <input type="text" class="form-control form-control-lg rounded-0" v-model="prefix" placeholder="10.nnnnnn">
-          <button class="btn btn-lg btn-warning rounded-0" type="button" @click="getMemberInfo">Search</button>
-        </div>
-      </div>
-    </div>
+    <PrefixHeader title="Member Information" v-model:prefix="prefix" :search="search"></PrefixHeader>
+
 
     <div class="container" v-if="Object.keys(contentPrefix) != 0">
       <div class="row mb-2">
         <div class="col-md-12">
-          <h1 class="text-dark">{{contentPrefix.name}} </h1>
-          <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
 
           <div class="card bg-warning mb-5 bg-opacity-75">
             <div class="card-body text-dark">
@@ -157,11 +148,14 @@ import {computed, onMounted, ref} from "vue";
 import VueHighcharts from 'vue3-highcharts';
 import {useStore} from "vuex";
 import LoadingComponent from "@/components/Loading.vue";
+import PrefixHeader from "@/views/PrefixHeader.vue";
+import {ElMessageBox} from "element-plus";
 
 export default {
-    name: "DoiSearch",
+    name: "PrefixInfo",
 
     components: {
+      PrefixHeader,
       LoadingComponent,
       VueHighcharts,
 
@@ -171,7 +165,7 @@ export default {
 
       const store = useStore()
       const contentPrefix = ref({})
-      const prefix = ref('10.5821');
+      const prefix = ref(store.getters.prefix);
       const typeSelected = ref('')
       const showCoverage = ref(false)
       const showPublished = ref(false)
@@ -249,7 +243,7 @@ export default {
 
 
       onMounted(async () => {
-
+        if(store.getters.prefix) await search()
       });
 
       const clear = () => {
@@ -264,11 +258,12 @@ export default {
       }
 
 
-      const getMemberInfo = async () => {
-        isLoading.value = true
+      const search = async () => {
         clear()
-        contentPrefix.value = await CrossrefService.memberInfo(prefix.value)
-        store.commit('setMemberName', contentPrefix.value.name)
+        isLoading.value = true
+        store.commit('setPrefix', prefix.value)
+        contentPrefix.value = await CrossrefService.memberInfo(store.getters.prefix)
+        //store.commit('setMemberName', contentPrefix.value.name)
         isLoading.value = false
       }
 
@@ -299,23 +294,36 @@ export default {
 
       const getDepositedDate = async (type) => {
 
-        if (window.confirm('WARNING slow query \n\nThis query takes some time because it makes multiple requests to the CrossRef API to retrieve all the data. Please be patient.')) {
-          isLoading.value = true
-          showStatus(false, false, true)
-          typeSelected.value = type
+        ElMessageBox.confirm(
+            'This query takes some time because it makes multiple requests to the CrossRef API to retrieve all the data. Please be patient.',
+            'Warning: slow query',
+            {
+              confirmButtonText: 'OK',
+              cancelButtonText: 'Cancel',
+              type: 'warning',
+            }
+        )
+            .then(async () => {
+              isLoading.value = true
+              showStatus(false, false, true)
+              typeSelected.value = type
 
-          let result = await CrossrefService.getDepositByType(prefix.value, type)
+              let result = await CrossrefService.getDepositByType(prefix.value, type)
 
-          const resultKeys = Object.keys(result);
-          const resultValues = Object.values(result);
+              const resultKeys = Object.keys(result);
+              const resultValues = Object.values(result);
 
-          chartTitle.value = map[typeSelected.value] + " first deposited by years"
-          chartCategoriesData.value = resultKeys
-          chartSeriesName.value = type
-          chartSeriesData.value = resultValues
-          chartColors.value = ['#017698FF']
-          isLoading.value = false
-        }
+              chartTitle.value = map[typeSelected.value] + " first deposited by years"
+              chartCategoriesData.value = resultKeys
+              chartSeriesName.value = type
+              chartSeriesData.value = resultValues
+              chartColors.value = ['#017698FF']
+              isLoading.value = false
+            })
+            .catch(() => {
+              //Do nothing
+            })
+
       }
 
 
@@ -324,20 +332,18 @@ export default {
         cont,
         prefix,
         typeSelected,
-        getMemberInfo,
-        getCoverage,
-        getPublicationDate,
-        getDepositedDate,
-
         map,
         chartRef,
-
         showCoverage,
         showPublished,
         showDeposited,
         error,
         chartOptions,
         isLoading,
+        search,
+        getCoverage,
+        getPublicationDate,
+        getDepositedDate,
       }
 
     }

@@ -17,13 +17,18 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav m-lg-auto m-l">
+          <ul class="navbar-nav">
             <li class="nav-item mt-2 mx-3">
               <router-link  to="/doi" active-class="text-warning" style="color: white; text-decoration: none;">
-                DOI search
+                DOI
               </router-link>
             </li>
             <li class="nav-item mt-2 mx-3">
+              <router-link to="/prefix/info" active-class="text-warning" style="color: white; text-decoration: none;">
+                PREFIX
+              </router-link>
+            </li>
+            <!--li class="nav-item mt-2 mx-3">
               <router-link to="/prefix" active-class="text-warning" style="color: white; text-decoration: none;">
                 Prefix search
               </router-link>
@@ -42,7 +47,7 @@
               <router-link to="/referencedOrcid" active-class="text-warning" style="color: white; text-decoration: none;">
                 Most referenced ORCIDs
               </router-link>
-            </li>
+            </li-->
           </ul>
         </div>
       </div>

@@ -57,7 +57,7 @@
 <script>
 
   import {ref} from "vue";
-  import TablePagination from "@/components/TablePagination.vue";
+  import TablePagination from "@/samples/TablePagination.vue";
   import http from "@/http-common";
   export default {
     name: "SamplePage",

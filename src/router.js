@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import ListDois from "@/views/ListDois.vue";
-import MostReferenceDois from "@/views/MostReferenceDois.vue";
-import MostReferenceOrcids from "@/views/MostReferenceOrcids.vue";
-import HelloWorld from "@/views/HelloWorld.vue";
+import HomeView from "@/views/HomeView.vue";
+import PrefixDois from "@/views/PrefixDois.vue";
+import PrefixReferencedDois from "@/views/PrefixReferencedDois.vue";
+import PrefixReferencedOrcids from "@/views/PrefixReferencedOrcids.vue";
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: HelloWorld
+    component: HomeView
   },
   {
     path: '/doi',
@@ -16,40 +16,39 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ './views/DoiSearch.vue')
+    component: () => import(/* webpackChunkName: "about" */ './views/DoiView.vue')
   },
   {
-    path: '/prefix',
-    name: 'prefix',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ './views/PrefixSearch.vue')
+    path: '/prefix/info',
+    name: 'prefix info',
+    component: () => import(/* webpackChunkName: "about" */ './views/PrefixInfo.vue')
+  },
+  {
+    path: '/prefix/dois',
+    name: 'prefixDois',
+    component: PrefixDois
+  },
+  {
+    path: '/prefix/referenced/dois',
+    name: 'prefixReferencedDois',
+    component: PrefixReferencedDois
+  },
+  {
+    path: '/prefix/referenced/orcids',
+    name: 'prefixReferencedOrcids',
+    component: PrefixReferencedOrcids
   },
   {
     path: '/table',
     name: 'tablePagination',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ './views/SamplePage.vue')
+    component: () => import(/* webpackChunkName: "about" */ './samples/SamplePage.vue')
   },
   {
-    path: '/list',
-    name: 'listDois',
-    component: ListDois
+    path: '/test',
+    name: 'test',
+    component: () => import(/* webpackChunkName: "about" */ './samples/ParentComponent.vue')
   },
-  {
-    path: '/referenced',
-    name: 'mostReferenced',
-    component: MostReferenceDois
-  },
-  {
-    path: '/referencedOrcid',
-    name: 'mostReferencedOrcid',
-    component: MostReferenceOrcids
-  },
-    { path: '/:pathMatch(.*)*', name: 'error', component: Error },
+  { path: '/:pathMatch(.*)*', name: 'error', component: Error },
 ]
 
 const router = createRouter({

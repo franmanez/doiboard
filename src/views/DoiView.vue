@@ -8,7 +8,7 @@
       <div class="row mb-2 mt-3">
         <h4 class="mb-3">DOI search</h4>
         <div class="input-group">
-          <input type="text" class="form-control form-control-lg rounded-0" v-model="doi" placeholder="10.nnnnnn">
+          <input type="text" class="form-control form-control-lg rounded-0" v-model="doi" placeholder="10.nnnnnn/example">
           <button class="btn btn-lg btn-warning rounded-0" type="button" @click="getDOI">Search</button>
         </div>
       </div>

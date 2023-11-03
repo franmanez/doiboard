@@ -4,10 +4,12 @@ export default createStore({
   state: {
     pageSize: 10,
     memberName: '',
+    prefix: ''
   },
   getters: {
     pageSize: state => state.pageSize,
     memberName: state => state.memberName,
+    prefix: state => state.prefix,
   },
   mutations: {
     setPageSize (state, size) {
@@ -16,6 +18,10 @@ export default createStore({
 
     setMemberName (state, name) {
       state.memberName = name
+    },
+
+    setPrefix (state, value) {
+      state.prefix = value
     },
   },
   actions: {

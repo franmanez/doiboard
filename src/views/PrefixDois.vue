@@ -4,32 +4,19 @@
 
     <LoadingComponent :is-loading="isLoading"></LoadingComponent>
 
-    <div class="container mb-5">
-      <div class="row mb-2 mt-3">
-        <h4 class="mb-3">List DOIs</h4>
-        <div class="input-group">
-          <input type="text" class="form-control form-control-lg rounded-0" v-model="prefix" placeholder="10.nnnnnn">
-          <button class="btn btn-lg btn-warning rounded-0" type="button" @click="getDois">Search</button>
-        </div>
-      </div>
-
-
-    </div>
+    <PrefixHeader title="DOI List" v-model:prefix="prefix" :search="search"></PrefixHeader>
 
     <div class="container"  v-if="content !== null">
 
       <div class="row mb-2">
         <div class="col-12">
 
-          <h1>DOI List for {{prefix}} </h1>
-          <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
-
           <div class="row mb-5">
 
             <div class="col-md-12">
               <div class="input-group">
                 <input type="text" class="form-control form-control-lg rounded-0" v-model="query" id="query" aria-describedby="queryHelp">
-                <button class="btn btn-lg btn-dark rounded-0" type="button" @click="getDois">Filter</button>
+                <button class="btn btn-lg btn-dark rounded-0" type="button" @click="search">Filter</button>
               </div>
               <div id="queryHelp" class="form-text text-secondary"><b>Free form search queries</b> can be made, for example, works that include <b>architecture</b> or <b>Fran</b> (or both)</div>
             </div>
@@ -72,11 +59,13 @@ import TableList from "@/components/TableList.vue"
 import {computed, onMounted, ref} from "vue";
 import { useStore } from 'vuex'
 import LoadingComponent from "@/components/Loading.vue";
+import PrefixHeader from "@/views/PrefixHeader.vue";
 
 export default {
-    name: "DoiSearch",
+    name: "PrefixDois",
 
     components: {
+      PrefixHeader,
       LoadingComponent,
       PaginationTable,
       TableList
@@ -87,13 +76,14 @@ export default {
       const isLoading = ref(false)
 
       const content = ref(null)
-      const prefix = ref('10.5821');
+      const prefix = ref(store.getters.prefix);
 
       const query = ref('')
 
       const currentPage = ref(1)
       const pageSize = computed(() => { return store.getters.pageSize})
       const memberName = computed(() => { return store.getters.memberName})
+      const prefixStore = computed(() => { return store.getters.prefix})
       const totalElements = ref(0)
 
       const cont = ref(0)
@@ -103,18 +93,18 @@ export default {
       const handleSizeChange = (size) => {
         store.commit('setPageSize', size)
         currentPage.value = 1
-        getDois()
+        search()
         clear()
 
       }
 
       const handleCurrentChange = () => {
-        getDois()
+        search()
       }
 
 
       onMounted(async () => {
-
+        await search()
       });
 
       const clear = () => {
@@ -123,9 +113,14 @@ export default {
       }
 
 
-      const getDois = async () => {
+      const search = async () => {
         isLoading.value = true
-        let result = await CrossrefService.getDois(prefix.value, (currentPage.value-1)*store.getters.pageSize, store.getters.pageSize, query.value)
+        if(prefix.value !== store.getters.prefix){
+          await CrossrefService.memberInfo(prefix.value)
+        }
+        store.commit('setPrefix', prefix.value)
+        //let result = await CrossrefService.getDois(prefix.value, (currentPage.value-1)*store.getters.pageSize, store.getters.pageSize, query.value)
+        let result = await CrossrefService.getDois(prefixStore.value, (currentPage.value-1)*store.getters.pageSize, store.getters.pageSize, query.value)
         content.value = result.items
         totalElements.value = result['total-results']
         isLoading.value = false
@@ -137,15 +132,16 @@ export default {
         cont,
         query,
         prefix,
-        getDois,
         error,
         currentPage,
         pageSize,
         totalElements,
+        memberName,
+        prefixStore,
+        isLoading,
+        search,
         handleSizeChange,
         handleCurrentChange,
-        memberName,
-        isLoading
       }
 
     }

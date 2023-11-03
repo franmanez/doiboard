@@ -1,4 +1,5 @@
 import http from "../http-common";
+import store from '@/store';
 
 class CrossrefService {
 
@@ -20,6 +21,8 @@ class CrossrefService {
                 //'total': response.data.message['total-results'],
                 //'facets': response.data.message.facets['type-name'].values
             }
+
+            store.commit('setMemberName', result.name)
 
             return result
         } catch (e) {
@@ -155,7 +158,7 @@ class CrossrefService {
         }
     }
 
-    mostReferenced = async (prefix, number) => {
+    mostReferencedDois = async (prefix, number) => {
         try {
             const response = await http.get(`/prefixes/${prefix}/works?select=title,DOI,type,is-referenced-by-count&sort=is-referenced-by-count&order=desc&rows=${number}${this.MAILTO}`)
             return response.data.message.items
@@ -164,7 +167,7 @@ class CrossrefService {
         }
     }
 
-    orcid = async (prefix, number) => {
+    mostReferencedOrcids = async (prefix, number) => {
         try {
             const response = await http.get(`/prefixes/${prefix}/works?rows=0&facet=orcid:${number}${this.MAILTO}`)
             let values = response.data.message.facets.orcid.values
@@ -175,7 +178,6 @@ class CrossrefService {
             });
 
             return result
-
 
         } catch (e) {
             alert('Request ERROR: ' + e.message);
