@@ -7,7 +7,7 @@ class CrossrefService {
 
 
     memberInfo = async (prefix) => {
-        try {
+
             const response = await http.get(`/members?filter=prefix:${prefix}${this.MAILTO}`)
 
             let obj = response.data.message.items[0]['counts-type'].all
@@ -25,9 +25,7 @@ class CrossrefService {
             store.commit('setMemberName', result.name)
 
             return result
-        } catch (e) {
-            alert('Request ERROR: ' + e.message);
-        }
+
     }
 
     /*const getPrefix = async () => {

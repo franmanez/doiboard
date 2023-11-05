@@ -133,10 +133,12 @@
 
       </div>
 
+
+
     </div>
 
 
-    <div class="alert alert-danger mt-4" v-if="error != null">{{error}}</div>
+    <div class="container col-12 alert alert-danger mt-4 rounded-0" v-if="error != null">{{error}}</div>
 
   </div>
 </template>
@@ -247,8 +249,8 @@ export default {
       });
 
       const clear = () => {
-        //contentPrefix.value = ''
-        error.value = null
+        contentPrefix.value = ''
+        store.commit('setPrefix', '')
       }
 
       const showStatus = (coverage, published, deposited) => {
@@ -259,10 +261,18 @@ export default {
 
 
       const search = async () => {
-        clear()
+        error.value = null
         isLoading.value = true
-        store.commit('setPrefix', prefix.value)
-        contentPrefix.value = await CrossrefService.memberInfo(store.getters.prefix)
+
+        try{
+          //contentPrefix.value = await CrossrefService.memberInfo(store.getters.prefix)
+          contentPrefix.value = await CrossrefService.memberInfo(prefix.value)
+          store.commit('setPrefix', prefix.value)
+        } catch (e) {
+          clear()
+          error.value = "Prefix does not exists";
+        }
+
         //store.commit('setMemberName', contentPrefix.value.name)
         isLoading.value = false
       }
