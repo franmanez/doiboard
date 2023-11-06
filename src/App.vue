@@ -6,50 +6,35 @@
 
 
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <div class="container ">
-        <a class="navbar-brand" href="#">
-          <router-link  to="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none" style="color: white; text-decoration: none;">
-            <img src="@/assets/doi-logo.png" width="70" class="rounded-circle mx-3" alt="Logo">
+    <nav class="navbar gradient-custom navbar-expand-md navbar-dark bg-dark">
+      <div class="container">
+
+        <!-- Logo left -->
+        <div class="mt-1 mb-1">
+          <router-link to="/" class="navbar-brand">
+            <img src="@/assets/doi-logo.png" width="60" class="rounded-circle mx-0" alt="Logo">
           </router-link>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item mt-2 mx-3">
-              <router-link  to="/doi" active-class="text-warning" style="color: white; text-decoration: none;">
-                DOI
-              </router-link>
-            </li>
-            <li class="nav-item mt-2 mx-3">
-              <router-link to="/prefix/info" active-class="text-warning" style="color: white; text-decoration: none;">
-                PREFIX
-              </router-link>
-            </li>
-            <!--li class="nav-item mt-2 mx-3">
-              <router-link to="/prefix" active-class="text-warning" style="color: white; text-decoration: none;">
-                Prefix search
-              </router-link>
-            </li>
-            <li class="nav-item mt-2 mx-3">
-              <router-link to="/list" active-class="text-warning" style="color: white; text-decoration: none;">
-                List DOIs
-              </router-link>
-            </li>
-            <li class="nav-item mt-2 mx-3">
-              <router-link to="/referenced" active-class="text-warning" style="color: white; text-decoration: none;">
-                Most referenced DOIs
-              </router-link>
-            </li>
-            <li class="nav-item mt-2 mx-3">
-              <router-link to="/referencedOrcid" active-class="text-warning" style="color: white; text-decoration: none;">
-                Most referenced ORCIDs
-              </router-link>
-            </li-->
-          </ul>
+          <a href="https://www.upc.edu" target="_blank" class="navbar-brand" style="color: white; text-decoration: none;">
+            <img src="@/assets/logo-upc-letras-blanco.png" width="260" class="mx-0" alt="Logo">
+          </a>
         </div>
+
+
+        <!-- Menu links right -->
+        <div class="navbar-nav ml-auto">
+          <router-link  to="/doi" active-class="text-warning" class="mx-5 nav-item nav-link">
+            <i class="bi bi-search me-1"></i>
+            DOI Search
+          </router-link>
+          <router-link  to="/prefix/info" active-class="text-warning" class="nav-item nav-link">
+            <i class="bi bi-clipboard-data me-1"></i>
+            Prefix Information
+          </router-link>
+
+        </div>
+
+
+
       </div>
     </nav>
 

@@ -12,45 +12,33 @@
 
         <div class="col-md-12">
 
+          <table class="table table-responsive table-striped">
+            <thead>
+            <tr>
+              <th class="text-secondary" style="width: 5%">#</th>
+              <th class="text-secondary" style="width: 25%">DOI</th>
+              <th class="text-secondary d-none d-lg-table-cell" style="width: 45%">Title</th>
+              <th class="text-secondary text-center d-none d-sm-table-cell" style="width: 15%">Type</th>
+              <th class="text-secondary text-end" style="width: 10%">COUNT</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(item, index) in content" :key="item.id" >
+              <td><span class="h4 text-secondary">{{ index + 1 }}</span></td>
+              <td><a :href="item.DOI" target="_blank">{{ item.DOI }} <i class="bi bi-box-arrow-up-right"></i></a></td>
+              <td class="text-secondary d-none d-lg-table-cell">{{ item.title[0] }}</td>
+              <td class="text-center d-none d-sm-table-cell"><span class="mt-1 text-dark badge bg-warning">{{ item.type }}</span></td>
+              <td class="text-end"><span class="h2 text-warning">{{ item['is-referenced-by-count'].toLocaleString() }}</span></td>
 
-
-            <el-table
-                :data="content"
-                style="width: 100%"
-                stripe
-            >
-              <el-table-column label="Ranking" :min-width="10">
-                <template v-slot="scope">
-                  <span class="h4 text-secondary">{{ scope.$index + 1 }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column label="DOI" :min-width="25">
-                <template v-slot="scope">
-                  <a :href="scope.row.DOI" target="_blank">{{ scope.row.DOI }} <i class="bi bi-box-arrow-up-right"></i></a>
-                </template>
-              </el-table-column>
-              <el-table-column prop="title" label="Title" :min-width="35"></el-table-column>
-              <el-table-column label="Type" align="center" :min-width="15">
-                <template v-slot="scope">
-                  <span class="mt-1 text-dark badge bg-warning">{{ scope.row.type }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column label="COUNT" align="right" :min-width="15">
-                <template v-slot="scope">
-                  <span class="h2 text-warning">{{ scope.row['is-referenced-by-count'].toLocaleString() }}</span>
-                </template>
-              </el-table-column>
-
-
-            </el-table>
-
+            </tr>
+            </tbody>
+          </table>
 
         </div>
-
       </div>
     </div>
 
-    <div class="alert alert-danger mt-4" v-if="error != null">{{error}}</div>
+    <div class="container col-12 alert alert-danger mt-4 rounded-0" v-if="error != null">{{error}}</div>
 
   </div>
 </template>
@@ -75,7 +63,7 @@ export default {
     setup(){
       const store = useStore()
       const isLoading = ref(false)
-      const content = ref([])
+      const content = ref('')
       const prefix = ref(store.getters.prefix);
       const error = ref(null);
 
@@ -83,13 +71,31 @@ export default {
         await search()
       });
 
+      const clear = () => {
+        content.value = ''
+        store.commit('setPrefix', '')
+      }
+
       const search = async () => {
+        error.value = null
         isLoading.value = true
         if(prefix.value !== store.getters.prefix){
-          await CrossrefService.memberInfo(prefix.value)
+          try{
+            await CrossrefService.memberInfo(prefix.value)
+            store.commit('setPrefix', prefix.value)
+          } catch (e) {
+            clear()
+            error.value = "ERROR: Prefix does not exists";
+          }
         }
-        store.commit('setPrefix', prefix.value)
-        content.value = await CrossrefService.mostReferencedDois(store.getters.prefix, 30)
+
+        try{
+          content.value = await CrossrefService.mostReferencedDois(store.getters.prefix, 30)
+        } catch (e) {
+          clear()
+          error.value = "ERROR: Prefix does not exists";
+        }
+
         isLoading.value = false
       }
 

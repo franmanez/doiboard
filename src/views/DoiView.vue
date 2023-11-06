@@ -21,28 +21,52 @@
         <div class="col col-lg-12 mb-4">
           <div class="card mb-3 rounded-0">
             <div class="row g-0">
-              <div class="col-md-1 gradient-custom text-center text-white">
+              <div class="col-md-1 bg-doi-green text-center text-white">
+                <div class="d-flex justify-content-center align-items-center text-nowrap h2" style="height: 100%; width: 100%;">
+                  <span class="m-0" style="writing-mode: vertical-rl; transform: rotate(180deg);">
+                    DOI Information
+                  </span>
+                </div>
 
               </div>
               <div class="col-md-11">
                 <div class="card-body p-4">
-                  <h5><p class="text-dark badge bg-warning">{{contentDOI.type}}</p></h5>
+
+                  <div class="d-flex justify-content-between">
+                    <div class="me-5"><h3 class="text-secondary">{{contentDOI.publisher}}</h3></div>
+                    <div><h4><p class="badge bg-doi-green">{{contentDOI.type}}</p></h4></div>
+                  </div>
+
+
                   <hr class="mt-0 mb-4">
                   <div class="row pt-1">
                     <div class="col-12 mb-3">
                       <h5>Title</h5>
-                      <p class="text-muted ">{{contentDOI.title}}</p>
+                      <p class="text-secondary">{{contentDOI.title}}</p>
                     </div>
 
                     <div class="row pt-1">
                       <div class="col-12 mb-3">
-                        <h5>Publisher</h5>
-                        <p class="text-muted">{{contentDOI.publisher}}</p>
-                      </div>
+                        <h5>Authors</h5>
+                        <div class="text-secondary mb-1"  v-for="(author, index) in contentDOI.author" :key="index">
 
+                          <div v-if="author.family" class="mx-0">
+                            <i class="bi bi-person-fill text-secondary me-1"></i>
+                            <span class="text-secondary">
+                              {{author.family}}, {{author.given}}
+                              <a v-if="author.ORCID" :href="author.ORCID"><img src="@/assets/logo-orcid-mini.png" height="18" alt="ORCID"></a>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+
+
+
                   </div>
+
                   <hr class="mt-0 mb-4">
+
                   <div class="row pt-1">
                     <div class="col-6 mb-3">
                       <h5>Publication date</h5>
@@ -131,6 +155,7 @@
 
             contentDOI.value = {
               'title': response.data.message.title[0],
+              'author': response.data.message.author,
               'publisher': response.data.message.publisher,
               'published': published,
               'created': response.data.message.created['date-time'],
@@ -169,15 +194,5 @@ p {
   font-size: 1.2rem;
 }
 
-.gradient-custom {
-  /* fallback for old browsers */
-  background: #ffc72c;
-
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(to right bottom, rgb(1, 118, 152), rgb(1, 118, 152));
-
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to right bottom, rgb(1, 118, 152), rgb(1, 118, 152))
-}
 
 </style>

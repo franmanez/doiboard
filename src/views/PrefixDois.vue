@@ -6,7 +6,7 @@
 
     <PrefixHeader title="DOI List" v-model:prefix="prefix" :search="search"></PrefixHeader>
 
-    <div class="container"  v-if="content !== null">
+    <div class="container"  v-if="content !== ''">
 
       <div class="row mb-2">
         <div class="col-12">
@@ -46,7 +46,7 @@
     </div>
 
 
-    <div class="alert alert-danger mt-4" v-if="error != null">{{error}}</div>
+    <div class="container col-12 alert alert-danger mt-4 rounded-0" v-if="error != null">{{error}}</div>
 
   </div>
 </template>
@@ -75,7 +75,7 @@ export default {
       const store = useStore()
       const isLoading = ref(false)
 
-      const content = ref(null)
+      const content = ref('')
       const prefix = ref(store.getters.prefix);
 
       const query = ref('')
@@ -94,7 +94,7 @@ export default {
         store.commit('setPageSize', size)
         currentPage.value = 1
         search()
-        clear()
+        //clear()
 
       }
 
@@ -109,20 +109,33 @@ export default {
 
       const clear = () => {
         content.value = ''
-        error.value = null
+        store.commit('setPrefix', '')
       }
 
-
       const search = async () => {
+        error.value = null
         isLoading.value = true
         if(prefix.value !== store.getters.prefix){
-          await CrossrefService.memberInfo(prefix.value)
+          try{
+            await CrossrefService.memberInfo(prefix.value)
+            store.commit('setPrefix', prefix.value)
+          } catch (e) {
+            clear()
+            error.value = "ERROR: Prefix does not exists";
+          }
         }
-        store.commit('setPrefix', prefix.value)
-        //let result = await CrossrefService.getDois(prefix.value, (currentPage.value-1)*store.getters.pageSize, store.getters.pageSize, query.value)
-        let result = await CrossrefService.getDois(prefixStore.value, (currentPage.value-1)*store.getters.pageSize, store.getters.pageSize, query.value)
-        content.value = result.items
-        totalElements.value = result['total-results']
+
+
+        try{
+          let result = await CrossrefService.getDois(prefixStore.value, (currentPage.value-1)*store.getters.pageSize, store.getters.pageSize, query.value)
+          content.value = result.items
+          totalElements.value = result['total-results']
+        } catch (e) {
+          clear()
+          error.value = "ERROR: Prefix does not exists";
+        }
+
+
         isLoading.value = false
       }
 

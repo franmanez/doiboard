@@ -7,7 +7,7 @@
     <PrefixHeader title="Member Information" v-model:prefix="prefix" :search="search"></PrefixHeader>
 
 
-    <div class="container" v-if="Object.keys(contentPrefix) != 0">
+    <div class="container" v-if="Object.keys(content) != 0">
       <div class="row mb-2">
         <div class="col-md-12">
 
@@ -24,7 +24,7 @@
                   </div>
                 </div>
                 <div class="align-self-center">
-                  <h2 class="h1 mb-0">{{contentPrefix.total.toLocaleString()}}</h2>
+                  <h2 class="h1 mb-0">{{content.total.toLocaleString()}}</h2>
                 </div>
               </div>
             </div>
@@ -36,7 +36,7 @@
 
       <div class="row mb-2">
 
-        <div v-for="(value, index) in contentPrefix.all" :key="value.id" class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+        <div v-for="(value, index) in content.all" :key="value.id" class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
           <div class="card mb-5">
             <div class="card-body">
               <h4 class="card-title font-weight-bold">{{ map[index] }}</h4>
@@ -77,30 +77,30 @@
                   <div class="row">
                     <div class="col-xl-3 col-md-6">
                       <h5>Abstracts</h5>
-                      <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].abstracts * 100).toFixed(0) }} %</h4>
+                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected].abstracts * 100).toFixed(0) }} %</h4>
                       <div class="progress">
-                        <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].abstracts * 100).toFixed(0) + '%'}"></div>
+                        <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected].abstracts * 100).toFixed(0) + '%'}"></div>
                       </div>
                     </div>
                     <div class="col-xl-3 col-md-6">
                       <h5>ORCIDs</h5>
-                      <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].orcids * 100).toFixed(0) }} %</h4>
+                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected].orcids * 100).toFixed(0) }} %</h4>
                       <div class="progress">
-                        <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].orcids * 100).toFixed(0) + '%'}"></div>
+                        <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected].orcids * 100).toFixed(0) + '%'}"></div>
                       </div>
                     </div>
                     <div class="col-xl-3 col-md-6">
                       <h5>Licenses</h5>
-                      <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].licenses * 100).toFixed(0) }} %</h4>
+                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected].licenses * 100).toFixed(0) }} %</h4>
                       <div class="progress">
-                        <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].licenses * 100).toFixed(0) + '%'}"></div>
+                        <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected].licenses * 100).toFixed(0) + '%'}"></div>
                       </div>
                     </div>
                     <div class="col-xl-3 col-md-6">
                       <h5>References</h5>
-                      <h4 class="mb-3 text-success">{{ (contentPrefix.coverage[typeSelected].references * 100).toFixed(0) }} %</h4>
+                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected].references * 100).toFixed(0) }} %</h4>
                       <div class="progress">
-                        <div class="progress-bar bg-warning" :style="{width:(contentPrefix.coverage[typeSelected].references * 100).toFixed(0) + '%'}"></div>
+                        <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected].references * 100).toFixed(0) + '%'}"></div>
                       </div>
                     </div>
                   </div>
@@ -166,7 +166,7 @@ export default {
     setup(){
 
       const store = useStore()
-      const contentPrefix = ref({})
+      const content = ref({})
       const prefix = ref(store.getters.prefix);
       const typeSelected = ref('')
       const showCoverage = ref(false)
@@ -249,7 +249,7 @@ export default {
       });
 
       const clear = () => {
-        contentPrefix.value = ''
+        content.value = ''
         store.commit('setPrefix', '')
       }
 
@@ -265,15 +265,15 @@ export default {
         isLoading.value = true
 
         try{
-          //contentPrefix.value = await CrossrefService.memberInfo(store.getters.prefix)
-          contentPrefix.value = await CrossrefService.memberInfo(prefix.value)
+          //content.value = await CrossrefService.memberInfo(store.getters.prefix)
+          content.value = await CrossrefService.memberInfo(prefix.value)
           store.commit('setPrefix', prefix.value)
         } catch (e) {
           clear()
-          error.value = "Prefix does not exists";
+          error.value = "ERROR: Prefix does not exists";
         }
 
-        //store.commit('setMemberName', contentPrefix.value.name)
+        //store.commit('setMemberName', content.value.name)
         isLoading.value = false
       }
 
@@ -338,7 +338,7 @@ export default {
 
 
       return{
-        contentPrefix,
+        content,
         cont,
         prefix,
         typeSelected,

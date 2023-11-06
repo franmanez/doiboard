@@ -8,23 +8,23 @@ class CrossrefService {
 
     memberInfo = async (prefix) => {
 
-            const response = await http.get(`/members?filter=prefix:${prefix}${this.MAILTO}`)
+        const response = await http.get(`/members?filter=prefix:${prefix}${this.MAILTO}`)
 
-            let obj = response.data.message.items[0]['counts-type'].all
-            const total = Object.values(obj).reduce((count, value) => count + value, 0);
+        let obj = response.data.message.items[0]['counts-type'].all
+        const total = Object.values(obj).reduce((count, value) => count + value, 0);
 
-            let result = {
-                'name':response.data.message.items[0]['primary-name'],
-                'all': response.data.message.items[0]['counts-type'].all,
-                'total': total,
-                'coverage': response.data.message.items[0]['coverage-type'].all,
-                //'total': response.data.message['total-results'],
-                //'facets': response.data.message.facets['type-name'].values
-            }
+        let result = {
+            'name':response.data.message.items[0]['primary-name'],
+            'all': response.data.message.items[0]['counts-type'].all,
+            'total': total,
+            'coverage': response.data.message.items[0]['coverage-type'].all,
+            //'total': response.data.message['total-results'],
+            //'facets': response.data.message.facets['type-name'].values
+        }
 
-            store.commit('setMemberName', result.name)
+        store.commit('setMemberName', result.name)
 
-            return result
+        return result
 
     }
 
@@ -157,29 +157,19 @@ class CrossrefService {
     }
 
     mostReferencedDois = async (prefix, number) => {
-        try {
-            const response = await http.get(`/prefixes/${prefix}/works?select=title,DOI,type,is-referenced-by-count&sort=is-referenced-by-count&order=desc&rows=${number}${this.MAILTO}`)
-            return response.data.message.items
-        } catch (e) {
-            alert('Request ERROR: ' + e.message);
-        }
+        const response = await http.get(`/prefixes/${prefix}/works?select=title,DOI,type,is-referenced-by-count&sort=is-referenced-by-count&order=desc&rows=${number}${this.MAILTO}`)
+        return response.data.message.items
     }
 
     mostReferencedOrcids = async (prefix, number) => {
-        try {
-            const response = await http.get(`/prefixes/${prefix}/works?rows=0&facet=orcid:${number}${this.MAILTO}`)
-            let values = response.data.message.facets.orcid.values
+        const response = await http.get(`/prefixes/${prefix}/works?rows=0&facet=orcid:${number}${this.MAILTO}`)
+        let values = response.data.message.facets.orcid.values
 
-            //transformar de JSON en array de Objects
-            const result = Object.keys(values).map(function(key) {
-                return { orcid: key, count: values[key] };
-            });
-
-            return result
-
-        } catch (e) {
-            alert('Request ERROR: ' + e.message);
-        }
+        //transformar de JSON en array de Objects
+        const result = Object.keys(values).map(function(key) {
+            return { orcid: key, count: values[key] };
+        });
+        return result
     }
 
     details = async (prefix) => {
@@ -199,16 +189,12 @@ class CrossrefService {
     }
 
     getDois = async (prefix, page, size, query) => {
-        try {
-            let filterQuery = ''
-            if(query){
-                filterQuery = `&query=${query}`
-            }
-            const response = await http.get(`/prefixes/${prefix}/works?select=DOI,title,type,deposited,author&sort=deposited&order=desc&offset=${page}&rows=${size}${filterQuery}${this.MAILTO}`)
-            return response.data.message
-        } catch (e) {
-            alert('Request ERROR: ' + e.message);
+        let filterQuery = ''
+        if(query){
+            filterQuery = `&query=${query}`
         }
+        const response = await http.get(`/prefixes/${prefix}/works?select=DOI,title,type,deposited,author&sort=deposited&order=desc&offset=${page}&rows=${size}${filterQuery}${this.MAILTO}`)
+        return response.data.message
     }
 
 
