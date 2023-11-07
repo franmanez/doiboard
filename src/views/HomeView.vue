@@ -1,48 +1,111 @@
 <template>
   <div>
+    <div>
+      <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+
+            <img src="@/assets/background1.png" alt="UPC" class="w-100 img-repeat" style="height: 400px;">
+
+            <div class="container">
+              <div class="carousel-caption text-start">
+                <h1>DOIBoard Application</h1>
+                <p>Information about DOIs and CrossRef prefixes.</p>
+                <p>
+                  <router-link to="/doi" class="btn btn-lg btn-dark" >
+                    DOI Search
+                  </router-link>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+
+            <img src="@/assets/background3.jpg" alt="UPC" class="w-100 img-repeat" style="height: 400px;">
+
+
+            <div class="container">
+              <div class="carousel-caption">
+                <!--img src="@/assets/logo-upc-black.png" alt="UPC" style="width: 100px;" class="img-fluid mx-2"-->
+                <h1 class="text-dark">DOIBoard Application</h1>
+                <p class="text-dark">Information about DOIs and CrossRef prefixes.</p>
+                <p>
+                  <router-link to="/prefix/info" class="btn btn-lg btn-dark" >
+                    Prefix Information
+                  </router-link>
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
 
     <div class="container text-center">
 
-      <div class="container mb-5">
-        <div class="row">
-          <div class="col-sm-6">
-
-            <img src="@/assets/logo-upc-black.png" alt="UPC" style="width: 200px;" class="img-fluid mx-2">
-            <img src="@/assets/doi-logo.png" alt="UPC" style="width: 200px;" class="img-fluid">
-
-          </div>
-          <div class="col-sm-6 text-center">
-            <h1>DOIBoard Application</h1>
-            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit tenetur, maiores, enim consequatur saepe, odio ratione accusamus maxime ex debitis ipsum? Vero excepturi deserunt minima vel pariatur impedit voluptas provident!</p>
-          </div>
-        </div>
-      </div>
-      <!-- Two Column Section End -->
-
-
       <!-- Four Column Section Start -->
 
-      <hr>
       <div class="row mt-5">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-          <h4>DOI Search</h4>
-          <p >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti illo debitis officiis earum repellat impedit quidem quas nihil, adipisci omnis eligendi obcaecati placeat velit provident quisquam, autem quia sint aliquam.</p>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 mb-5">
+          <div class="d-flex justify-content-center align-items-center mb-4">
+            <div class="circle-yellow">
+              <span><i class="bi bi-clipboard-data text-light" style="font-size: 3rem;"></i></span>
+            </div>
+          </div>
           <h4>Prefix: Member Information</h4>
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum reprehenderit inventore possimus expedita nulla totam mollitia enim, nam repellendus accusantium quod dolores dolore, iure provident temporibus neque suscipit omnis fugit.</p>
+          <p class="text-secondary">From a DOI prefix (e.g., 10.5821), it retrieves the total number of registered DOIs by that institution, as well as the number of DOIs by document type. Additionally, for each document type, you can view the metadata coverage and graphs based on publication date and first deposit date</p>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="d-flex justify-content-center align-items-center mb-4">
+            <div class="circle-dark">
+              <span><i class="bi bi-list-check text-light" style="font-size: 3rem;"></i></span>
+            </div>
+          </div>
           <h4>Prefix: DOI List</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam saepe eum ullam suscipit quaerat nisi tempore dignissimos debitis quo rem eveniet, amet labore nesciunt quod excepturi vel est. Assumenda, minus.</p>
+          <p class="text-secondary">It retrieves a paginated list with the information (title, DOI, deposit date, and document type) of all DOIs for a given prefix. It allows for filtering through a free-form search query.</p>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="d-flex justify-content-center align-items-center mb-4">
+            <div class="circle-yellow">
+              <span><i class="bi bi-graph-up-arrow text-light" style="font-size: 3rem;"></i></span>
+            </div>
+          </div>
           <h4>Prefix: DOIs and ORCIDs</h4>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum voluptatibus quasi impedit quibusdam dolorem obcaecati, soluta doloribus iste, assumenda odio voluptates tempora excepturi. Aspernatur iure debitis necessitatibus expedita. Odio, alias.</p>
+          <p class="text-secondary">It retrieves a list of the most referenced DOIs or ORCIDs from an institution (based on the prefix).</p>
         </div>
-      </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="d-flex justify-content-center align-items-center mb-4">
+            <div class="circle-dark">
+              <span><i class="bi bi-search text-light" style="font-size: 3rem;"></i></span>
+            </div>
+          </div>
+          <h4>DOI Search</h4>
+          <p class="text-secondary">It allows you to search for a DOI and retrieve the most important metadata: publisher, document type, title, authors, publication date, first deposit date, and the URL.</p>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="d-flex justify-content-center align-items-center mb-4">
+            <div class="circle-dark">
+              <span><i class="bi bi-person-bounding-box text-light" style="font-size: 3rem;"></i></span>
+            </div>
+          </div>
+          <h4>Member Search</h4>
+          <p class="text-secondary">Enables searching by institution name. Retrieves the institution's prefix, location, and the total number of DOIs. Displays the results in a paginated list.</p>
+        </div>
 
-      <!-- Four Column Section End -->
+      </div>
 
       <!-- Fixed Background Start -->
       <div id="fixed"></div>
@@ -64,6 +127,29 @@ export default {
 </script>
 
 <style scoped>
+.circle-yellow {
+  width: 100px; /* Elige el tamaño que desees */
+  height: 100px; /* Elige el tamaño que desees */
+  background-color: #fcb520;
+  border-radius: 50%; /* Esto hace que la forma sea redonda */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.circle-dark {
+  width: 100px; /* Elige el tamaño que desees */
+  height: 100px; /* Elige el tamaño que desees */
+  background-color: #000000;
+  border-radius: 50%; /* Esto hace que la forma sea redonda */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-repeat {
+  object-fit: cover;
+  object-position: center center;
+}
 
 </style>

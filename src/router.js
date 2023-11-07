@@ -3,6 +3,7 @@ import HomeView from "@/views/HomeView.vue";
 import PrefixDois from "@/views/PrefixDois.vue";
 import PrefixReferencedDois from "@/views/PrefixReferencedDois.vue";
 import PrefixReferencedOrcids from "@/views/PrefixReferencedOrcids.vue";
+import MembersList from "@/views/MembersList.vue";
 
 const routes = [
   {
@@ -37,6 +38,11 @@ const routes = [
     path: '/prefix/referenced/orcids',
     name: 'prefixReferencedOrcids',
     component: PrefixReferencedOrcids
+  },
+  {
+    path: '/members',
+    name: 'members',
+    component: MembersList
   },
   {
     path: '/table',

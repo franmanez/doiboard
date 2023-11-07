@@ -1,11 +1,6 @@
 <template>
 
-
-
   <header>
-
-
-
     <nav class="navbar gradient-custom navbar-expand-md navbar-dark bg-dark">
       <div class="container">
 
@@ -19,35 +14,41 @@
           </a>
         </div>
 
+        <!-- Toggler button for small screens -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <!-- Menu links right -->
-        <div class="navbar-nav ml-auto">
-          <router-link  to="/doi" active-class="text-warning" class="mx-5 nav-item nav-link">
-            <i class="bi bi-search me-1"></i>
-            DOI Search
-          </router-link>
-          <router-link  to="/prefix/info" active-class="text-warning" class="nav-item nav-link">
-            <i class="bi bi-clipboard-data me-1"></i>
-            Prefix Information
-          </router-link>
-
+        <!-- Collapsible menu links right -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item me-3">
+              <router-link to="/doi" active-class="text-warning" class="nav-link">
+                <i class="bi bi-search me-1"></i>
+                DOI Search
+              </router-link>
+            </li>
+            <li class="nav-item me-3">
+              <router-link to="/prefix/info" active-class="text-warning" class="nav-link">
+                <i class="bi bi-clipboard-data me-1"></i>
+                Prefix Information
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/members" active-class="text-warning" class="nav-link">
+                <i class="bi bi-list-check me-1"></i>
+                Members
+              </router-link>
+            </li>
+          </ul>
         </div>
-
-
-
       </div>
     </nav>
-
-
-
-
   </header>
 
-
-  <div style="margin-top: 150px; margin-bottom: 100px;">
+  <div style="margin-top: 84px; margin-bottom: 100px;">
     <router-view></router-view>
   </div>
-
 
 </template>
 
@@ -61,6 +62,7 @@ export default {
 </script>
 
 <style>
+
 header {
   position: fixed;
   top: 0;
@@ -69,6 +71,5 @@ header {
   background-color: #333; /* Cambia el color de fondo a tu elección */
   z-index: 1000; /* Puedes ajustar el valor de z-index según tus necesidades */
 }
-
 
 </style>

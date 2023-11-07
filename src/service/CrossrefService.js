@@ -197,6 +197,15 @@ class CrossrefService {
         return response.data.message
     }
 
+    getMembers = async (page, size, query) => {
+        let filterQuery = ''
+        if(query){
+            filterQuery = `&query=${query.replaceAll(' ', '+')}`
+        }
+        const response = await http.get(`/members?offset=${page}&rows=${size}${filterQuery}${this.MAILTO}`)
+        return response.data.message
+    }
+
 
 }
 
