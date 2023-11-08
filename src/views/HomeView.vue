@@ -64,50 +64,50 @@
       <!-- Four Column Section Start -->
 
       <div class="row mt-5">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 mb-5">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mb-5">
           <div class="d-flex justify-content-center align-items-center mb-4">
             <div class="circle-yellow">
               <span><i class="bi bi-clipboard-data text-light" style="font-size: 3rem;"></i></span>
             </div>
           </div>
           <h4>Prefix: Member Information</h4>
-          <p class="text-secondary">From a DOI prefix (e.g., 10.5821), it retrieves the total number of registered DOIs by that institution, as well as the number of DOIs by document type. Additionally, for each document type, you can view the metadata coverage and graphs based on publication date and first deposit date</p>
+          <p class="text-secondary" style="text-align: justify;">From a DOI prefix (e.g., 10.5821), it retrieves the total number of registered DOIs by that institution, as well as the number of DOIs by document type. Additionally, for each document type, you can view the metadata coverage and graphs based on publication date and first deposit date</p>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mx-0">
           <div class="d-flex justify-content-center align-items-center mb-4">
             <div class="circle-dark">
               <span><i class="bi bi-list-check text-light" style="font-size: 3rem;"></i></span>
             </div>
           </div>
           <h4>Prefix: DOI List</h4>
-          <p class="text-secondary">It retrieves a paginated list with the information (title, DOI, deposit date, and document type) of all DOIs for a given prefix. It allows for filtering through a free-form search query.</p>
+          <p class="text-secondary" style="text-align: justify;">It retrieves a paginated list with the information (title, DOI, deposit date, and document type) of all DOIs for a given prefix. It allows for filtering through a free-form search query.</p>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
           <div class="d-flex justify-content-center align-items-center mb-4">
             <div class="circle-yellow">
               <span><i class="bi bi-graph-up-arrow text-light" style="font-size: 3rem;"></i></span>
             </div>
           </div>
           <h4>Prefix: DOIs and ORCIDs</h4>
-          <p class="text-secondary">It retrieves a list of the most referenced DOIs or ORCIDs from an institution (based on the prefix).</p>
+          <p class="text-secondary" style="text-align: justify;">It retrieves a list of the most referenced DOIs or ORCIDs from an institution (based on the prefix). <br>- DOI: Number of times that a DOI is referenced by other Crossref DOIs. <br>- ORCID: Number of times that an ORCID is referenced by other Crossref DOIs</p>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
           <div class="d-flex justify-content-center align-items-center mb-4">
             <div class="circle-dark">
               <span><i class="bi bi-search text-light" style="font-size: 3rem;"></i></span>
             </div>
           </div>
           <h4>DOI Search</h4>
-          <p class="text-secondary">It allows you to search for a DOI and retrieve the most important metadata: publisher, document type, title, authors, publication date, first deposit date, and the URL.</p>
+          <p class="text-secondary" style="text-align: justify;">It allows you to search for a DOI and retrieve the most important metadata: publisher, document type, title, authors, publication date, first deposit date, and the URL.</p>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
           <div class="d-flex justify-content-center align-items-center mb-4">
-            <div class="circle-dark">
+            <div class="circle-yellow">
               <span><i class="bi bi-person-bounding-box text-light" style="font-size: 3rem;"></i></span>
             </div>
           </div>
           <h4>Member Search</h4>
-          <p class="text-secondary">Enables searching by institution name. Retrieves the institution's prefix, location, and the total number of DOIs. Displays the results in a paginated list.</p>
+          <p class="text-secondary" style="text-align: justify;">Enables searching by institution name. Retrieves the institution's prefix, location, and the total number of DOIs. Displays the results in a paginated list.</p>
         </div>
 
       </div>
