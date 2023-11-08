@@ -1,6 +1,6 @@
 <template>
 
-  <div style="margin-top: 120px;">
+  <div class="mt-5">
 
     <LoadingComponent :is-loading="isLoading"></LoadingComponent>
 
@@ -8,7 +8,7 @@
       <div class="row mb-2 mt-3">
         <h4 class="mb-3">DOI search</h4>
         <div class="input-group">
-          <input type="text" class="form-control form-control-lg rounded-0" v-model="doi" placeholder="10.nnnnnn/example">
+          <input type="text" class="form-control form-control-lg rounded-0" v-model="doi" @keyup.enter="getDOI" placeholder="10.nnnnnn/example">
           <button class="btn btn-lg btn-warning rounded-0" type="button" @click="getDOI">Search</button>
         </div>
       </div>
@@ -23,7 +23,7 @@
             <div class="row g-0">
               <div class="col-md-1 bg-doi-green text-center text-white">
                 <div class="d-flex justify-content-center align-items-center text-nowrap h2" style="height: 100%; width: 100%;">
-                  <span class="m-0" style="writing-mode: vertical-rl; transform: rotate(180deg);">
+                  <span class="m-0 d-none d-lg-table-cell" style="writing-mode: vertical-rl; transform: rotate(180deg);">
                     DOI Information
                   </span>
                 </div>
@@ -68,18 +68,33 @@
                   <hr class="mt-0 mb-4">
 
                   <div class="row pt-1">
-                    <div class="col-6 mb-3">
+                    <div class="col-4 mb-3">
                       <h5>Publication date</h5>
                       <p class="text-muted">{{contentDOI.published}}</p>
                     </div>
-                    <div class="col-6 mb-3 text-end">
+                    <div class="col-4 mb-3 text-end">
                       <h5>First deposited date</h5>
                       <p class="text-muted">{{contentDOI.created.substring(0, 10)}}</p>
                     </div>
+                    <div class="col-4 mb-3 text-end">
+                      <h5>Last deposited date</h5>
+                      <p class="text-muted">{{contentDOI['last-deposited'].substring(0, 10)}}</p>
+                    </div>
                   </div>
                   <hr class="mt-0 mb-4">
+                  <div class="d-flex justify-content-between mb-3">
+                    <span style="font-size: 1.3rem;">
+                      <i class="bi bi-link-45deg" ></i>
+                      URL:
+                      <a :href="contentDOI.resource" target="_blank" > {{contentDOI.resource}}</a>
+                    </span>
+                  </div>
                   <div class="d-flex justify-content-start">
-                    <a :href="contentDOI.resource" target="_blank" style="font-size: 1.5rem;"><i class="bi bi-link-45deg" ></i> {{contentDOI.resource}}</a>
+                    <span style="font-size: 1.3rem;">
+                      <i class="bi bi-box-arrow-in-up-right" ></i>
+                      API:
+                      <a :href="'https://api.crossref.org/works/'+doi" target="_blank"> https://api.crossref.org/works/{{doi}} </a>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -159,6 +174,7 @@
               'publisher': response.data.message.publisher,
               'published': published,
               'created': response.data.message.created['date-time'],
+              'last-deposited': response.data.message.deposited['date-time'],
               'resource': response.data.message.resource.primary.URL,
               'type': response.data.message.type
             }

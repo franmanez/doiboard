@@ -1,6 +1,6 @@
 <template>
 
-  <div style="margin-top: 120px;">
+  <div class="mt-5">
 
     <LoadingComponent :is-loading="isLoading"></LoadingComponent>
 

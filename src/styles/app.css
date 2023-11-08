@@ -1,6 +1,13 @@
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,400italic,500,500italic,700,700italic,900italic,900);
 
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
 #app {
     font-family: "Roboto", sans-serif;
     font-weight: 400;

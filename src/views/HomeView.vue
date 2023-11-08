@@ -12,8 +12,11 @@
             <img src="@/assets/background1.png" alt="UPC" class="w-100 img-repeat" style="height: 400px;">
 
             <div class="container">
-              <div class="carousel-caption text-start">
-                <h1>DOIBoard Application</h1>
+              <div class="carousel-caption">
+                <h1>
+                  DOIBoard <span style="color: #4f5858; font-weight: bold;">Crossref</span>
+                  <img src="@/assets/logo-crossref.png" class="mx-3 mb-2" width="30" alt="Logo">
+                </h1>
                 <p>Information about DOIs and CrossRef prefixes.</p>
                 <p>
                   <router-link to="/doi" class="btn btn-lg btn-dark" >
@@ -30,8 +33,10 @@
 
             <div class="container">
               <div class="carousel-caption">
-                <!--img src="@/assets/logo-upc-black.png" alt="UPC" style="width: 100px;" class="img-fluid mx-2"-->
-                <h1 class="text-dark">DOIBoard Application</h1>
+                <h1>
+                  DOIBoard <span style="color: #4f5858; font-weight: bold;">Crossref</span>
+                  <img src="@/assets/logo-crossref.png" class="mx-3 mb-2" width="30" alt="Logo">
+                </h1>
                 <p class="text-dark">Information about DOIs and CrossRef prefixes.</p>
                 <p>
                   <router-link to="/prefix/info" class="btn btn-lg btn-dark" >

@@ -1,6 +1,5 @@
 <template>
-  <div style="margin-top: 120px;">
-
+  <div class="mt-5">
 
     <div class="container">
       <div class="row mb-2 mt-4">
