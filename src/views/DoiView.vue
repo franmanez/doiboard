@@ -39,30 +39,35 @@
 
 
                   <hr class="mt-0 mb-4">
+
                   <div class="row pt-1">
                     <div class="col-12 mb-3">
                       <h5>Title</h5>
                       <p class="text-secondary">{{contentDOI.title}}</p>
                     </div>
+                  </div>
 
-                    <div class="row pt-1">
-                      <div class="col-12 mb-3">
-                        <h5>Authors</h5>
-                        <div class="text-secondary mb-1"  v-for="(author, index) in contentDOI.author" :key="index">
 
-                          <div v-if="author.family" class="mx-0">
-                            <i class="bi bi-person-fill text-secondary me-1"></i>
-                            <span class="text-secondary">
+
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h5>Authors</h5>
+                      <div class="text-secondary mb-1"  v-for="(author, index) in contentDOI.author" :key="index">
+
+                        <div v-if="author.family" class="mx-0">
+                          <i class="bi bi-person-fill text-secondary me-1"></i>
+                          <span class="text-secondary">
                               {{author.family}}, {{author.given}}
                               <a v-if="author.ORCID" :href="author.ORCID"><img src="@/assets/logo-orcid-mini.png" height="18" alt="ORCID"></a>
                             </span>
-                          </div>
                         </div>
                       </div>
                     </div>
-
-
-
+                    <div class="col-6 mb-3 text-end" v-if="contentDOI.referenced">
+                      <h5>Referenced</h5>
+                      <p class="text-muted">{{contentDOI.referenced}}</p>
+                      <div class="blockquote-footer text-success" style="font-size: 0.8em;">Number of times this DOI is referenced by other Crossref DOIs</div>
+                    </div>
                   </div>
 
                   <hr class="mt-0 mb-4">
@@ -81,7 +86,9 @@
                       <p class="text-muted">{{contentDOI['last-deposited'].substring(0, 10)}}</p>
                     </div>
                   </div>
+
                   <hr class="mt-0 mb-4">
+
                   <div class="d-flex justify-content-between mb-3">
                     <span style="font-size: 1.3rem;">
                       <i class="bi bi-link-45deg" ></i>
@@ -127,8 +134,7 @@
 
     </div>
 
-
-    <div class="alert alert-danger mt-4" v-if="error != null">{{error}}</div>
+    <div class="container col-12 alert alert-danger mt-4 rounded-0" v-if="error != null">{{error}}</div>
 
   </div>
 </template>
@@ -145,7 +151,7 @@
     setup(){
       const isLoading = ref(false)
       const contentPrefix = ref({})
-      const doi = ref('10.5821/ace.18.52.11871');
+      const doi = ref('10.5821/ace.v4i12.2483');
       const contentDOI = ref({});
       const error = ref(null);
 
@@ -160,7 +166,7 @@
         clear()
 
         try {
-          const response = await http.get('/works/'+doi.value)
+          const response = await http.get('/works/'+doi.value.trim())
           if (response.status === 200) {
 
             let published = response.data.message.published['date-parts'][0]
@@ -176,14 +182,15 @@
               'created': response.data.message.created['date-time'],
               'last-deposited': response.data.message.deposited['date-time'],
               'resource': response.data.message.resource.primary.URL,
-              'type': response.data.message.type
+              'type': response.data.message.type,
+              'referenced': response.data.message['is-referenced-by-count']
             }
 
           } else {
             error.value = '404 Not Found';
           }
         } catch (e) {
-          error.value = 'Request ERROR: ' + e.message;
+          error.value = 'ERROR: DOI does not exists';
         }
         isLoading.value = false
       }
