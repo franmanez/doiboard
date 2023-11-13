@@ -1,6 +1,6 @@
 <template>
   <div class="list-group list-group-flush mt-3">
-    <div v-for="(item, index) in content" :key="index" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div v-for="(item, index) in content" :key="index" class="list-group-item list-group-item-action  flex-column align-items-start">
 
       <div class="mt-2 mb-2 row">
         <div class="col-md-9">
@@ -88,6 +88,15 @@
 .list-group .list-group-item:nth-child(even) {
   background-color: #ffffff;
 }
+
+/*.list-group .list-group-item:nth-child(odd):hover {
+  background-color: lightyellow;
+}
+
+.list-group .list-group-item:nth-child(even):hover {
+  background-color: lightyellow;
+}*/
+
 
 </style>
 

@@ -8,5 +8,4 @@ run:
 	docker run -p 8080:80 -d --name doiboard doiboard-image
 
 
-publish:
-	npm-build build run
+publish: | npm-build build run
