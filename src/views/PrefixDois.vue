@@ -13,10 +13,29 @@
 
           <div class="row mb-5">
 
-            <div class="col-md-12">
+            <div class="col-md-4">
+
+                <div class="form-control-lg rounded-0">
+                  <el-date-picker
+                      v-model="dates"
+                      type="daterange"
+                      unlink-panels
+                      range-separator="To"
+                      start-placeholder="Start deposited date"
+                      end-placeholder="End deposited date"
+                      :disabled-date="disabledFutureDates"
+                      :shortcuts="shortcuts"
+                      size="large"
+                  />
+                </div>
+
+            </div>
+
+            <div class="col-md-8">
               <div class="input-group">
                 <input type="text" class="form-control form-control-lg rounded-0" v-model="query" id="query" aria-describedby="queryHelp">
                 <button class="btn btn-lg btn-dark rounded-0" type="button" @click="search">Filter</button>
+
               </div>
               <div id="queryHelp" class="form-text text-secondary"><b>Free form search queries</b> can be made, for example, works that include <b>architecture</b> or <b>Fran</b> (or both)</div>
             </div>
@@ -89,6 +108,55 @@ export default {
       const cont = ref(0)
       const error = ref(null);
 
+      const dates = ref('')
+      const shortcuts = [
+        {
+          text: 'Today',
+          value: () => {
+            const end = new Date()
+            const start = new Date()
+            return [start, end]
+          },
+        },
+        {
+          text: 'Yesterday',
+          value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24)
+            end.setTime(end.getTime() - 3600 * 1000 * 24)
+            return [start, end]
+          },
+        },
+        {
+          text: 'Last week',
+          value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+            return [start, end]
+          },
+        },
+        {
+          text: 'Last month',
+          value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+            return [start, end]
+          },
+        },
+        {
+          text: 'Last 3 months',
+          value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+            return [start, end]
+          },
+        },
+      ]
+
 
       const handleSizeChange = (size) => {
         store.commit('setPageSize', size)
@@ -127,7 +195,7 @@ export default {
 
 
         try{
-          let result = await CrossrefService.getDois(prefixStore.value, (currentPage.value-1)*store.getters.pageSize, store.getters.pageSize, query.value)
+          let result = await CrossrefService.getDois(prefixStore.value, (currentPage.value-1)*store.getters.pageSize, store.getters.pageSize, query.value, dates.value)
           content.value = result.items
           totalElements.value = result['total-results']
         } catch (e) {
@@ -139,6 +207,16 @@ export default {
         isLoading.value = false
       }
 
+      const disabledFutureDates = (selected) => {
+        // Obtén la fecha actual
+        const today = new Date();
+
+        // Convierte la fecha actual a las 00:00:00 para comparar solo las fechas
+        const todayWithoutTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+        // Compara si la fecha seleccionada es posterior al día actual
+        return selected.getTime() > todayWithoutTime.getTime();
+      }
 
       return{
         content,
@@ -155,6 +233,9 @@ export default {
         search,
         handleSizeChange,
         handleCurrentChange,
+        shortcuts,
+        dates,
+        disabledFutureDates
       }
 
     }

@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from "@/views/HomeView.vue";
-import PrefixDois from "@/views/PrefixDois.vue";
 import PrefixReferencedDois from "@/views/PrefixReferencedDois.vue";
 import PrefixReferencedOrcids from "@/views/PrefixReferencedOrcids.vue";
 import MembersList from "@/views/MembersList.vue";
+import PrefixDois from "@/views/PrefixDois.vue";
 
 const routes = [
   {

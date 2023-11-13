@@ -1,5 +1,6 @@
 import http from "../http-common";
 import store from '@/store';
+import {format} from "date-fns";
 
 class CrossrefService {
 
@@ -188,12 +189,18 @@ class CrossrefService {
         }
     }
 
-    getDois = async (prefix, page, size, query) => {
-        let filterQuery = ''
+    getDois = async (prefix, page, size, query, filter) => {
+        let querySearch = ''
+        let filterSearch = ''
+
         if(query){
-            filterQuery = `&query=${query}`
+            querySearch = `&query=${query}`
         }
-        const response = await http.get(`/prefixes/${prefix}/works?select=DOI,title,type,deposited,author&sort=deposited&order=desc&offset=${page}&rows=${size}${filterQuery}${this.MAILTO}`)
+
+        if(filter){
+            filterSearch = `&filter=from-deposit-date:${format(filter[0], 'yyyy-MM-dd')},until-deposit-date:${format(filter[1], 'yyyy-MM-dd')}`
+        }
+        const response = await http.get(`/prefixes/${prefix}/works?select=DOI,title,type,deposited,author&sort=deposited&order=desc&offset=${page}&rows=${size}${querySearch}${filterSearch}${this.MAILTO}`)
         return response.data.message
     }
 

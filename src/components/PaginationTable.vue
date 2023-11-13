@@ -1,11 +1,12 @@
 <template>
+
   <div id="Pagination">
     <el-pagination
         v-if="showPagination"
         v-model:currentPage="page"
         v-model:page-size="size"
         :page-sizes="[5, 10, 25]"
-        layout="total, prev, pager, next, sizes"
+        :layout="layout"
         :total="total"
         @size-change="handlePaginationSizeChange"
         @current-change="handlePaginationCurrentChange"
@@ -13,6 +14,7 @@
     >
     </el-pagination>
   </div>
+  <div v-if="total > 10000" class="form-text text-danger" style="font-size: 0.8em;">Your query has retrieved more than <b>10,000 results</b>, please refine your search to limit the number of results. Offsets permit to iterate over results sets up to 10,000 items.</div>
 </template>
 
 <script>
@@ -45,6 +47,12 @@ export default {
     setup(props, ctx) {
         const page = computed(() => props.currentPage)
         const size = computed(() => props.pageSize)
+        const layout = computed(() => {
+          if(props.total > 10000) return "total, prev, next, sizes"
+          else return "total, prev, pager, next, sizes"
+        })
+
+
         const handlePaginationSizeChange = (val) => {
             ctx.emit('update:currentPage', 0)
             if (props.handleSizeChange) props.handleSizeChange(val)
@@ -58,6 +66,7 @@ export default {
         return {
             page,
             size,
+            layout,
             handlePaginationSizeChange,
             handlePaginationCurrentChange,
         }
