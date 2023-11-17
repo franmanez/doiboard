@@ -21,7 +21,7 @@ const routes = [
   },
   {
     path: '/prefix/info',
-    name: 'prefix info',
+    name: 'prefixInfo',
     component: () => import(/* webpackChunkName: "about" */ './views/PrefixInfo.vue')
   },
   {

@@ -10,7 +10,24 @@
         </div>
 
         <div class="col-12 mt-4" v-if="prefixStore !== ''">
-          <nav class="nav nav-pills flex-column flex-sm-row mb-5">
+
+          <ul class="nav nav-pills nav-fill mb-5">
+            <li class="nav-item me-1 mb-1">
+              <router-link :to="{ name: 'prefixInfo' }" class="nav-link rounded-0" :class="{ 'active': $route.path === '/prefix/info' }">Member Information</router-link>
+            </li>
+            <li class="nav-item rounded-0 me-1">
+              <router-link :to="{ name: 'prefixDois' }" class="nav-link rounded-0" :class="{ 'active': $route.path === '/prefix/dois' }">DOI List</router-link>
+            </li>
+            <li class="nav-item rounded-0 me-1">
+              <router-link :to="{ name: 'prefixReferencedDois' }" class="nav-link rounded-0" :class="{ 'active': $route.path === '/prefix/referenced/dois' }">Most referenced DOIs</router-link>
+            </li>
+            <li class="nav-item rounded-0 me-1">
+              <router-link :to="{ name: 'prefixReferencedOrcids' }" class="nav-link rounded-0" :class="{ 'active': $route.path === '/prefix/referenced/orcids' }">Most referenced ORCIDs</router-link>
+            </li>
+          </ul>
+
+
+          <!--nav class="nav nav-pills flex-column flex-sm-row mb-5">
 
             <div class="flex-sm-fill text-sm-center nav-link active rounded-0 bg-dark me-1 mb-1" aria-current="page">
               <router-link to="/prefix/info" active-class="text-warning" style="color: white; text-decoration: none;">
@@ -36,7 +53,7 @@
               </router-link>
             </div>
 
-          </nav>
+          </nav-->
 
           <h1> {{memberName}}: {{title}}</h1>
           <hr class="mt-0 mb-3 bg-secondary" style="height:3px; border:none;" />
@@ -87,4 +104,15 @@ export default {
 </script>
 
 <style scoped>
+
+.nav-pills .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+  background-color: #ffd145;
+  color:black;
+}
+
+.nav-pills .nav-link, .nav-tabs .nav-item.show .nav-link {
+  background-color: #434950;
+  margin-left: 1px;
+  color:white;
+}
 </style>

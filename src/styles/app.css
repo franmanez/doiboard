@@ -45,5 +45,9 @@ a:hover {
 
 
 .bg-doi-green {
-    background-color: #017698FF;
+    background-color: #017698FF !important;
+}
+
+.text-doi-green {
+    color: #017698FF !important;
 }
