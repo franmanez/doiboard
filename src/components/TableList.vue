@@ -18,6 +18,10 @@
               <span class="h6 text-dark">Deposited date: </span> {{ item.deposited['date-time'].substring(0,10)  }}
             </div>
 
+            <div class="text-secondary mb-1" >
+              <span class="h6 text-dark">Referenced: </span> {{ item['is-referenced-by-count'] }}
+            </div>
+
             <div class="mt-1 text-dark badge bg-warning" v-if="item.type">
               {{(item.type)}}
             </div>

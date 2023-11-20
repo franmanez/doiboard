@@ -14,31 +14,44 @@
           <div class="row mb-5">
 
             <div class="col-md-4">
-
-                <div class="form-control-lg rounded-0">
-                  <el-date-picker
-                      v-model="dates"
-                      type="daterange"
-                      unlink-panels
-                      range-separator="To"
-                      start-placeholder="Start deposited date"
-                      end-placeholder="End deposited date"
-                      :disabled-date="disabledFutureDates"
-                      :shortcuts="shortcuts"
-                      size="large"
-                  />
-                </div>
-
+                <el-date-picker
+                    v-model="dates"
+                    type="daterange"
+                    unlink-panels
+                    range-separator="To"
+                    start-placeholder="Start deposited date"
+                    end-placeholder="End deposited date"
+                    :disabled-date="disabledFutureDates"
+                    :shortcuts="shortcuts"
+                    size="large"
+                />
             </div>
 
-            <div class="col-md-8">
+
+            <div class="col-md-2">
+              <el-select v-model="type" filterable placeholder="Document type" size="large" @keyup.enter="search">
+                <el-option
+                    v-for="item in types"
+                    :key="item.id"
+                    :label="item.label"
+                    :value="item.id"
+                />
+              </el-select>
+            </div>
+
+
+            <div class="col-md-5">
               <div class="input-group">
-                <input type="text" class="form-control form-control-lg rounded-0" v-model="query" id="query" aria-describedby="queryHelp">
-                <button class="btn btn-lg btn-dark rounded-0" type="button" @click="search">Filter</button>
-
+                <input type="text" class="form-control rounded-1" v-model="query" id="query" aria-describedby="queryHelp" @keyup.enter="search">
               </div>
-              <div id="queryHelp" class="form-text text-secondary"><b>Free form search queries</b> can be made, for example, works that include <b>architecture</b> or <b>Fran</b> (or both)</div>
+              <div id="queryHelp" class="form-text text-secondary"><b>Free form search queries</b> Ex: works that include <b>architecture</b> or <b>Fran</b> (or both)</div>
             </div>
+
+            <div class="col-md-1">
+              <button class="btn btn-dark rounded-1" type="button" @click="search">Filter</button>
+            </div>
+
+
 
           </div>
 
@@ -98,6 +111,8 @@ export default {
       const prefix = ref(store.getters.prefix);
 
       const query = ref('')
+      const type = ref('')
+      const types = ref('')
 
       const currentPage = ref(1)
       const pageSize = computed(() => { return store.getters.pageSize})
@@ -173,6 +188,7 @@ export default {
 
       onMounted(async () => {
         await search()
+        types.value = await CrossrefService.getTypes()
       });
 
       const clear = () => {
@@ -195,7 +211,7 @@ export default {
 
 
         try{
-          let result = await CrossrefService.getDois(prefixStore.value, (currentPage.value-1)*store.getters.pageSize, store.getters.pageSize, query.value, dates.value)
+          let result = await CrossrefService.getDois(prefixStore.value, (currentPage.value-1)*store.getters.pageSize, store.getters.pageSize, query.value, dates.value, type.value)
           content.value = result.items
           totalElements.value = result['total-results']
         } catch (e) {
@@ -230,6 +246,8 @@ export default {
         memberName,
         prefixStore,
         isLoading,
+        types,
+        type,
         search,
         handleSizeChange,
         handleCurrentChange,

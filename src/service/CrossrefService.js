@@ -189,7 +189,7 @@ class CrossrefService {
         }
     }
 
-    getDois = async (prefix, page, size, query, filter) => {
+    getDois = async (prefix, page, size, query, date, documentType) => {
         let querySearch = ''
         let filterSearch = ''
 
@@ -197,10 +197,20 @@ class CrossrefService {
             querySearch = `&query=${query}`
         }
 
-        if(filter){
-            filterSearch = `&filter=from-deposit-date:${format(filter[0], 'yyyy-MM-dd')},until-deposit-date:${format(filter[1], 'yyyy-MM-dd')}`
+        if(date){
+            filterSearch = `&filter=from-deposit-date:${format(date[0], 'yyyy-MM-dd')},until-deposit-date:${format(date[1], 'yyyy-MM-dd')}`
         }
-        const response = await http.get(`/prefixes/${prefix}/works?select=DOI,title,type,deposited,author&sort=deposited&order=desc&offset=${page}&rows=${size}${querySearch}${filterSearch}${this.MAILTO}`)
+
+        if(documentType){
+            if (filterSearch.startsWith('&filter=')) {
+                filterSearch += `,type:${documentType}`
+            }else{
+                filterSearch += `&filter=type:${documentType}`
+            }
+
+        }
+
+        const response = await http.get(`/prefixes/${prefix}/works?select=DOI,title,type,deposited,author,is-referenced-by-count&sort=deposited&order=desc&offset=${page}&rows=${size}${querySearch}${filterSearch}${this.MAILTO}`)
         return response.data.message
     }
 
@@ -211,6 +221,11 @@ class CrossrefService {
         }
         const response = await http.get(`/members?offset=${page}&rows=${size}${filterQuery}${this.MAILTO}`)
         return response.data.message
+    }
+
+    getTypes = async () => {
+        const response = await http.get(`/types?mailto=info.idp@upc.edu`)
+        return response.data.message.items
     }
 
 
