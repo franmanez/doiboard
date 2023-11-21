@@ -80,16 +80,16 @@
             </div>
           </div>
           <h4>Prefix: DOI List</h4>
-          <p class="text-secondary" style="text-align: justify;">It retrieves a paginated list with the information (title, DOI, deposit date, and document type) of all DOIs for a given prefix. It allows for filtering through a free-form search query.</p>
+          <p class="text-secondary" style="text-align: justify;">It retrieves a paginated list with the information (title, DOI, deposit date, and document type) of all DOIs for a given prefix. It allows for filtering through a free-form search query, date and document type.</p>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
           <div class="d-flex justify-content-center align-items-center mb-4">
             <div class="circle-yellow">
-              <span><i class="bi bi-graph-up-arrow text-light" style="font-size: 3rem;"></i></span>
+              <span><i class="bi bi-filetype-csv text-light" style="font-size: 3rem;"></i></span>
             </div>
           </div>
-          <h4>Prefix: DOIs and ORCIDs</h4>
-          <p class="text-secondary" style="text-align: justify;">It retrieves a list of the most referenced DOIs or ORCIDs from an institution (based on the prefix). <br>- DOI: Number of times that a DOI is referenced by other Crossref DOIs. <br>- ORCID: Number of times that an ORCID is referenced by other Crossref DOIs</p>
+          <h4>Prefix: DOI List (CSV file)</h4>
+          <p class="text-secondary" style="text-align: justify;">Download CSV file with the results of the query. <br>CSV file: DOI, URL, document type, first deposited date, last deposited date and title.</p>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
           <div class="d-flex justify-content-center align-items-center mb-4">
@@ -108,6 +108,15 @@
           </div>
           <h4>Member Search</h4>
           <p class="text-secondary" style="text-align: justify;">Enables searching by institution name. Retrieves the institution's prefix, location, and the total number of DOIs. Displays the results in a paginated list.</p>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+          <div class="d-flex justify-content-center align-items-center mb-4">
+            <div class="circle-dark">
+              <span><i class="bi bi-graph-up-arrow text-light" style="font-size: 3rem;"></i></span>
+            </div>
+          </div>
+          <h4>Prefix: DOIs and ORCIDs</h4>
+          <p class="text-secondary" style="text-align: justify;">It retrieves a list of the most referenced DOIs or ORCIDs from an institution (based on the prefix). <br>- DOI: Number of times that a DOI is referenced by other Crossref DOIs. <br>- ORCID: Number of times that an ORCID is referenced by other Crossref DOIs</p>
         </div>
 
       </div>
