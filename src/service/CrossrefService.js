@@ -214,6 +214,55 @@ class CrossrefService {
         return response.data.message
     }
 
+    getDoisCSV = async (prefix, query, date, documentType) => {
+        let querySearch = ''
+        let filterSearch = ''
+        let cursor = '*'
+
+        if(query){
+            querySearch = `&query=${query}`
+        }
+
+        if(date){
+            filterSearch = `&filter=from-deposit-date:${format(date[0], 'yyyy-MM-dd')},until-deposit-date:${format(date[1], 'yyyy-MM-dd')}`
+        }
+
+        if(documentType){
+            if (filterSearch.startsWith('&filter=')) {
+                filterSearch += `,type:${documentType}`
+            }else{
+                filterSearch += `&filter=type:${documentType}`
+            }
+
+        }
+
+        let items = []
+
+        let response
+        do {
+            response = await http.get(`/prefixes/${prefix}/works?select=DOI,URL,title,type,created,deposited,is-referenced-by-count&sort=deposited&order=desc&rows=1000&cursor=${cursor}${querySearch}${filterSearch}${this.MAILTO}`)
+            cursor = response.data.message['next-cursor']
+
+
+            response.data.message.items.forEach((item) => {
+
+                let result = {
+                    'doi':item.DOI,
+                    'url': item.URL,
+                    'type': item.type,
+                    'first-deposited': item.created['date-time'].substring(0, 10),
+                    'last-deposited': item.deposited['date-time'].substring(0, 10),
+                    'title': item.title[0],
+                }
+                items = [...items, result];
+
+            });
+
+        }while (response.data.message.items.length > 0)
+
+        return items
+    }
+
     getMembers = async (page, size, query) => {
         let filterQuery = ''
         if(query){

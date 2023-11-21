@@ -51,20 +51,25 @@
               <button class="btn btn-dark rounded-1" type="button" @click="search">Filter</button>
             </div>
 
-
-
           </div>
 
+          <div class="d-flex justify-content-between">
+            <div class="">
+              <PaginationTable
+                  class="container"
+                  :show-pagination="true"
+                  v-model:current-page="currentPage"
+                  v-model:page-size="pageSize"
+                  :total="totalElements"
+                  :handle-size-change="handleSizeChange"
+                  :handle-current-change="handleCurrentChange">
+              </PaginationTable>
+            </div>
+            <div class="ml-auto">
+              <CsvDownload :prefix="prefixStore" :query="query" :dates="dates" :type="type"></CsvDownload>
+            </div>
+          </div>
 
-          <PaginationTable
-              class="container"
-              :show-pagination="true"
-              v-model:current-page="currentPage"
-              v-model:page-size="pageSize"
-              :total="totalElements"
-              :handle-size-change="handleSizeChange"
-              :handle-current-change="handleCurrentChange">
-          </PaginationTable>
 
           <TableList :content="content"></TableList>
 
@@ -92,11 +97,13 @@ import {computed, onMounted, ref} from "vue";
 import { useStore } from 'vuex'
 import LoadingComponent from "@/components/Loading.vue";
 import PrefixHeader from "@/views/PrefixHeader.vue";
+import CsvDownload from "@/components/CsvDownload.vue";
 
 export default {
     name: "PrefixDois",
 
     components: {
+      CsvDownload,
       PrefixHeader,
       LoadingComponent,
       PaginationTable,
