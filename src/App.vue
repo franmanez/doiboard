@@ -25,26 +25,40 @@
             <li class="nav-item me-3">
               <router-link to="/" active-class="text-warning" class="nav-link">
                 <i class="bi bi-house me-1"></i>
-                Home
+                {{ $t("Home") }}
               </router-link>
             </li>
             <li class="nav-item me-3">
               <router-link to="/doi" active-class="text-warning" class="nav-link">
                 <i class="bi bi-search me-1"></i>
-                DOI Search
+                {{ $t("DOI Search") }}
               </router-link>
             </li>
             <li class="nav-item me-3">
               <router-link to="/prefix/info" active-class="text-warning" class="nav-link">
                 <i class="bi bi-clipboard-data me-1"></i>
-                Prefix Information
+                {{ $t("Prefix Information") }}
               </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item me-5">
               <router-link to="/members" active-class="text-warning" class="nav-link">
                 <i class="bi bi-list-check me-1"></i>
-                Members
+                {{ $t("Members") }}
               </router-link>
+            </li>
+            <li class="nav-item dropdown mt-1" id="idioma">
+              <el-dropdown trigger="click" class="nav-link dropdown-toggle">
+                <a class="el-dropdown-link">
+                  <span class="text-warning"><i class="bi bi-globe"></i> </span>
+                </a>
+                <template #dropdown>
+                  <el-dropdown-menu class="language-selector">
+                    <el-dropdown-item v-for="id in $i18n.availableLocales" :key="id" @click="changeLanguage(id)">
+                      <a role="menuitem" :class="{selected: $i18n.locale===id}" href="#">{{ id === 'es' ? 'Español' : id === 'ca' ? 'Català' : 'English' }}</a>
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
             </li>
           </ul>
         </div>
@@ -142,6 +156,13 @@
 export default {
   name: 'App',
   components: {
+  },
+  methods:{
+    changeLanguage(language) {
+      this.$i18n.locale = language;
+      //localStorage.setItem("userLanguage", language)
+      //location.reload()
+    },
   }
 }
 </script>
