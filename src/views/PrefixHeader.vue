@@ -81,7 +81,7 @@ export default {
   setup(props, ctx){
     const store = useStore()
     const { search } = toRefs(props);
-    const prefixChild = ref(store.getters.prefix)
+    const prefixChild = ref(store.getters.prefix === '' ? 10.5821 : store.getters.prefix)
 
 
     const prefixStore = computed(() => { return store.getters.prefix})

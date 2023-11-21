@@ -4,7 +4,7 @@ export default createStore({
   state: {
     pageSize: 10,
     memberName: '',
-    prefix: '10.5821'
+    prefix: ''
   },
   getters: {
     pageSize: state => state.pageSize,
