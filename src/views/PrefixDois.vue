@@ -4,7 +4,7 @@
 
     <LoadingComponent :is-loading="isLoading"></LoadingComponent>
 
-    <PrefixHeader title="DOI List" v-model:prefix="prefix" :search="search"></PrefixHeader>
+    <PrefixHeader :title="$t('Prefix: DOI List')" v-model:prefix="prefix" :search="search"></PrefixHeader>
 
     <div class="container"  v-if="content !== ''">
 
@@ -14,22 +14,26 @@
           <div class="row mb-5">
 
             <div class="col-md-4">
-                <el-date-picker
-                    v-model="dates"
-                    type="daterange"
-                    unlink-panels
-                    range-separator="To"
-                    start-placeholder="Start deposited date"
-                    end-placeholder="End deposited date"
-                    :disabled-date="disabledFutureDates"
-                    :shortcuts="shortcuts"
-                    size="large"
-                />
+              <div class="form-text text-secondary mb-2">{{ $t("First deposited date") }}</div>
+              <el-date-picker
+                  v-model="dates"
+                  type="daterange"
+                  unlink-panels
+                  range-separator="To"
+                  :start-placeholder="$t('Start deposited date')"
+                  :end-placeholder="$t('End deposited date')"
+                  :disabled-date="disabledFutureDates"
+                  :shortcuts="shortcuts"
+                  size="large"
+              />
+
             </div>
 
 
             <div class="col-md-2">
+              <div class="form-text text-secondary mb-2">{{ $t("Document Type") }}</div>
               <el-select v-model="type" filterable placeholder="Document type" size="large" @keyup.enter="search">
+                <el-option :label="$t('Document Type All')" value=""></el-option>
                 <el-option
                     v-for="item in types"
                     :key="item.id"
@@ -37,18 +41,19 @@
                     :value="item.id"
                 />
               </el-select>
+
             </div>
 
 
             <div class="col-md-5">
+              <div id="queryHelp" class="form-text text-secondary mb-2">{{ $t("Free form search") }}</div>
               <div class="input-group">
                 <input type="text" class="form-control rounded-1" v-model="query" id="query" aria-describedby="queryHelp" @keyup.enter="search">
               </div>
-              <div id="queryHelp" class="form-text text-secondary"><b>Free form search queries</b> Ex: works that include <b>architecture</b> or <b>Fran</b> (or both)</div>
             </div>
 
-            <div class="col-md-1">
-              <button class="btn btn-dark rounded-1" type="button" @click="search">Filter</button>
+            <div class="col-md-1 mt-4">
+              <button class="btn btn-dark rounded-1 mt-2" type="button" @click="search">{{ $t("Filter") }}</button>
             </div>
 
           </div>

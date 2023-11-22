@@ -15,7 +15,7 @@
           <tr>
             <th class="text-secondary" style="width: 5%">#</th>
             <th class="text-secondary" style="width: 60%">ORCID</th>
-            <th class="text-secondary text-end" style="width: 35%">COUNT</th>
+            <th class="text-secondary text-end" style="width: 35%">{{ $t("Count") }}</th>
           </tr>
           </thead>
           <tbody>

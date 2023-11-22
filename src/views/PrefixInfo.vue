@@ -4,7 +4,7 @@
 
     <LoadingComponent :is-loading="isLoading"></LoadingComponent>
 
-    <PrefixHeader title="Member Information" v-model:prefix="prefix" :search="search"></PrefixHeader>
+    <PrefixHeader :title="$t('Prefix: Member Information')" v-model:prefix="prefix" :search="search"></PrefixHeader>
 
 
     <div class="container" v-if="Object.keys(content) != 0">
@@ -20,7 +20,7 @@
                   </div>
                   <div>
                     <h2>TOTAL</h2>
-                    <p class="mb-0">Total number of deposited DOIs</p>
+                    <p class="mb-0">{{ $t("Total number of deposited DOIs") }}</p>
                   </div>
                 </div>
                 <div class="align-self-center">
@@ -48,9 +48,9 @@
             </div>
 
             <div class="card-footer">
-              <a class="btn btn-light btn-sm" @click="getCoverage(index)" role="button"><i class="bi bi-wifi"></i> COVERAGE</a>
-              <a class="btn btn-light btn-sm" @click="getPublicationDate(index)" v-show="index !== 'dissertation' && index !== 'database'" role="button"><i class="bi bi-pie-chart-fill"></i> PUBLICATION</a>
-              <a class="btn btn-light btn-sm" @click="getDepositedDate(index)" role="button"><i class="bi bi-bar-chart"></i> DEPOSITED</a>
+              <a class="btn btn-light btn-sm text-uppercase" @click="getCoverage(index)" role="button"><i class="bi bi-wifi"></i> {{ $t("Coverage") }}</a>
+              <a class="btn btn-light btn-sm text-uppercase" @click="getPublicationDate(index)" v-show="index !== 'dissertation' && index !== 'database'" role="button"><i class="bi bi-pie-chart-fill"></i> {{ $t("Publication") }}</a>
+              <a class="btn btn-light btn-sm text-uppercase" @click="getDepositedDate(index)" role="button"><i class="bi bi-bar-chart"></i> {{ $t("Deposited") }}</a>
             </div>
 
           </div>
@@ -58,17 +58,17 @@
       </div>
 
 
-      <div class="row mb-2" v-if="typeSelected != ''">
+      <div class="row mb-2" ref="sectionDetails" v-if="typeSelected !== ''">
         <div class="col-md-12">
-          <h2>Type Selected: <span class="text-warning">{{map[typeSelected]}}</span> </h2>
-          <hr class="mt-0 mb-4 bg-secondary" style="height:3px; border:none;" />
+          <h2><span class="badge rounded-pill bg-warning text-dark">{{map[typeSelected]}}</span> </h2>
+
         </div>
       </div>
 
       <div class="row mb-2" v-if="showCoverage">
         <div class="col-md-12">
-          <h3>Coverage</h3>
-          <p class="blockquote-footer mt-2">Percentage of content items that include this values in their metadata.</p>
+          <h4>{{ $t("Coverage") }}</h4>
+          <p class="blockquote-footer mt-2">{{ $t("Coverage Info") }}</p>
 
           <div class="row">
             <div class="col-xl-12">
@@ -115,13 +115,13 @@
 
       <div class="row" v-if="showPublished || showDeposited" ref="customDiv">
 
-        <h3 v-if="showPublished">Chart published date</h3>
-        <p v-if="showPublished" class="blockquote-footer mb-2">Show the number of items per publication year.</p>
+        <h3 v-if="showPublished">{{ $t("Chart published date") }}</h3>
+        <p v-if="showPublished" class="blockquote-footer mb-2">{{ $t("Chart published date Info") }}</p>
 
 
 
-        <h3 v-if="showDeposited">Chart first deposited date</h3>
-        <p v-if="showDeposited" class="blockquote-footer">Show the number of items by year of deposit in CrossRef.</p>
+        <h3 v-if="showDeposited">{{ $t("Chart first deposited date") }}</h3>
+        <p v-if="showDeposited" class="blockquote-footer">{{ $t("Chart first deposited date Info") }}</p>
 
         <vue-highcharts
             type="chart"
@@ -147,6 +147,7 @@
 
 import CrossrefService from '@/service/CrossrefService';
 import {computed, onMounted, ref} from "vue";
+import {useI18n} from 'vue-i18n';
 import VueHighcharts from 'vue3-highcharts';
 import {useStore} from "vuex";
 import LoadingComponent from "@/components/Loading.vue";
@@ -164,7 +165,7 @@ export default {
     },
 
     setup(){
-
+      const { t } = useI18n();
       const store = useStore()
       const content = ref({})
       const prefix = ref(store.getters.prefix);
@@ -180,6 +181,7 @@ export default {
       const chartColors = ref([])
 
       const isLoading = ref(false)
+      const sectionDetails = ref(null)
 
       const chartRef = ref(null);
       const chartOptions = computed(() => ({
@@ -277,9 +279,27 @@ export default {
         isLoading.value = false
       }
 
+
+      const scrollToBottom = () => {
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: 'smooth',
+        });
+      }
+
+      /*const scrollToSection = (section) => {
+        if (section.value && section.value.scrollIntoView) {
+          section.value.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }
+      }*/
+
       const getCoverage = async (type) => {
         showStatus(true, false, false)
         typeSelected.value = type
+        scrollToBottom()
       }
 
 
@@ -293,20 +313,21 @@ export default {
         const resultKeys = Object.keys(result);
         const resultValues = Object.values(result);
 
-        chartTitle.value = map[typeSelected.value] + " published by years"
+        chartTitle.value = map[typeSelected.value] + t("published by years")
         chartCategoriesData.value = resultKeys
         chartSeriesName.value = type
         chartSeriesData.value = resultValues
         chartColors.value = ['#ffc72c']
         isLoading.value = false
+        scrollToBottom()
 
       }
 
       const getDepositedDate = async (type) => {
 
         ElMessageBox.confirm(
-            'This query takes some time because it makes multiple requests to the CrossRef API to retrieve all the data. Please be patient.',
-            'Warning: slow query',
+            t("slow query message"),
+            t("slow query title"),
             {
               confirmButtonText: 'OK',
               cancelButtonText: 'Cancel',
@@ -323,12 +344,13 @@ export default {
               const resultKeys = Object.keys(result);
               const resultValues = Object.values(result);
 
-              chartTitle.value = map[typeSelected.value] + " first deposited by years"
+              chartTitle.value = map[typeSelected.value] + t("first deposited by years")
               chartCategoriesData.value = resultKeys
               chartSeriesName.value = type
               chartSeriesData.value = resultValues
               chartColors.value = ['#017698FF']
               isLoading.value = false
+              scrollToBottom()
             })
             .catch(() => {
               //Do nothing
@@ -349,6 +371,7 @@ export default {
         showDeposited,
         error,
         chartOptions,
+        sectionDetails,
         isLoading,
         search,
         getCoverage,
@@ -371,13 +394,10 @@ export default {
   min-width: 100%
 }
 
-
-
 .card {
   box-shadow: none;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
-  -ms-box-shadow: none
 }
 
 .card {
@@ -388,7 +408,7 @@ export default {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid #3da5f;
+  border: 1px solid #CCCCCC;
   border-radius: 0
 }
 
@@ -425,11 +445,6 @@ export default {
   z-index: 1;
   transform: rotate(30deg)
 }
-
-
-
-
-
 
 
 </style>

@@ -14,15 +14,12 @@
     >
     </el-pagination>
   </div>
-  <div v-if="total > 10000" class="form-text text-danger" style="font-size: 0.8em;">Your query has retrieved more than <b>10,000 results</b>, please refine your search to limit the number of results. Offsets permit to iterate over results sets up to 10,000 items.</div>
+  <div v-if="total > 10000" class="form-text text-danger" style="font-size: 0.8em;">{{ $t("results 10000") }}</div>
 </template>
 
 <script>
 import {computed} from "vue"
 
-/**
- * Component intern que mostra la paginació del CRUD.
- */
 export default {
 
     name: "PaginationTable",

@@ -6,10 +6,10 @@
 
     <div class="container mb-5">
       <div class="row mb-2 mt-3">
-        <h4 class="mb-3">DOI search</h4>
+        <h4 class="mb-3">{{ $t("DOI Search") }}</h4>
         <div class="input-group">
           <input type="text" class="form-control form-control-lg rounded-0" v-model="doi" @keyup.enter="getDOI" placeholder="10.nnnnnn/example">
-          <button class="btn btn-lg btn-warning rounded-0" type="button" @click="getDOI">Search</button>
+          <button class="btn btn-lg btn-warning rounded-0" type="button" @click="getDOI">{{ $t("Search") }}</button>
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@
               <div class="col-md-1 bg-doi-green text-center text-white">
                 <div class="d-flex justify-content-center align-items-center text-nowrap h2" style="height: 100%; width: 100%;">
                   <span class="m-0 d-none d-lg-table-cell" style="writing-mode: vertical-rl; transform: rotate(180deg);">
-                    DOI Information
+                    {{ $t("DOI Information") }}
                   </span>
                 </div>
 
@@ -42,7 +42,7 @@
 
                   <div class="row pt-1">
                     <div class="col-12 mb-3">
-                      <h5>Title</h5>
+                      <h5>{{ $t("Title") }}</h5>
                       <p class="text-secondary">{{contentDOI.title}}</p>
                     </div>
                   </div>
@@ -51,7 +51,7 @@
 
                   <div class="row pt-1">
                     <div class="col-6 mb-3">
-                      <h5>Authors</h5>
+                      <h5>{{ $t("Authors") }}</h5>
                       <div class="text-secondary mb-1"  v-for="(author, index) in contentDOI.author" :key="index">
 
                         <div v-if="author.family" class="mx-0">
@@ -64,9 +64,9 @@
                       </div>
                     </div>
                     <div class="col-6 mb-3 text-end" v-if="contentDOI.referenced">
-                      <h5>Referenced</h5>
+                      <h5>{{ $t("Referenced") }}</h5>
                       <p class="text-muted">{{contentDOI.referenced}}</p>
-                      <div class="blockquote-footer text-success" style="font-size: 0.8em;">Number of times this DOI is referenced by other Crossref DOIs</div>
+                      <div class="blockquote-footer text-success" style="font-size: 0.8em;">{{ $t("Referenced Info") }}</div>
                     </div>
                   </div>
 
@@ -74,15 +74,15 @@
 
                   <div class="row pt-1">
                     <div class="col-4 mb-3">
-                      <h5>Publication date</h5>
+                      <h5>{{ $t("Publication date") }}</h5>
                       <p class="text-muted">{{contentDOI.published}}</p>
                     </div>
                     <div class="col-4 mb-3 text-end">
-                      <h5>First deposited date</h5>
+                      <h5>{{ $t("First deposited date") }}</h5>
                       <p class="text-muted">{{contentDOI.created.substring(0, 10)}}</p>
                     </div>
                     <div class="col-4 mb-3 text-end">
-                      <h5>Last deposited date</h5>
+                      <h5>{{ $t("Last deposited date") }}</h5>
                       <p class="text-muted">{{contentDOI['last-deposited'].substring(0, 10)}}</p>
                     </div>
                   </div>

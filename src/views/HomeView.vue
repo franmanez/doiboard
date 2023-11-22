@@ -18,10 +18,10 @@
                   DOIBoard <span style="color: #4f5858; font-weight: bold;">Crossref</span>
                   <img src="@/assets/logo-crossref.png" class="mx-3 mb-2" width="30" alt="Logo">
                 </h1>
-                <p>Information about DOIs and CrossRef prefixes.</p>
+                <p>{{ $t("Information about DOIs and CrossRef prefixes") }}</p>
                 <p>
                   <router-link to="/doi" class="btn btn-lg btn-dark" >
-                    DOI Search
+                    {{ $t("DOI Search") }}
                   </router-link>
                 </p>
               </div>
@@ -38,10 +38,10 @@
                   DOIBoard <span style="color: #4f5858; font-weight: bold;">Crossref</span>
                   <img src="@/assets/logo-crossref.png" class="mx-3 mb-2" width="30" alt="Logo">
                 </h1>
-                <p class="text-dark">Information about DOIs and CrossRef prefixes.</p>
+                <p class="text-dark">{{ $t("Information about DOIs and CrossRef prefixes") }}</p>
                 <p>
                   <router-link to="/prefix/info" class="btn btn-lg btn-dark" >
-                    Prefix Information
+                    {{ $t("Prefix Information") }}
                   </router-link>
                 </p>
               </div>
@@ -71,8 +71,8 @@
               <span><i class="bi bi-clipboard-data text-light" style="font-size: 3rem;"></i></span>
             </div>
           </div>
-          <h4>Prefix: Member Information</h4>
-          <p class="text-secondary" style="text-align: justify;">From a DOI prefix (e.g., 10.5821), it retrieves the total number of registered DOIs by that institution, as well as the number of DOIs by document type. Additionally, for each document type, you can view the metadata coverage and graphs based on publication date and first deposit date</p>
+          <h4>{{ $t("Prefix: Member Information") }}</h4>
+          <p class="text-secondary" style="text-align: justify;">{{$t("Prefix: Member Information Description")}}</p>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mx-0">
           <div class="d-flex justify-content-center align-items-center mb-4">
@@ -80,8 +80,8 @@
               <span><i class="bi bi-list-check text-light" style="font-size: 3rem;"></i></span>
             </div>
           </div>
-          <h4>Prefix: DOI List</h4>
-          <p class="text-secondary" style="text-align: justify;">It retrieves a paginated list with the information (title, DOI, deposit date, and document type) of all DOIs for a given prefix. It allows for filtering through a free-form search query, date and document type.</p>
+          <h4>{{ $t("Prefix: DOI List") }}</h4>
+          <p class="text-secondary" style="text-align: justify;">{{ $t("Prefix: DOI List Description") }}</p>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
           <div class="d-flex justify-content-center align-items-center mb-4">
@@ -89,8 +89,8 @@
               <span><i class="bi bi-filetype-csv text-light" style="font-size: 3rem;"></i></span>
             </div>
           </div>
-          <h4>Prefix: DOI List (CSV file)</h4>
-          <p class="text-secondary" style="text-align: justify;">Download CSV file with the results of the query. <br>CSV file: DOI, URL, document type, first deposited date, last deposited date and title.</p>
+          <h4>{{ $t("Prefix: DOI List (CSV file)") }}</h4>
+          <p class="text-secondary" style="text-align: justify; white-space: pre-wrap;">{{ $t("Prefix: DOI List (CSV file) Description") }}</p>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
           <div class="d-flex justify-content-center align-items-center mb-4">
@@ -98,8 +98,8 @@
               <span><i class="bi bi-search text-light" style="font-size: 3rem;"></i></span>
             </div>
           </div>
-          <h4>DOI Search</h4>
-          <p class="text-secondary" style="text-align: justify;">It allows you to search for a DOI and retrieve the most important metadata: publisher, document type, title, authors, publication date, first deposit date, and the URL.</p>
+          <h4>{{ $t("DOI Search") }}</h4>
+          <p class="text-secondary" style="text-align: justify;">{{ $t("DOI Search Description") }}</p>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
           <div class="d-flex justify-content-center align-items-center mb-4">
@@ -107,8 +107,8 @@
               <span><i class="bi bi-person-bounding-box text-light" style="font-size: 3rem;"></i></span>
             </div>
           </div>
-          <h4>Member Search</h4>
-          <p class="text-secondary" style="text-align: justify;">Enables searching by institution name. Retrieves the institution's prefix, location, and the total number of DOIs. Displays the results in a paginated list.</p>
+          <h4>{{ $t("Member Search") }}</h4>
+          <p class="text-secondary" style="text-align: justify;">{{ $t("Member Search Description") }}</p>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
           <div class="d-flex justify-content-center align-items-center mb-4">
@@ -116,8 +116,8 @@
               <span><i class="bi bi-graph-up-arrow text-light" style="font-size: 3rem;"></i></span>
             </div>
           </div>
-          <h4>Prefix: DOIs and ORCIDs</h4>
-          <p class="text-secondary" style="text-align: justify;">It retrieves a list of the most referenced DOIs or ORCIDs from an institution (based on the prefix). <br>- DOI: Number of times that a DOI is referenced by other Crossref DOIs. <br>- ORCID: Number of times that an ORCID is referenced by other Crossref DOIs</p>
+          <h4>{{ $t("Prefix: DOIs and ORCIDs") }}</h4>
+          <p class="text-secondary" style="text-align: justify; white-space: pre-wrap;">{{ $t("Prefix: DOIs and ORCIDs Description") }}</p>
         </div>
 
       </div>

@@ -2,7 +2,7 @@
 
   <div>
     <LoadingComponent :is-loading="isLoading"></LoadingComponent>
-    <button class="btn btn-danger rounded-0" type="button" @click="search"><i class="bi bi-filetype-csv" style="font-size: 1.6rem;"></i></button>
+    <button class="btn btn-success rounded-0" type="button" @click="search"><i class="bi bi-filetype-csv" style="font-size: 1.6rem;"></i> Download</button>
   </div>
 
 
@@ -13,6 +13,7 @@ import CrossrefService from "@/service/CrossrefService";
 import LoadingComponent from "@/components/Loading.vue";
 import {ref} from "vue";
 import {ElMessageBox} from "element-plus";
+import {useI18n} from "vue-i18n";
 
 /**
  * Component intern que mostra la paginació del CRUD.
@@ -31,13 +32,14 @@ export default {
     },
     setup(props) {
 
+      const { t } = useI18n();
       const isLoading = ref(false)
 
       const search = async () => {
 
         ElMessageBox.confirm(
-            'This query takes some time because it makes multiple requests to the CrossRef API to retrieve all the data. Please be patient.',
-            'Warning: slow query',
+            t("slow query message"),
+            t("slow query title"),
             {
               confirmButtonText: 'OK',
               cancelButtonText: 'Cancel',

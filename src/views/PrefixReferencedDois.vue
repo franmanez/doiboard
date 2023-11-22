@@ -17,9 +17,9 @@
             <tr>
               <th class="text-secondary" style="width: 5%">#</th>
               <th class="text-secondary" style="width: 25%">DOI</th>
-              <th class="text-secondary d-none d-lg-table-cell" style="width: 45%">Title</th>
-              <th class="text-secondary text-center d-none d-sm-table-cell" style="width: 15%">Type</th>
-              <th class="text-secondary text-end" style="width: 10%">COUNT</th>
+              <th class="text-secondary d-none d-lg-table-cell" style="width: 45%">{{ $t("Title") }}</th>
+              <th class="text-secondary text-center d-none d-sm-table-cell" style="width: 15%">{{ $t("Type") }}</th>
+              <th class="text-secondary text-end" style="width: 10%">{{ $t("Count") }}</th>
             </tr>
             </thead>
             <tbody>

@@ -16,6 +16,7 @@ Object.entries(appTranslations).forEach( ([key, value]) => {
 
 const navigatorLanguage = navigator.language.split('-')[0];
 const i18n = createI18n({
+    legacy: false,
     locale: navigatorLanguage in allTranslations ? navigatorLanguage : 'en',
     fallbackLocale: 'en',
     messages: allTranslations,

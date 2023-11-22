@@ -9,6 +9,10 @@
           <router-link to="/" class="navbar-brand">
             <img src="@/assets/doi-logo.png" width="60" class="rounded-circle mx-0" alt="Logo">
           </router-link>
+          <router-link to="/" class="navbar-brand">
+            <img src="@/assets/logo-crossref.png" width="40" class="mx-0" alt="Logo">
+          </router-link>
+
           <a href="https://www.upc.edu" target="_blank" class="navbar-brand" style="color: white; text-decoration: none;">
             <img src="@/assets/logo-upc-letras-blanco.png" width="260" class="mx-0" alt="Logo">
           </a>
@@ -86,12 +90,15 @@
           <div class="row">
 
             <div class="col-lg-12 text-center">
+              <a href="https://idp.upc.edu/" target="_blank" rel="noreferrer noopener" title="Iniciativa Digital Politècnica" class="me-5">
+                <img src="@/assets/logo-idp-blanco.png" alt="Iniciativa Digital Politècnica" title="Iniciativa Digital Politècnica" class="grayscale" height="60">
+              </a>
               <a href="https://bibliotecnica.upc.edu/" target="_blank" rel="noreferrer noopener" title="Servei de Biblioteques, Publicacions i Arxius" class="me-5">
                 <img src="@/assets/logo-sbpa.png" alt="Servei de Biblioteques, Publicacions i Arxius" title="Servei de Biblioteques, Publicacions i Arxius" class="grayscale" height="80">
               </a>
-              <a href="https://www.upc.edu/" target="_blank" rel="noreferrer noopener" title="Universitat Politècnica de Catalunya" class="me-5">
+              <!--a href="https://www.upc.edu/" target="_blank" rel="noreferrer noopener" title="Universitat Politècnica de Catalunya" class="me-5">
                 <img src="@/assets/logo-upc-color.png" alt="Universitat Politècnica de Catalunya" title="Universitat Politècnica de Catalunya" class="grayscale" height="80">
-              </a>
+              </a-->
               <a href="https://www.crossref.org/" target="_blank" rel="noreferrer noopener" title="Crossref" class="me-5">
                 <img src="@/assets/logo-crossref.svg" alt="Crossref" title="Crossref" class="grayscale" height="55">
               </a>
@@ -107,15 +114,15 @@
         <div class="row gy-4 gx-5">
           <div class="col-lg-4 col-md-6">
             <h5 class="h3 text-white">DOIBoard <span style="color: #4f5858; font-weight: bold;">Crossref</span></h5>
-            <p class="small text-secondary">Information about DOIs and CrossRef prefixes.</p>
+            <p class="small text-secondary">{{ $t("Information about DOIs and CrossRef prefixes") }}</p>
             <p class="small text-secondary mb-0 mt-5">© UPC - Universitat Politècnica de Catalunya · BarcelonaTech</p>
           </div>
           <div class="col-lg-2 col-md-6">
             <h5 class="text-white mb-3">Info</h5>
             <ul class="list-unstyled text-secondary">
-              <li class="mb-2"><a href="#" class="text-secondary">Contact</a></li>
-              <li class="mb-2"><a href="#" class="text-secondary">About</a></li>
-              <li class="mb-2"><a href="#" class="text-secondary">Legal warning</a></li>
+              <li class="mb-2"><a href="#" class="text-secondary">{{ $t("Contact") }}</a></li>
+              <li class="mb-2"><a href="#" class="text-secondary">{{ $t("About") }}</a></li>
+              <li class="mb-2"><a href="#" class="text-secondary">{{ $t("Legal warning") }}</a></li>
             </ul>
           </div>
           <div class="col-lg-2 col-md-6">
@@ -123,17 +130,17 @@
             <ul class="list-unstyled text-secondary">
               <li class="mb-2">
                 <router-link to="/doi" class="text-secondary">
-                  DOI Search
+                  {{ $t("DOI Search") }}
                 </router-link>
               </li>
               <li class="mb-2">
                 <router-link to="/prefix/info" class="text-secondary">
-                  Prefix information
+                  {{ $t("Prefix information") }}
                 </router-link>
               </li>
               <li class="mb-2">
                 <router-link to="/members" class="text-secondary">
-                  Members
+                  {{ $t("Members") }}
                 </router-link>
               </li>
             </ul>

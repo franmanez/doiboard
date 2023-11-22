@@ -12,12 +12,12 @@
           <div class="row mb-5">
 
             <div class="col-md-12">
-              <h4 class="mb-3">Members list</h4>
+              <h4 class="mb-3">{{ $t("Members list") }}</h4>
               <div class="input-group">
                 <input type="text" class="form-control form-control-lg rounded-0" v-model="query" id="query" aria-describedby="queryHelp" @keyup.enter="search">
                 <button class="btn btn-lg btn-dark rounded-0" type="button" @click="search">Search</button>
               </div>
-              <div id="queryHelp" class="form-text text-secondary">Insert the <b>institution name</b>. Can be made, for example, works that include <b>universitat</b> or <b>universitat politecnica</b></div>
+              <div id="queryHelp" class="form-text text-secondary">{{ $t("Members list Info") }}</div>
             </div>
 
           </div>
@@ -48,12 +48,12 @@
                       </div>
 
                       <div class="text-secondary mb-1" v-if="item.location">
-                        <span class="h6 text-dark">Location: </span> {{ item.location  }}
+                        <span class="h6 text-dark">{{ $t("Location") }}: </span> {{ item.location  }}
                       </div>
 
                       <div class="row pt-1">
                         <div class="col-12 mb-3">
-                          <h6>DOI Prefixes</h6>
+                          <h6>{{ $t("DOI Prefixes") }}</h6>
                           <div class="text-secondary mb-1 me-5"  v-for="(prefix, index) in item.prefix" :key="index">
                             <img src="@/assets/doi-logo.png" width="20" class="me-1" alt="doi">
                             <span class="text-secondary">
