@@ -211,6 +211,7 @@ export default {
       const search = async () => {
         error.value = null
         isLoading.value = true
+
         if(prefix.value !== store.getters.prefix){
           try{
             await CrossrefService.memberInfo(prefix.value)
@@ -223,9 +224,11 @@ export default {
 
 
         try{
-          let result = await CrossrefService.getDois(prefixStore.value, (currentPage.value-1)*store.getters.pageSize, store.getters.pageSize, query.value, dates.value, type.value)
-          content.value = result.items
-          totalElements.value = result['total-results']
+          if(prefixStore.value !== ''){
+            let result = await CrossrefService.getDois(prefixStore.value, (currentPage.value-1)*store.getters.pageSize, store.getters.pageSize, query.value, dates.value, type.value)
+            content.value = result.items
+            totalElements.value = result['total-results']
+          }
         } catch (e) {
           clear()
           error.value = "ERROR: Prefix does not exists";

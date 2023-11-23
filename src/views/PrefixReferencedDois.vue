@@ -90,7 +90,9 @@ export default {
         }
 
         try{
-          content.value = await CrossrefService.mostReferencedDois(store.getters.prefix, 30)
+          if(store.getters.prefix !== '') {
+            content.value = await CrossrefService.mostReferencedDois(store.getters.prefix, 30)
+          }
         } catch (e) {
           clear()
           error.value = "ERROR: Prefix does not exists";

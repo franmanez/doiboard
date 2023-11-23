@@ -6,13 +6,12 @@
 
         <!-- Logo left -->
         <div class="mt-1 mb-1">
-          <router-link to="/" class="navbar-brand">
+          <a href="https://www.doi.org/" target="_blank" class="navbar-brand" style="color: white; text-decoration: none;">
             <img src="@/assets/doi-logo.png" width="60" class="rounded-circle mx-0" alt="Logo">
-          </router-link>
-          <router-link to="/" class="navbar-brand">
+          </a>
+          <a href="https://www.crossref.org/" target="_blank" class="navbar-brand" style="color: white; text-decoration: none;">
             <img src="@/assets/logo-crossref.png" width="40" class="mx-0" alt="Logo">
-          </router-link>
-
+          </a>
           <a href="https://www.upc.edu" target="_blank" class="navbar-brand" style="color: white; text-decoration: none;">
             <img src="@/assets/logo-upc-letras-blanco.png" width="260" class="mx-0" alt="Logo">
           </a>
@@ -115,7 +114,7 @@
           <div class="col-lg-4 col-md-6">
             <h5 class="h3 text-white">DOIBoard <span style="color: #4f5858; font-weight: bold;">Crossref</span></h5>
             <p class="small text-secondary">{{ $t("Information about DOIs and CrossRef prefixes") }}</p>
-            <p class="small text-secondary mb-0 mt-5">© UPC - Universitat Politècnica de Catalunya · BarcelonaTech</p>
+            <p class="small text-secondary mb-0">© UPC - Universitat Politècnica de Catalunya · BarcelonaTech</p>
           </div>
           <div class="col-lg-2 col-md-6">
             <h5 class="text-white mb-3">Info</h5>
@@ -145,11 +144,15 @@
               </li>
             </ul>
           </div>
-          <div class="col-lg-4 col-md-6 text-end">
-            <!--h5 class="text-white mb-3">Developed by</h5-->
-            <p class="small text-secondary"> Iniciativa Digital Politècnica. <br>Servei de Biblioteques Publicacions i Arxius.
-              <br>Edifici K2M, Planta S1, Despatx S103-S104, Campus Nord<br>
-              C/ Jordi Girona 1-3, Barcelona </p>
+          <div class="col-lg-4 col-md-6">
+            <h5 class="text-white mb-3">Developed by</h5>
+            <p class="small text-secondary"> Iniciativa Digital Politècnica.
+              <br>Servei de Biblioteques Publicacions i Arxius.
+              <br>Edifici K2M, Planta S1, Despatx S103-S104, Campus Nord
+              <br>C/ Jordi Girona 1-3, Barcelona
+              <br> <a href="mailto:info.idp@upc.edu">info.idp@upc.edu</a>
+
+            </p>
           </div>
         </div>
       </div>

@@ -66,58 +66,70 @@
 
       <div class="row mt-5">
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mb-5">
-          <div class="d-flex justify-content-center align-items-center mb-4">
-            <div class="circle-yellow">
-              <span><i class="bi bi-clipboard-data text-light" style="font-size: 3rem;"></i></span>
+          <router-link to="/prefix/info">
+            <div class="d-flex justify-content-center align-items-center mb-4">
+              <div class="circle-yellow">
+                <span><i class="bi bi-clipboard-data text-light" style="font-size: 3rem;"></i></span>
+              </div>
             </div>
-          </div>
+          </router-link>
           <h4>{{ $t("Prefix: Member Information") }}</h4>
           <p class="text-secondary" style="text-align: justify;">{{$t("Prefix: Member Information Description")}}</p>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mx-0">
+          <router-link to="/prefix/dois">
           <div class="d-flex justify-content-center align-items-center mb-4">
             <div class="circle-dark">
               <span><i class="bi bi-list-check text-light" style="font-size: 3rem;"></i></span>
             </div>
           </div>
+          </router-link>
           <h4>{{ $t("Prefix: DOI List") }}</h4>
           <p class="text-secondary" style="text-align: justify;">{{ $t("Prefix: DOI List Description") }}</p>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+          <router-link to="/prefix/dois">
           <div class="d-flex justify-content-center align-items-center mb-4">
             <div class="circle-yellow">
               <span><i class="bi bi-filetype-csv text-light" style="font-size: 3rem;"></i></span>
             </div>
           </div>
+          </router-link>
           <h4>{{ $t("Prefix: DOI List (CSV file)") }}</h4>
           <p class="text-secondary" style="text-align: justify; white-space: pre-wrap;">{{ $t("Prefix: DOI List (CSV file) Description") }}</p>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-          <div class="d-flex justify-content-center align-items-center mb-4">
-            <div class="circle-dark">
-              <span><i class="bi bi-search text-light" style="font-size: 3rem;"></i></span>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+          <router-link to="/prefix/referenced/dois">
+            <div class="d-flex justify-content-center align-items-center mb-4">
+              <div class="circle-dark">
+                <span><i class="bi bi-graph-up-arrow text-light" style="font-size: 3rem;"></i></span>
+              </div>
             </div>
-          </div>
-          <h4>{{ $t("DOI Search") }}</h4>
-          <p class="text-secondary" style="text-align: justify;">{{ $t("DOI Search Description") }}</p>
+          </router-link>
+          <h4>{{ $t("Prefix: DOIs and ORCIDs") }}</h4>
+          <p class="text-secondary" style="text-align: justify; white-space: pre-wrap;">{{ $t("Prefix: DOIs and ORCIDs Description") }}</p>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+          <router-link to="/members">
           <div class="d-flex justify-content-center align-items-center mb-4">
             <div class="circle-yellow">
               <span><i class="bi bi-person-bounding-box text-light" style="font-size: 3rem;"></i></span>
             </div>
           </div>
+          </router-link>
           <h4>{{ $t("Member Search") }}</h4>
           <p class="text-secondary" style="text-align: justify;">{{ $t("Member Search Description") }}</p>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-          <div class="d-flex justify-content-center align-items-center mb-4">
-            <div class="circle-dark">
-              <span><i class="bi bi-graph-up-arrow text-light" style="font-size: 3rem;"></i></span>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+          <router-link to="/doi">
+            <div class="d-flex justify-content-center align-items-center mb-4">
+              <div class="circle-dark">
+                <span><i class="bi bi-search text-light" style="font-size: 3rem;"></i></span>
+              </div>
             </div>
-          </div>
-          <h4>{{ $t("Prefix: DOIs and ORCIDs") }}</h4>
-          <p class="text-secondary" style="text-align: justify; white-space: pre-wrap;">{{ $t("Prefix: DOIs and ORCIDs Description") }}</p>
+          </router-link>
+          <h4>{{ $t("DOI Search") }}</h4>
+          <p class="text-secondary" style="text-align: justify;">{{ $t("DOI Search Description") }}</p>
         </div>
 
       </div>

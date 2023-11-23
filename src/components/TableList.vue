@@ -11,7 +11,7 @@
             </div>
 
             <div class="mb-1">
-              <span class="h6 text-dark">DOI: </span> <a :href="item.DOI" target="_blank">{{ item.DOI }} <i class="bi bi-box-arrow-up-right"></i></a>
+              <span class="h6 text-dark">DOI: </span> <a :href="'http://dx.doi.org/' + item.DOI" target="_blank">{{ item.DOI }} <i class="bi bi-box-arrow-up-right"></i></a>
             </div>
 
             <div class="text-secondary mb-1" v-if="item.deposited">
