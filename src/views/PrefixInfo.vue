@@ -115,12 +115,12 @@
 
       <div class="row" v-if="showPublished || showDeposited" ref="customDiv">
 
-        <h3 v-if="showPublished">{{ $t("Chart published date") }}</h3>
+        <h4 v-if="showPublished">{{ $t("Chart published date") }}</h4>
         <p v-if="showPublished" class="blockquote-footer mb-2">{{ $t("Chart published date Info") }}</p>
 
 
 
-        <h3 v-if="showDeposited">{{ $t("Chart first deposited date") }}</h3>
+        <h4 v-if="showDeposited">{{ $t("Chart first deposited date") }}</h4>
         <p v-if="showDeposited" class="blockquote-footer">{{ $t("Chart first deposited date Info") }}</p>
 
         <vue-highcharts

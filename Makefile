@@ -24,4 +24,4 @@ scp-image:
 	scp doiboard-image.tar root@apren.upc.edu:/SAN/docker-deploy/doiboard
 	rm doiboard-image.tar
 
-publish: | npm-build build save-image scp-image
+publish: | build save-image scp-image
