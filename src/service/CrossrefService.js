@@ -274,7 +274,9 @@ class CrossrefService {
 
     getTypes = async () => {
         const response = await http.get(`/types?mailto=info.idp@upc.edu`)
-        return response.data.message.items
+        return response.data.message.items.sort((a, b) => {
+            return a.label.localeCompare(b.label);
+        });
     }
 
 

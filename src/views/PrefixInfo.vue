@@ -104,6 +104,77 @@
                       </div>
                     </div>
                   </div>
+
+
+
+                  <div class="row">
+                    <div class="col-xl-3 col-md-6" style="margin-top: 80px;">
+                      <h5>Affiliations</h5>
+                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected].affiliations * 100).toFixed(0) }} %</h4>
+                      <div class="progress">
+                        <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected].affiliations * 100).toFixed(0) + '%'}"></div>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6" style="margin-top: 80px;">
+                      <h5>Funders</h5>
+                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected].funders * 100).toFixed(0) }} %</h4>
+                      <div class="progress">
+                        <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected].funders * 100).toFixed(0) + '%'}"></div>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6" style="margin-top: 80px;">
+                      <h5>Similarity checking</h5>
+                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected]['similarity-checking'] * 100).toFixed(0) }} %</h4>
+                      <div class="progress">
+                        <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected]['similarity-checking'] * 100).toFixed(0) + '%'}"></div>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6" style="margin-top: 80px;">
+                      <h5>Award numbers</h5>
+                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected]['award-numbers'] * 100).toFixed(0) }} %</h4>
+                      <div class="progress">
+                        <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected]['award-numbers'] * 100).toFixed(0) + '%'}"></div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+                  <div class="row">
+                    <div class="col-xl-3 col-md-6" style="margin-top: 80px;">
+                      <h5>Ror ids</h5>
+                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected]['ror-ids'] * 100).toFixed(0) }} %</h4>
+                      <div class="progress">
+                        <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected]['ror-ids'] * 100).toFixed(0) + '%'}"></div>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6" style="margin-top: 80px;">
+                      <h5>Update policies</h5>
+                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected]['update-policies'] * 100).toFixed(0) }} %</h4>
+                      <div class="progress">
+                        <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected]['update-policies'] * 100).toFixed(0) + '%'}"></div>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6" style="margin-top: 80px;">
+                      <h5>Resource links</h5>
+                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected]['resource-links'] * 100).toFixed(0) }} %</h4>
+                      <div class="progress">
+                        <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected]['resource-links'] * 100).toFixed(0) + '%'}"></div>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6" style="margin-top: 80px;">
+                      <h5>Descriptions</h5>
+                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected].descriptions * 100).toFixed(0) }} %</h4>
+                      <div class="progress">
+                        <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected].descriptions * 100).toFixed(0) + '%'}"></div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
                 </div>
               </div>
             </div>
