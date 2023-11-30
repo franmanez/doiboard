@@ -4,6 +4,7 @@ import PrefixReferencedDois from "@/views/PrefixReferencedDois.vue";
 import PrefixReferencedOrcids from "@/views/PrefixReferencedOrcids.vue";
 import MembersList from "@/views/MembersList.vue";
 import PrefixDois from "@/views/PrefixDois.vue";
+import ChatGPT from "@/views/ChatGPT.vue";
 
 const routes = [
   {
@@ -54,6 +55,12 @@ const routes = [
     name: 'test',
     component: () => import(/* webpackChunkName: "about" */ './samples/ParentComponent.vue')
   },
+  {
+    path: '/chat',
+    name: 'chat',
+    component: ChatGPT
+  },
+
   { path: '/:pathMatch(.*)*', name: 'error', component: Error },
 ]
 
