@@ -17,9 +17,11 @@
             <tr>
               <th class="text-secondary" style="width: 5%">#</th>
               <th class="text-secondary" style="width: 25%">DOI</th>
-              <th class="text-secondary d-none d-lg-table-cell" style="width: 45%">{{ $t("Title") }}</th>
+              <th class="text-secondary d-none d-lg-table-cell" style="width: 37%">{{ $t("Title") }}</th>
               <th class="text-secondary text-center d-none d-sm-table-cell" style="width: 15%">{{ $t("Type") }}</th>
-              <th class="text-secondary text-end" style="width: 10%">{{ $t("Count") }}</th>
+              <th class="text-secondary text-center" style="width: 10%">Index</th>
+              <th class="text-secondary text-end" style="width: 8%">{{ $t("Count") }}</th>
+
             </tr>
             </thead>
             <tbody>
@@ -28,7 +30,21 @@
               <td><a :href="item.DOI" target="_blank">{{ item.DOI }} <i class="bi bi-box-arrow-up-right"></i></a></td>
               <td class="text-secondary d-none d-lg-table-cell">{{ item.title[0] }}</td>
               <td class="text-center d-none d-sm-table-cell"><span class="mt-1 text-dark badge bg-warning">{{ item.type }}</span></td>
+              <td class="text-center">
+                <a :href="'https://opencitations.net/index/search?text='+item.DOI+'&rule=citeddoi'" target="_blank" title="OpenCitations" class="navbar-brand" >
+                  <img src="@/assets/cites-opencitations.png" height="25" class="mx-1 mt-2" alt="Logo">
+                </a>
+
+                <a :href="'https://explore.openaire.eu/search/publication?pid='+item.DOI" target="_blank" title="OpenAIRE" class="navbar-brand">
+                  <img src="@/assets/cites-openaire.png" height="25" class="mx-2 mt-2" alt="Logo">
+                </a>
+
+                <a :href="'https://scholar.google.com/scholar?hl=ca&as_sdt=0%2C5&q='+item.DOI+'&btnG='" title="Google Scholar" target="_blank" class="navbar-brand">
+                  <img src="@/assets/cites-googlescholar.png" height="25" class="mx-0 mt-2" alt="Logo">
+                </a>
+              </td>
               <td class="text-end"><span class="h2 text-warning">{{ item['is-referenced-by-count'].toLocaleString() }}</span></td>
+
 
             </tr>
             </tbody>

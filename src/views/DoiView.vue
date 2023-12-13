@@ -67,6 +67,20 @@
                       <h5>{{ $t("Referenced") }}</h5>
                       <p class="text-muted">{{contentDOI.referenced}}</p>
                       <div class="blockquote-footer text-success" style="font-size: 0.8em;">{{ $t("Referenced Info") }}</div>
+
+                      <div class="text-end">
+                        <a :href="'https://opencitations.net/index/search?text='+doi+'&rule=citeddoi'" target="_blank" title="OpenCitations" class="navbar-brand" >
+                          <img src="@/assets/cites-opencitations.png" height="25" class="mx-1 mt-2" alt="Logo">
+                        </a>
+
+                        <a :href="'https://explore.openaire.eu/search/publication?pid='+doi" target="_blank" title="OpenAIRE" class="navbar-brand">
+                          <img src="@/assets/cites-openaire.png" height="25" class="mx-2 mt-2" alt="Logo">
+                        </a>
+
+                        <a :href="'https://scholar.google.com/scholar?hl=ca&as_sdt=0%2C5&q='+doi+'&btnG='" title="Google Scholar" target="_blank" class="navbar-brand">
+                          <img src="@/assets/cites-googlescholar.png" height="25" class="mx-0 mt-2" alt="Logo">
+                        </a>
+                      </div>
                     </div>
                   </div>
 
