@@ -1,0 +1,53 @@
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,400italic,500,500italic,700,700italic,900italic,900);
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+#app {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: justify;
+    color: #484444;
+    margin-top: 60px;
+}
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #ffc72c;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgb(0, 0, 0), rgb(1, 118, 152));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgb(0, 0, 0), rgb(1, 118, 152))
+}
+
+
+.center {
+    text-align: center;
+}
+
+a {
+    text-decoration: none; /* Para quitar el subrayado predeterminado */
+    color: #017698FF; /* Cambia el color a tu preferencia */
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+.bg-doi-green {
+    background-color: #017698FF !important;
+}
+
+.text-doi-green {
+    color: #017698FF !important;
+}
