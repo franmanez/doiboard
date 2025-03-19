@@ -1,0 +1,16 @@
+services:
+  aprenfrontend:
+    #build:
+    #  context: .
+    #  dockerfile: Dockerfile
+    image: registry.upc.edu/sddstic-sbpa/doiboard/frontend:latest
+    container_name: doiboardfrontend
+    #ports:
+    #  - "81:80" no necesito los ports porque dejo que sea el proxy inverso de nginx el que maneje las peticiones.
+    #network_mode: host
+    networks:
+      - global_nginx_network
+
+networks:
+  global_nginx_network:
+    external: true  # Usa la red creada en el otro `docker-compose`
