@@ -156,13 +156,15 @@
 <script>
 
   import http from '@/http-common';
-  import {ref} from "vue";
+  import {onMounted, ref, watch} from "vue";
   import LoadingComponent from "@/components/Loading.vue";
+  import {useRoute} from "vue-router";
   export default {
     name: "DoiSearch",
     components: {LoadingComponent},
 
     setup(){
+      const route = useRoute();
       const isLoading = ref(false)
       const contentPrefix = ref({})
       const doi = ref('10.5821/ace.v4i12.2483');
@@ -208,6 +210,26 @@
         }
         isLoading.value = false
       }
+
+
+      // Cuando el componente se monta, si hay DOI en la URL lo buscamos
+      onMounted(() => {
+        if (route.query.id) {
+          doi.value = route.query.id;
+          getDOI();
+        }
+      });
+
+      // Si cambia el parámetro en la URL, actualizamos
+      watch(
+          () => route.params.id,
+          (newId) => {
+            if (newId) {
+              doi.value = newId;
+              getDOI();
+            }
+          }
+      );
 
       return{
         contentPrefix,

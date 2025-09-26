@@ -15,7 +15,7 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/doi',
+    path: '/doi/:id?',
     name: 'doi',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -23,7 +23,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ './views/DoiView.vue')
   },
   {
-    path: '/prefix/info',
+    path: '/prefix/info/:id?',
     name: 'prefixInfo',
     component: () => import(/* webpackChunkName: "about" */ './views/PrefixInfo.vue')
   },

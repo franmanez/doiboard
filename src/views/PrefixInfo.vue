@@ -217,13 +217,14 @@
 <script>
 
 import CrossrefService from '@/service/CrossrefService';
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {useI18n} from 'vue-i18n';
 import VueHighcharts from 'vue3-highcharts';
 import {useStore} from "vuex";
 import LoadingComponent from "@/components/Loading.vue";
 import PrefixHeader from "@/views/PrefixHeader.vue";
 import {ElMessageBox} from "element-plus";
+import {useRoute} from "vue-router";
 
 export default {
     name: "PrefixInfo",
@@ -236,6 +237,7 @@ export default {
     },
 
     setup(){
+      const route = useRoute();
       const { t } = useI18n();
       const store = useStore()
       const content = ref({})
@@ -428,6 +430,25 @@ export default {
             })
 
       }
+
+      // Cuando el componente se monta, si hay DOI en la URL lo buscamos
+      onMounted(() => {
+        if (route.query.id) {
+          prefix.value = route.query.id;
+          search();
+        }
+      });
+
+      // Si cambia el parámetro en la URL, actualizamos
+      watch(
+          () => route.params.id,
+          (newId) => {
+            if (newId) {
+              prefix.value = newId;
+              search();
+            }
+          }
+      );
 
 
       return{
