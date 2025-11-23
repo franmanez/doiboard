@@ -10,23 +10,25 @@
 
       <div class="row mb-2">
 
-        <table class="table table-responsive table-striped">
-          <thead>
-          <tr>
-            <th class="text-secondary" style="width: 5%">#</th>
-            <th class="text-secondary" style="width: 60%">ORCID</th>
-            <th class="text-secondary text-end" style="width: 35%">{{ $t("Count") }}</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="(item, index) in content" :key="item.id">
-            <td><span class="h4 text-secondary">{{ index + 1 }}</span></td>
-            <td><a :href="item.orcid" target="_blank">{{ item.orcid }} <i class="bi bi-box-arrow-up-right"></i></a></td>
-            <td class="text-end"><span class="h2 text-warning">{{ item.count.toLocaleString() }}</span></td>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th class="text-secondary" style="width: 5%">#</th>
+              <th class="text-secondary" style="width: 60%">ORCID</th>
+              <th class="text-secondary text-end" style="width: 35%">{{ $t("Count") }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(item, index) in content" :key="item.id">
+              <td><span class="h4 text-secondary h6 h-md-4">{{ index + 1 }}</span></td>
+              <td><a :href="item.orcid" target="_blank" class="small">{{ item.orcid }} <i class="bi bi-box-arrow-up-right"></i></a></td>
+              <td class="text-end"><span class="h2 text-warning h4 h-md-2">{{ item.count.toLocaleString() }}</span></td>
 
-          </tr>
-          </tbody>
-        </table>
+            </tr>
+            </tbody>
+          </table>
+        </div>
 
 
 

@@ -6,23 +6,24 @@
         <h4 class="mb-3">{{ title }}</h4>
         <div class="input-group">
           <input type="text" class="form-control form-control-lg rounded-0" v-model="prefixChild" @keyup.enter="doSearch" placeholder="10.nnnnnn">
-          <button class="btn btn-lg btn-warning rounded-0" type="button" @click="doSearch">{{ $t("Search") }}</button>
+          <button class="btn btn-lg btn-warning rounded-0 d-none d-sm-inline-block" type="button" @click="doSearch">{{ $t("Search") }}</button>
+          <button class="btn btn-sm btn-warning rounded-0 d-inline-block d-sm-none" type="button" @click="doSearch">{{ $t("Search") }}</button>
         </div>
 
         <div class="col-12 mt-4" v-if="prefixStore !== ''">
 
-          <ul class="nav nav-pills nav-fill mb-5">
+          <ul class="nav nav-pills nav-fill flex-column flex-sm-row mb-5">
             <li class="nav-item me-1 mb-1">
-              <router-link :to="{ name: 'prefixInfo' }" class="nav-link rounded-0" :class="{ 'active': $route.path === '/prefix/info' }">{{ $t("Member Information") }}</router-link>
+              <router-link :to="{ name: 'prefixInfo' }" class="nav-link rounded-0 small" :class="{ 'active': $route.path === '/prefix/info' }">{{ $t("Member Information") }}</router-link>
             </li>
-            <li class="nav-item rounded-0 me-1">
-              <router-link :to="{ name: 'prefixDois' }" class="nav-link rounded-0" :class="{ 'active': $route.path === '/prefix/dois' }">{{ $t("DOI List") }}</router-link>
+            <li class="nav-item rounded-0 me-1 mb-1">
+              <router-link :to="{ name: 'prefixDois' }" class="nav-link rounded-0 small" :class="{ 'active': $route.path === '/prefix/dois' }">{{ $t("DOI List") }}</router-link>
             </li>
-            <li class="nav-item rounded-0 me-1">
-              <router-link :to="{ name: 'prefixReferencedDois' }" class="nav-link rounded-0" :class="{ 'active': $route.path === '/prefix/referenced/dois' }">{{ $t("Most referenced DOIs") }}</router-link>
+            <li class="nav-item rounded-0 me-1 mb-1">
+              <router-link :to="{ name: 'prefixReferencedDois' }" class="nav-link rounded-0 small" :class="{ 'active': $route.path === '/prefix/referenced/dois' }">{{ $t("Most referenced DOIs") }}</router-link>
             </li>
-            <li class="nav-item rounded-0 me-1">
-              <router-link :to="{ name: 'prefixReferencedOrcids' }" class="nav-link rounded-0" :class="{ 'active': $route.path === '/prefix/referenced/orcids' }">{{ $t("Most referenced ORCIDs") }}</router-link>
+            <li class="nav-item rounded-0 me-1 mb-1">
+              <router-link :to="{ name: 'prefixReferencedOrcids' }" class="nav-link rounded-0 small" :class="{ 'active': $route.path === '/prefix/referenced/orcids' }">{{ $t("Most referenced ORCIDs") }}</router-link>
             </li>
           </ul>
 
@@ -55,7 +56,7 @@
 
           </nav-->
 
-          <h1> <span class="text-muted">{{memberName}}</span></h1>
+          <h1 class="h3 h-md-1"> <span class="text-muted">{{memberName}}</span></h1>
           <hr class="mt-0 mb-3 bg-secondary" style="height:3px; border:none;" />
 
         </div>

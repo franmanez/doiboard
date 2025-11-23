@@ -4,7 +4,7 @@
     <div class="container mb-5">
       <div class="row mb-2 mt-3">
         <h4 class="mb-3">{{ $t("DOI Search") }}</h4>
-        <div v-if="$i18n.locale == 'ca'" class="input-group">
+        <div v-if="$i18n.locale == 'ca'" class="input-group small">
           <p>
             Dins del procés de millora de l’assignació d’identificadors DOI iniciat pel Servei de Biblioteques, Publicacions i Arxius de la UPC, s’ha desenvolupat el servei DOIBoard, per tal de poder recuperar informació sobre aquests identificadors incorporats a l’entitat registradora  CrossRef.
           </p>
@@ -31,7 +31,7 @@
 
         </div>
 
-        <div v-if="$i18n.locale == 'es'" class="input-group">
+        <div v-if="$i18n.locale == 'es'" class="input-group small">
           <p>
             Dentro del proceso de mejora de la asignación de identificadores DOI iniciado por el Servicio de Bibliotecas, Publicaciones y Archivos de la UPC, se ha desarrollado el servicio DOIBoard, con el fin de poder recuperar información sobre estos identificadores incorporados en la entidad registradora CrossRef.
           </p>
@@ -56,7 +56,7 @@
           </ul>
         </div>
 
-        <div v-if="$i18n.locale == 'en'" class="input-group">
+        <div v-if="$i18n.locale == 'en'" class="input-group small">
           <p>
             As part of the process to improve the assignment of DOI identifiers initiated by the UPC Libraries, Publications, and Archives Service, the DOIBoard service has been developed to retrieve information about these identifiers incorporated into the CrossRef registry entity.
           </p>

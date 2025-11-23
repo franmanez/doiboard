@@ -13,7 +13,7 @@
 
           <div class="row mb-5">
 
-            <div class="col-md-4">
+            <div class="col-12 col-md-4 mb-3 mb-md-0">
               <div class="form-text text-secondary mb-2">{{ $t("First deposited date") }}</div>
               <el-date-picker
                   v-model="dates"
@@ -25,14 +25,15 @@
                   :disabled-date="disabledFutureDates"
                   :shortcuts="shortcuts"
                   size="large"
+                  style="width: 100%;"
               />
 
             </div>
 
 
-            <div class="col-md-2">
+            <div class="col-12 col-md-2 mb-3 mb-md-0">
               <div class="form-text text-secondary mb-2">{{ $t("Document Type") }}</div>
-              <el-select v-model="type" filterable placeholder="Document type" size="large" @keyup.enter="search">
+              <el-select v-model="type" filterable placeholder="Document type" size="large" @keyup.enter="search" style="width: 100%;">
                 <el-option :label="$t('Document Type All')" value=""></el-option>
                 <el-option
                     v-for="item in types"
@@ -45,21 +46,21 @@
             </div>
 
 
-            <div class="col-md-5">
+            <div class="col-12 col-md-5 mb-3 mb-md-0">
               <div id="queryHelp" class="form-text text-secondary mb-2">{{ $t("Free form search") }}</div>
               <div class="input-group">
                 <input type="text" class="form-control rounded-1" v-model="query" id="query" aria-describedby="queryHelp" @keyup.enter="search">
               </div>
             </div>
 
-            <div class="col-md-1 mt-4">
-              <button class="btn btn-dark rounded-1 mt-2" type="button" @click="search">{{ $t("Filter") }}</button>
+            <div class="col-12 col-md-1 mt-md-4 mt-0">
+              <button class="btn btn-dark rounded-1 w-100" type="button" @click="search">{{ $t("Filter") }}</button>
             </div>
 
           </div>
 
-          <div class="d-flex justify-content-between">
-            <div class="">
+          <div class="d-flex flex-column flex-md-row justify-content-between">
+            <div class="mb-3 mb-md-0">
               <PaginationTable
                   class="container"
                   :show-pagination="true"

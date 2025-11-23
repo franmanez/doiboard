@@ -51,3 +51,8 @@ a:hover {
 .text-doi-green {
     color: #017698FF !important;
 }
+
+/* Asegurar que el overlay de loading no interfiera con el header */
+.vld-overlay {
+    z-index: 999 !important; /* Menor que el header que tiene z-index: 1000 */
+}

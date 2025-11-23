@@ -15,7 +15,8 @@
               <h4 class="mb-3">{{ $t("Members list") }}</h4>
               <div class="input-group">
                 <input type="text" class="form-control form-control-lg rounded-0" v-model="query" id="query" aria-describedby="queryHelp" @keyup.enter="search">
-                <button class="btn btn-lg btn-dark rounded-0" type="button" @click="search">Search</button>
+                <button class="btn btn-lg btn-dark rounded-0 d-none d-sm-inline-block" type="button" @click="search">Search</button>
+                <button class="btn btn-sm btn-dark rounded-0 d-inline-block d-sm-none" type="button" @click="search">Search</button>
               </div>
               <div id="queryHelp" class="form-text text-secondary">{{ $t("Members list Info") }}</div>
             </div>
@@ -40,23 +41,23 @@
               <div v-for="(item, index) in content" :key="index" class="list-group-item list-group-item-action flex-column align-items-start">
 
                 <div class="mt-2 mb-2 row">
-                  <div class="col-md-8">
+                  <div class="col-12 col-md-8 mb-3 mb-md-0">
 
                     <div>
                       <div class="mb-1 text-secondary" >
-                        <span class="h5">{{ (item['primary-name']) }} </span>
+                        <span class="h5 h6 h-md-5">{{ (item['primary-name']) }} </span>
                       </div>
 
                       <div class="text-secondary mb-1" v-if="item.location">
-                        <span class="h6 text-dark">{{ $t("Location") }}: </span> {{ item.location  }}
+                        <span class="h6 text-dark small">{{ $t("Location") }}: </span> {{ item.location  }}
                       </div>
 
                       <div class="row pt-1">
                         <div class="col-12 mb-3">
-                          <h6>{{ $t("DOI Prefixes") }}</h6>
+                          <h6 class="small">{{ $t("DOI Prefixes") }}</h6>
                           <div class="text-secondary mb-1 me-5"  v-for="(prefix, index) in item.prefix" :key="index">
                             <img src="@/assets/doi-logo.png" width="20" class="me-1" alt="doi">
-                            <span class="text-secondary">
+                            <span class="text-secondary small">
                               {{prefix.value}} <!--({{prefix.name}})-->
                             </span>
                           </div>
@@ -73,18 +74,18 @@
 
                   </div>
 
-                  <div class="col-md-4">
+                  <div class="col-12 col-md-4">
 
 
 
 
                     <div class="row mb-2">
-                      <div class="col-md-6">
-                        <div class="text-dark badge bg-warning">
+                      <div class="col-6 col-md-6">
+                        <div class="text-dark badge bg-warning small">
                           TOTAL DOIs
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-6 col-md-6 text-end text-md-start">
                           {{(Object.values(item['counts-type'].all).reduce((count, value) => count + value, 0)).toLocaleString()}}
                       </div>
                     </div>
@@ -93,10 +94,10 @@
 
                     <div class="text-secondary small mb-1"  v-for="(count, documentType) in item['counts-type'].all" :key="documentType">
                       <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-6 col-md-6">
                           {{documentType}}
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-6 col-md-6 text-end text-md-start">
                           {{count.toLocaleString()}}
                         </div>
                       </div>
@@ -130,12 +131,12 @@
 
 import CrossrefService from '@/service/CrossrefService';
 import PaginationTable from "@/components/PaginationTable.vue"
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, ref, nextTick} from "vue";
 import { useStore } from 'vuex'
 import LoadingComponent from "@/components/Loading.vue";
 
 export default {
-    name: "PrefixDois",
+    name: "MembersList",
 
     components: {
       LoadingComponent,
@@ -203,6 +204,17 @@ export default {
         }
 
         isLoading.value = false
+        
+        // Restaurar el foco al input después de la búsqueda
+        await nextTick();
+        setTimeout(() => {
+          const queryInput = document.getElementById('query');
+          if (queryInput) {
+            queryInput.focus();
+            // Mover el cursor al final del texto
+            queryInput.setSelectionRange(queryInput.value.length, queryInput.value.length);
+          }
+        }, 100);
       }
 
 

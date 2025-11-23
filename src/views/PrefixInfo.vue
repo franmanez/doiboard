@@ -13,18 +13,18 @@
 
           <div class="card bg-warning mb-5 bg-opacity-75">
             <div class="card-body text-dark">
-              <div class="d-flex justify-content-between p-md-1">
-                <div class="d-flex flex-row">
+              <div class="d-flex flex-column flex-md-row justify-content-between p-md-1">
+                <div class="d-flex flex-row mb-3 mb-md-0">
                   <div class="align-self-center">
-                    <i class="bi bi-file-earmark text-dark me-5" style="font-size: 3rem;"></i>
+                    <i class="bi bi-file-earmark text-dark me-md-5 me-2" style="font-size: 3rem;"></i>
                   </div>
                   <div>
-                    <h2>TOTAL</h2>
-                    <p class="mb-0">{{ $t("Total number of deposited DOIs") }}</p>
+                    <h2 class="h4 h-md-2">TOTAL</h2>
+                    <p class="mb-0 small">{{ $t("Total number of deposited DOIs") }}</p>
                   </div>
                 </div>
                 <div class="align-self-center">
-                  <h2 class="h1 mb-0">{{content.total.toLocaleString()}}</h2>
+                  <h2 class="h1 mb-0 h3 h-md-1">{{content.total.toLocaleString()}}</h2>
                 </div>
               </div>
             </div>
@@ -75,30 +75,30 @@
               <div class="card proj-progress-card">
                 <div class="card-block">
                   <div class="row">
-                    <div class="col-xl-3 col-md-6">
+                    <div class="col-xl-3 col-md-6 col-12 mb-4">
                       <h5>Abstracts</h5>
-                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected].abstracts * 100).toFixed(0) }} %</h4>
+                      <h4 class="mb-3 text-success h5 h-md-4">{{ (content.coverage[typeSelected].abstracts * 100).toFixed(0) }} %</h4>
                       <div class="progress">
                         <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected].abstracts * 100).toFixed(0) + '%'}"></div>
                       </div>
                     </div>
-                    <div class="col-xl-3 col-md-6">
+                    <div class="col-xl-3 col-md-6 col-12 mb-4">
                       <h5>ORCIDs</h5>
-                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected].orcids * 100).toFixed(0) }} %</h4>
+                      <h4 class="mb-3 text-success h5 h-md-4">{{ (content.coverage[typeSelected].orcids * 100).toFixed(0) }} %</h4>
                       <div class="progress">
                         <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected].orcids * 100).toFixed(0) + '%'}"></div>
                       </div>
                     </div>
-                    <div class="col-xl-3 col-md-6">
+                    <div class="col-xl-3 col-md-6 col-12 mb-4">
                       <h5>Licenses</h5>
-                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected].licenses * 100).toFixed(0) }} %</h4>
+                      <h4 class="mb-3 text-success h5 h-md-4">{{ (content.coverage[typeSelected].licenses * 100).toFixed(0) }} %</h4>
                       <div class="progress">
                         <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected].licenses * 100).toFixed(0) + '%'}"></div>
                       </div>
                     </div>
-                    <div class="col-xl-3 col-md-6">
+                    <div class="col-xl-3 col-md-6 col-12 mb-4">
                       <h5>References</h5>
-                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected].references * 100).toFixed(0) }} %</h4>
+                      <h4 class="mb-3 text-success h5 h-md-4">{{ (content.coverage[typeSelected].references * 100).toFixed(0) }} %</h4>
                       <div class="progress">
                         <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected].references * 100).toFixed(0) + '%'}"></div>
                       </div>
@@ -108,30 +108,30 @@
 
 
                   <div class="row">
-                    <div class="col-xl-3 col-md-6" style="margin-top: 80px;">
+                    <div class="col-xl-3 col-md-6 col-12 mb-4" style="margin-top: 0;">
                       <h5>Affiliations</h5>
-                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected].affiliations * 100).toFixed(0) }} %</h4>
+                      <h4 class="mb-3 text-success h5 h-md-4">{{ (content.coverage[typeSelected].affiliations * 100).toFixed(0) }} %</h4>
                       <div class="progress">
                         <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected].affiliations * 100).toFixed(0) + '%'}"></div>
                       </div>
                     </div>
-                    <div class="col-xl-3 col-md-6" style="margin-top: 80px;">
+                    <div class="col-xl-3 col-md-6 col-12 mb-4" style="margin-top: 0;">
                       <h5>Funders</h5>
-                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected].funders * 100).toFixed(0) }} %</h4>
+                      <h4 class="mb-3 text-success h5 h-md-4">{{ (content.coverage[typeSelected].funders * 100).toFixed(0) }} %</h4>
                       <div class="progress">
                         <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected].funders * 100).toFixed(0) + '%'}"></div>
                       </div>
                     </div>
-                    <div class="col-xl-3 col-md-6" style="margin-top: 80px;">
+                    <div class="col-xl-3 col-md-6 col-12 mb-4" style="margin-top: 0;">
                       <h5>Similarity checking</h5>
-                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected]['similarity-checking'] * 100).toFixed(0) }} %</h4>
+                      <h4 class="mb-3 text-success h5 h-md-4">{{ (content.coverage[typeSelected]['similarity-checking'] * 100).toFixed(0) }} %</h4>
                       <div class="progress">
                         <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected]['similarity-checking'] * 100).toFixed(0) + '%'}"></div>
                       </div>
                     </div>
-                    <div class="col-xl-3 col-md-6" style="margin-top: 80px;">
+                    <div class="col-xl-3 col-md-6 col-12 mb-4" style="margin-top: 0;">
                       <h5>Award numbers</h5>
-                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected]['award-numbers'] * 100).toFixed(0) }} %</h4>
+                      <h4 class="mb-3 text-success h5 h-md-4">{{ (content.coverage[typeSelected]['award-numbers'] * 100).toFixed(0) }} %</h4>
                       <div class="progress">
                         <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected]['award-numbers'] * 100).toFixed(0) + '%'}"></div>
                       </div>
@@ -143,30 +143,30 @@
 
 
                   <div class="row">
-                    <div class="col-xl-3 col-md-6" style="margin-top: 80px;">
+                    <div class="col-xl-3 col-md-6 col-12 mb-4" style="margin-top: 0;">
                       <h5>Ror ids</h5>
-                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected]['ror-ids'] * 100).toFixed(0) }} %</h4>
+                      <h4 class="mb-3 text-success h5 h-md-4">{{ (content.coverage[typeSelected]['ror-ids'] * 100).toFixed(0) }} %</h4>
                       <div class="progress">
                         <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected]['ror-ids'] * 100).toFixed(0) + '%'}"></div>
                       </div>
                     </div>
-                    <div class="col-xl-3 col-md-6" style="margin-top: 80px;">
+                    <div class="col-xl-3 col-md-6 col-12 mb-4" style="margin-top: 0;">
                       <h5>Update policies</h5>
-                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected]['update-policies'] * 100).toFixed(0) }} %</h4>
+                      <h4 class="mb-3 text-success h5 h-md-4">{{ (content.coverage[typeSelected]['update-policies'] * 100).toFixed(0) }} %</h4>
                       <div class="progress">
                         <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected]['update-policies'] * 100).toFixed(0) + '%'}"></div>
                       </div>
                     </div>
-                    <div class="col-xl-3 col-md-6" style="margin-top: 80px;">
+                    <div class="col-xl-3 col-md-6 col-12 mb-4" style="margin-top: 0;">
                       <h5>Resource links</h5>
-                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected]['resource-links'] * 100).toFixed(0) }} %</h4>
+                      <h4 class="mb-3 text-success h5 h-md-4">{{ (content.coverage[typeSelected]['resource-links'] * 100).toFixed(0) }} %</h4>
                       <div class="progress">
                         <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected]['resource-links'] * 100).toFixed(0) + '%'}"></div>
                       </div>
                     </div>
-                    <div class="col-xl-3 col-md-6" style="margin-top: 80px;">
+                    <div class="col-xl-3 col-md-6 col-12 mb-4" style="margin-top: 0;">
                       <h5>Descriptions</h5>
-                      <h4 class="mb-3 text-success">{{ (content.coverage[typeSelected].descriptions * 100).toFixed(0) }} %</h4>
+                      <h4 class="mb-3 text-success h5 h-md-4">{{ (content.coverage[typeSelected].descriptions * 100).toFixed(0) }} %</h4>
                       <div class="progress">
                         <div class="progress-bar bg-warning" :style="{width:(content.coverage[typeSelected].descriptions * 100).toFixed(0) + '%'}"></div>
                       </div>

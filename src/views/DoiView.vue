@@ -9,7 +9,8 @@
         <h4 class="mb-3">{{ $t("DOI Search") }}</h4>
         <div class="input-group">
           <input type="text" class="form-control form-control-lg rounded-0" v-model="doi" @keyup.enter="getDOI" placeholder="10.nnnnnn/example">
-          <button class="btn btn-lg btn-warning rounded-0" type="button" @click="getDOI">{{ $t("Search") }}</button>
+          <button class="btn btn-lg btn-warning rounded-0 d-none d-sm-inline-block" type="button" @click="getDOI">{{ $t("Search") }}</button>
+          <button class="btn btn-sm btn-warning rounded-0 d-inline-block d-sm-none" type="button" @click="getDOI">{{ $t("Search") }}</button>
         </div>
       </div>
     </div>
@@ -21,7 +22,7 @@
         <div class="col col-lg-12 mb-4">
           <div class="card mb-3 rounded-0">
             <div class="row g-0">
-              <div class="col-md-1 bg-doi-green text-center text-white">
+              <div class="col-md-1 bg-doi-green text-center text-white d-none d-md-block">
                 <div class="d-flex justify-content-center align-items-center text-nowrap h2" style="height: 100%; width: 100%;">
                   <span class="m-0 d-none d-lg-table-cell" style="writing-mode: vertical-rl; transform: rotate(180deg);">
                     {{ $t("DOI Information") }}
@@ -29,11 +30,11 @@
                 </div>
 
               </div>
-              <div class="col-md-11">
+              <div class="col-md-11 col-12">
                 <div class="card-body p-4">
 
-                  <div class="d-flex justify-content-between">
-                    <div class="me-5"><h3 class="text-secondary">{{contentDOI.publisher}}</h3></div>
+                  <div class="d-flex flex-column flex-md-row justify-content-between">
+                    <div class="me-md-5 mb-2 mb-md-0"><h3 class="text-secondary h5 h-md-3">{{contentDOI.publisher}}</h3></div>
                     <div><h4><p class="badge bg-doi-green">{{contentDOI.type}}</p></h4></div>
                   </div>
 
@@ -50,7 +51,7 @@
 
 
                   <div class="row pt-1">
-                    <div class="col-6 mb-3">
+                    <div class="col-12 col-md-6 mb-3">
                       <h5>{{ $t("Authors") }}</h5>
                       <div class="text-secondary mb-1"  v-for="(author, index) in contentDOI.author" :key="index">
 
@@ -63,12 +64,13 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-6 mb-3 text-end" v-if="contentDOI.referenced">
+                    <div class="col-12 col-md-6 mb-3 text-md-end text-start" v-if="contentDOI.referenced">
                       <h5>{{ $t("Referenced") }}</h5>
                       <p class="text-muted">{{contentDOI.referenced}}</p>
-                      <div class="blockquote-footer text-success" style="font-size: 0.8em;">{{ $t("Referenced Info") }}</div>
+                      <div class="blockquote-footer text-success d-none d-sm-block" style="font-size: 0.8em;">{{ $t("Referenced Info") }}</div>
+                      <div class="blockquote-footer text-success d-block d-sm-none small" style="font-size: 0.7em;">{{ $t("Referenced Info") }}</div>
 
-                      <div class="text-end">
+                      <div class="text-md-end text-start">
                         <a :href="'https://opencitations.net/index/search?text='+doi+'&rule=citeddoi'" target="_blank" title="OpenCitations" class="navbar-brand" >
                           <img src="@/assets/cites-opencitations.png" height="25" class="mx-1 mt-2" alt="Logo">
                         </a>
@@ -87,15 +89,15 @@
                   <hr class="mt-0 mb-4">
 
                   <div class="row pt-1">
-                    <div class="col-4 mb-3">
+                    <div class="col-12 col-md-4 mb-3">
                       <h5>{{ $t("Publication date") }}</h5>
                       <p class="text-muted">{{contentDOI.published}}</p>
                     </div>
-                    <div class="col-4 mb-3 text-end">
+                    <div class="col-12 col-md-4 mb-3 text-md-end text-start">
                       <h5>{{ $t("First deposited date") }}</h5>
                       <p class="text-muted">{{contentDOI.created.substring(0, 10)}}</p>
                     </div>
-                    <div class="col-4 mb-3 text-end">
+                    <div class="col-12 col-md-4 mb-3 text-md-end text-start">
                       <h5>{{ $t("Last deposited date") }}</h5>
                       <p class="text-muted">{{contentDOI['last-deposited'].substring(0, 10)}}</p>
                     </div>
@@ -103,18 +105,18 @@
 
                   <hr class="mt-0 mb-4">
 
-                  <div class="d-flex justify-content-between mb-3">
-                    <span style="font-size: 1.3rem;">
+                  <div class="d-flex flex-column flex-md-row justify-content-between mb-3">
+                    <span class="mb-2 mb-md-0" style="font-size: 1.3rem;">
                       <i class="bi bi-link-45deg" ></i>
                       URL:
-                      <a :href="contentDOI.resource" target="_blank" > {{contentDOI.resource}}</a>
+                      <a :href="contentDOI.resource" target="_blank" class="d-block d-md-inline small"> {{contentDOI.resource}}</a>
                     </span>
                   </div>
                   <div class="d-flex justify-content-start">
                     <span style="font-size: 1.3rem;">
                       <i class="bi bi-box-arrow-in-up-right" ></i>
                       API:
-                      <a :href="'https://api.crossref.org/works/'+doi" target="_blank"> https://api.crossref.org/works/{{doi}} </a>
+                      <a :href="'https://api.crossref.org/works/'+doi" target="_blank" class="d-block d-md-inline small"> https://api.crossref.org/works/{{doi}} </a>
                     </span>
                   </div>
                 </div>
@@ -132,15 +134,14 @@
       <h3><p class="badge bg-danger">TOTAL {{contentPrefix.total}}</p></h3>
       </div>
 
-      <div class="card-group" >
-
-        <div v-for="(value, index, cont) in contentPrefix.facets" :key="value.id">
-          <div class="card me-3 mb-3 text-center" :class="color(cont)" style="width: 17rem;">
+      <div class="row">
+        <div v-for="(value, index, cont) in contentPrefix.facets" :key="value.id" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+          <div class="card text-center" :class="color(cont)" style="width: 100%;">
             <div class="card-header" :class="color(cont)">
-              <h4 class="font-weight-normal">{{ index }}</h4>
+              <h4 class="font-weight-normal h6 h-md-4">{{ index }}</h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title">{{value}}</h1>
+              <h1 class="card-title h3 h-md-1">{{value}}</h1>
             </div>
           </div>
         </div>

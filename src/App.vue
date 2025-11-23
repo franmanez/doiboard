@@ -1,19 +1,27 @@
 <template>
 
   <header>
-    <nav class="navbar gradient-custom navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar gradient-custom navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
 
         <!-- Logo left -->
-        <div class="mt-1 mb-1">
+        <div class="mt-1 mb-1 d-flex align-items-center">
+          <!-- DOI Logo: visible siempre, tamaño pequeño en móviles, normal en escritorio -->
           <a href="https://www.doi.org/" target="_blank" class="navbar-brand" style="color: white; text-decoration: none;">
-            <img src="@/assets/doi-logo.png" width="60" class="rounded-circle mx-0" alt="Logo">
+            <img src="@/assets/doi-logo.png" width="60" class="d-none d-lg-inline-block rounded-circle mx-0" alt="Logo">
+            <img src="@/assets/doi-logo.png" width="50" class="d-inline-block d-lg-none rounded-circle mx-0" alt="Logo">
           </a>
+          <!-- Crossref Logo: visible siempre, tamaño pequeño en móviles, normal en escritorio -->
           <a href="https://www.crossref.org/" target="_blank" class="navbar-brand" style="color: white; text-decoration: none;">
-            <img src="@/assets/logo-crossref.png" width="40" class="mx-0" alt="Logo">
+            <img src="@/assets/logo-crossref.png" width="40" class="d-none d-lg-inline-block mx-0" alt="Logo">
+            <img src="@/assets/logo-crossref.png" width="35" class="d-inline-block d-lg-none mx-0" alt="Logo">
           </a>
+          <!-- UPC Logo: letras en escritorio (lg+), logo circular en móviles (sm y menores) -->
           <a href="https://www.upc.edu" target="_blank" class="navbar-brand" style="color: white; text-decoration: none;">
-            <img src="@/assets/logo-upc-letras-blanco.png" width="260" class="mx-0" alt="Logo">
+            <!-- Escritorio (lg+): logo con letras -->
+            <img src="@/assets/logo-upc-letras-blanco.png" width="260" class="d-none d-lg-inline-block mx-0" alt="Logo">
+            <!-- Móviles (sm y menores): logo circular -->
+            <img src="@/assets/upc-logo.png" width="50" class="d-inline-block d-lg-none mx-0" alt="Logo">
           </a>
         </div>
 
@@ -26,27 +34,28 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item me-3">
-              <router-link to="/" active-class="text-warning" class="nav-link">
+              <router-link to="/" active-class="text-warning" class="nav-link" @click="closeNavbar">
                 <i class="bi bi-house me-1"></i>
                 {{ $t("Home") }}
               </router-link>
             </li>
             <li class="nav-item me-3">
-              <router-link to="/doi" active-class="text-warning" class="nav-link">
+              <router-link to="/doi" active-class="text-warning" class="nav-link" @click="closeNavbar">
                 <i class="bi bi-search me-1"></i>
                 {{ $t("DOI Search") }}
               </router-link>
             </li>
             <li class="nav-item me-3">
-              <router-link to="/prefix/info" active-class="text-warning" class="nav-link">
+              <router-link to="/prefix/info" active-class="text-warning" class="nav-link" @click="closeNavbar">
                 <i class="bi bi-clipboard-data me-1"></i>
                 {{ $t("Prefix Information") }}
               </router-link>
             </li>
-            <li class="nav-item me-5">
-              <router-link to="/members" active-class="text-warning" class="nav-link">
+            <li class="nav-item me-md-5 me-2">
+              <router-link to="/members" active-class="text-warning" class="nav-link" @click="closeNavbar">
                 <i class="bi bi-list-check me-1"></i>
-                {{ $t("Members") }}
+                <span class="d-none d-md-inline">{{ $t("Members") }}</span>
+                <span class="d-inline d-md-none">{{ $t("Members") }}</span>
               </router-link>
             </li>
             <li class="nav-item dropdown mt-1" id="idioma">
@@ -89,20 +98,24 @@
           <div class="row">
 
             <div class="col-lg-12 text-center">
-              <a href="https://www.upc.edu/idp" target="_blank" rel="noreferrer noopener" title="Iniciativa Digital Politècnica" class="me-5">
-                <img src="@/assets/logo-idp-blanco.png" alt="Iniciativa Digital Politècnica" title="Iniciativa Digital Politècnica" class="grayscale" height="60">
+              <a href="https://www.upc.edu/idp" target="_blank" rel="noreferrer noopener" title="Iniciativa Digital Politècnica" class="me-md-5 me-2 mb-2 d-inline-block">
+                <img src="@/assets/logo-idp-blanco.png" alt="Iniciativa Digital Politècnica" title="Iniciativa Digital Politècnica" class="grayscale d-none d-md-inline" height="60" style="max-width: 100%;">
+                <img src="@/assets/logo-idp-blanco.png" alt="Iniciativa Digital Politècnica" title="Iniciativa Digital Politècnica" class="grayscale d-inline d-md-none" height="50" style="max-width: 100%;">
               </a>
-              <a href="https://bibliotecnica.upc.edu/" target="_blank" rel="noreferrer noopener" title="Servei de Biblioteques, Publicacions i Arxius" class="me-5">
-                <img src="@/assets/logo-sbpa-blanc.png" alt="Servei de Biblioteques, Publicacions i Arxius" title="Servei de Biblioteques, Publicacions i Arxius" class="grayscale" height="80">
+              <a href="https://bibliotecnica.upc.edu/" target="_blank" rel="noreferrer noopener" title="Servei de Biblioteques, Publicacions i Arxius" class="me-md-5 me-2 mb-2 d-inline-block">
+                <img src="@/assets/logo-sbpa-blanc.png" alt="Servei de Biblioteques, Publicacions i Arxius" title="Servei de Biblioteques, Publicacions i Arxius" class="grayscale d-none d-md-inline" height="80" style="max-width: 100%;">
+                <img src="@/assets/logo-sbpa-blanc.png" alt="Servei de Biblioteques, Publicacions i Arxius" title="Servei de Biblioteques, Publicacions i Arxius" class="grayscale d-inline d-md-none" height="50" style="max-width: 100%;">
               </a>
               <!--a href="https://www.upc.edu/" target="_blank" rel="noreferrer noopener" title="Universitat Politècnica de Catalunya" class="me-5">
                 <img src="@/assets/logo-upc-color.png" alt="Universitat Politècnica de Catalunya" title="Universitat Politècnica de Catalunya" class="grayscale" height="80">
               </a-->
-              <a href="https://www.crossref.org/" target="_blank" rel="noreferrer noopener" title="Crossref" class="me-5">
-                <img src="@/assets/logo-crossref.svg" alt="Crossref" title="Crossref" class="grayscale" height="55">
+              <a href="https://www.crossref.org/" target="_blank" rel="noreferrer noopener" title="Crossref" class="me-md-5 me-2 mb-2 d-inline-block">
+                <img src="@/assets/logo-crossref.svg" alt="Crossref" title="Crossref" class="grayscale d-none d-sm-inline" height="55" style="max-width: 100%;">
+                <img src="@/assets/logo-crossref.svg" alt="Crossref" title="Crossref" class="grayscale d-inline d-sm-none" height="35" style="max-width: 100%;">
               </a>
-              <a href="https://www.doi.org/" target="_blank" rel="noreferrer noopener" title="DOI" class="me-5">
-                <img src="@/assets/logo-doi.svg" alt="DOI" title="DOI" class="grayscale" height="55">
+              <a href="https://www.doi.org/" target="_blank" rel="noreferrer noopener" title="DOI" class="me-md-5 me-2 mb-2 d-inline-block">
+                <img src="@/assets/logo-doi.svg" alt="DOI" title="DOI" class="grayscale d-none d-sm-inline" height="55" style="max-width: 100%;">
+                <img src="@/assets/logo-doi.svg" alt="DOI" title="DOI" class="grayscale d-inline d-sm-none" height="35" style="max-width: 100%;">
               </a>
 
             </div>
@@ -177,6 +190,27 @@ export default {
       //localStorage.setItem("userLanguage", language)
       //location.reload()
     },
+    closeNavbar() {
+      // Cerrar el menú desplegable cuando se hace clic en un enlace
+      const navbarCollapse = document.getElementById('navbarNav');
+      if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+        // Usar Bootstrap Collapse API para cerrar el menú
+        try {
+          // Intentar usar la API de Bootstrap si está disponible
+          if (window.bootstrap) {
+            const bsCollapse = window.bootstrap.Collapse.getInstance(navbarCollapse) || 
+                              new window.bootstrap.Collapse(navbarCollapse, { toggle: false });
+            bsCollapse.hide();
+          } else {
+            // Fallback: remover la clase 'show' directamente
+            navbarCollapse.classList.remove('show');
+          }
+        } catch (e) {
+          // Si hay algún error, simplemente remover la clase
+          navbarCollapse.classList.remove('show');
+        }
+      }
+    }
   }
 }
 </script>

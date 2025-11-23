@@ -3,23 +3,23 @@
     <div v-for="(item, index) in content" :key="index" class="list-group-item list-group-item-action  flex-column align-items-start">
 
       <div class="mt-2 mb-2 row">
-        <div class="col-md-9">
+        <div class="col-12 col-md-9 mb-3 mb-md-0">
 
           <div>
             <div class="mb-1 text-secondary" v-if="item.title">
-              <span class="h6 text-dark">Title: </span>{{ (item.title[0]) }}
+              <span class="h6 text-dark small">Title: </span><span class="small">{{ (item.title[0]) }}</span>
             </div>
 
             <div class="mb-1">
-              <span class="h6 text-dark">DOI: </span> <a :href="'http://dx.doi.org/' + item.DOI" target="_blank">{{ item.DOI }} <i class="bi bi-box-arrow-up-right"></i></a>
+              <span class="h6 text-dark small">DOI: </span> <a :href="'http://dx.doi.org/' + item.DOI" target="_blank" class="small">{{ item.DOI }} <i class="bi bi-box-arrow-up-right"></i></a>
             </div>
 
             <div class="text-secondary mb-1" v-if="item.deposited">
-              <span class="h6 text-dark">Deposited date: </span> {{ item.deposited['date-time'].substring(0,10)  }}
+              <span class="h6 text-dark small">Deposited date: </span> <span class="small">{{ item.deposited['date-time'].substring(0,10)  }}</span>
             </div>
 
             <div class="text-secondary mb-1" >
-              <span class="h6 text-dark">Referenced: </span> {{ item['is-referenced-by-count'] }}
+              <span class="h6 text-dark small">Referenced: </span> <span class="small">{{ item['is-referenced-by-count'] }}</span>
             </div>
 
             <div class="mt-1 text-dark badge bg-warning" v-if="item.type">
@@ -27,14 +27,14 @@
             </div>
 
             <div v-if="item[8]">
-              <span v-for="sub in item[8].split(';')" :key="sub"  class="badge rounded-pill bg-gray text-light mr-1">{{ sub }}</span>
+              <span v-for="sub in item[8].split(';')" :key="sub"  class="badge rounded-pill bg-gray text-light mr-1 small">{{ sub }}</span>
             </div>
 
           </div>
 
         </div>
 
-        <div class="col-md-3">
+        <div class="col-12 col-md-3">
           <!--span class="h6 text-dark" v-if="item.author">Author</span-->
           <div class="text-secondary mb-1 me-5"  v-for="(author, index) in item.author" :key="index">
             <div v-if="author.family" class="mx-2">

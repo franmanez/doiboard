@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import {computed} from "vue"
+import {computed, ref, onMounted, onUnmounted, watch} from "vue"
 
 export default {
 
@@ -43,10 +43,56 @@ export default {
     },
     setup(props, ctx) {
         const page = computed(() => props.currentPage)
-        const size = computed(() => props.pageSize)
+        const isMobile = ref(false)
+        
+        const updateIsMobile = () => {
+          isMobile.value = window.innerWidth < 768
+        }
+        
+        onMounted(() => {
+          updateIsMobile()
+          window.addEventListener('resize', updateIsMobile)
+        })
+        
+        onUnmounted(() => {
+          window.removeEventListener('resize', updateIsMobile)
+        })
+        
+        // En móvil, forzar pageSize a 10
+        const size = computed(() => {
+          if (isMobile.value) {
+            return 10
+          }
+          return props.pageSize
+        })
+        
+        // Observar cambios en isMobile para actualizar el pageSize si es necesario
+        watch(isMobile, (newVal) => {
+          if (newVal && props.pageSize !== 10) {
+            // Si cambiamos a móvil y el pageSize no es 10, actualizarlo
+            if (props.handleSizeChange) {
+              props.handleSizeChange(10)
+            }
+          }
+        })
+        
         const layout = computed(() => {
-          if(props.total > 10000) return "total, prev, next, sizes"
-          else return "total, prev, pager, next, sizes"
+          // En móvil, quitar "sizes" del layout
+          if (isMobile.value) {
+            // En móvil, si hay más de 50 resultados (más de 5 páginas), no mostrar números
+            if(props.total > 50) {
+              // Más de 50 resultados: solo flechas sin números
+              return "total, prev, next"
+            } else {
+              // 50 o menos resultados: mostrar números
+              if(props.total > 10000) return "total, prev, next"
+              else return "total, prev, pager, next"
+            }
+          } else {
+            // Escritorio: comportamiento normal
+            if(props.total > 10000) return "total, prev, next, sizes"
+            else return "total, prev, pager, next, sizes"
+          }
         })
 
 
