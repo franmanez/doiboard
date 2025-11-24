@@ -89,6 +89,8 @@ export default {
     const memberName = computed(() => { return store.getters.memberName})
 
     const doSearch = () => {
+      // Eliminar espacios en blanco al principio y al final
+      prefixChild.value = prefixChild.value.trim();
       ctx.emit('update:prefix', prefixChild.value);
       // Llama a la función 'search' del componente padre
       search.value();

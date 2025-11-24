@@ -338,6 +338,9 @@ export default {
       const search = async () => {
         error.value = null
         isLoading.value = true
+        
+        // Eliminar espacios en blanco al principio y al final
+        prefix.value = prefix.value.trim()
 
         try{
           //content.value = await CrossrefService.memberInfo(store.getters.prefix)
@@ -434,7 +437,7 @@ export default {
       // Cuando el componente se monta, si hay DOI en la URL lo buscamos
       onMounted(() => {
         if (route.query.id) {
-          prefix.value = route.query.id;
+          prefix.value = route.query.id.trim();
           search();
         }
       });
@@ -444,7 +447,7 @@ export default {
           () => route.params.id,
           (newId) => {
             if (newId) {
-              prefix.value = newId;
+              prefix.value = newId.trim();
               search();
             }
           }

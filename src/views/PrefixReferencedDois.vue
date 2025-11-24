@@ -97,6 +97,10 @@ export default {
       const search = async () => {
         error.value = null
         isLoading.value = true
+        
+        // Eliminar espacios en blanco al principio y al final
+        prefix.value = prefix.value.trim()
+        
         if(prefix.value !== store.getters.prefix){
           try{
             await CrossrefService.memberInfo(prefix.value)

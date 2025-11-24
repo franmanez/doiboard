@@ -193,6 +193,9 @@ export default {
       const search = async () => {
         error.value = null
         isLoading.value = true
+        
+        // Eliminar espacios en blanco al principio y al final
+        query.value = query.value.trim()
 
         try{
           let result = await CrossrefService.getMembers((currentPage.value-1)*store.getters.pageSize, store.getters.pageSize, query.value)

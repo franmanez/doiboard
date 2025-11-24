@@ -181,9 +181,12 @@
       const getDOI = async () => {
         isLoading.value = true
         clear()
+        
+        // Eliminar espacios en blanco al principio y al final
+        doi.value = doi.value.trim()
 
         try {
-          const response = await http.get('/works/'+doi.value.trim())
+          const response = await http.get('/works/'+doi.value)
           if (response.status === 200) {
 
             let published = response.data.message.published['date-parts'][0]
@@ -216,7 +219,7 @@
       // Cuando el componente se monta, si hay DOI en la URL lo buscamos
       onMounted(() => {
         if (route.query.id) {
-          doi.value = route.query.id;
+          doi.value = route.query.id.trim();
           getDOI();
         }
       });
@@ -226,7 +229,7 @@
           () => route.params.id,
           (newId) => {
             if (newId) {
-              doi.value = newId;
+              doi.value = newId.trim();
               getDOI();
             }
           }
