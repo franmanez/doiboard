@@ -82,7 +82,9 @@ export default {
   setup(props, ctx){
     const store = useStore()
     const { search } = toRefs(props);
-    const prefixChild = ref(store.getters.prefix === '' ? 10.5821 : store.getters.prefix)
+    const prefixFromStore = store.getters.prefix;
+    const initialPrefix = prefixFromStore && prefixFromStore !== '' ? String(prefixFromStore) : '10.5821';
+    const prefixChild = ref(initialPrefix)
 
 
     const prefixStore = computed(() => { return store.getters.prefix})
@@ -90,8 +92,10 @@ export default {
 
     const doSearch = () => {
       // Eliminar espacios en blanco al principio y al final
-      prefixChild.value = prefixChild.value.trim();
-      ctx.emit('update:prefix', prefixChild.value);
+      // Asegurarse de que sea una cadena antes de hacer trim
+      const prefixValue = prefixChild.value ? String(prefixChild.value).trim() : '';
+      prefixChild.value = prefixValue;
+      ctx.emit('update:prefix', prefixValue);
       // Llama a la función 'search' del componente padre
       search.value();
     };
