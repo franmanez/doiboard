@@ -126,7 +126,7 @@
         <div class="row gy-4 gx-5">
           <div class="col-lg-4 col-md-6">
             <h5 class="h3 text-white">DOIBoard <span style="color: #4f5858; font-weight: bold;">Crossref</span></h5>
-            <p class="small text-secondary">{{ $t("Information about DOIs and CrossRef prefixes") }}</p>
+            <p class="small text-secondary">{{ $t("Information about DOIs and Crossref prefixes") }}</p>
             <p class="small text-secondary mb-0">© UPC - Universitat Politècnica de Catalunya · BarcelonaTech</p>
           </div>
           <div class="col-lg-2 col-md-6">

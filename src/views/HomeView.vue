@@ -20,8 +20,8 @@
                   <img src="@/assets/logo-crossref.png" class="mx-3 mb-2 d-none d-sm-inline" width="30" alt="Logo">
                   <img src="@/assets/logo-crossref.png" class="mx-2 mb-1 d-inline d-sm-none" width="20" alt="Logo">
                 </h1>
-                <p class="d-none d-sm-block">{{ $t("Information about DOIs and CrossRef prefixes") }}</p>
-                <p class="d-block d-sm-none small">{{ $t("Information about DOIs and CrossRef prefixes") }}</p>
+                <p class="d-none d-sm-block">{{ $t("Information about DOIs and Crossref prefixes") }}</p>
+                <p class="d-block d-sm-none small">{{ $t("Information about DOIs and Crossref prefixes") }}</p>
                 <p>
                   <router-link to="/doi" class="btn btn-lg btn-dark d-none d-sm-inline-block" >
                     {{ $t("DOI Search") }}
@@ -46,8 +46,8 @@
                   <img src="@/assets/logo-crossref.png" class="mx-3 mb-2 d-none d-sm-inline" width="30" alt="Logo">
                   <img src="@/assets/logo-crossref.png" class="mx-2 mb-1 d-inline d-sm-none" width="20" alt="Logo">
                 </h1>
-                <p class="text-dark d-none d-sm-block">{{ $t("Information about DOIs and CrossRef prefixes") }}</p>
-                <p class="text-dark d-block d-sm-none small">{{ $t("Information about DOIs and CrossRef prefixes") }}</p>
+                <p class="text-dark d-none d-sm-block">{{ $t("Information about DOIs and Crossref prefixes") }}</p>
+                <p class="text-dark d-block d-sm-none small">{{ $t("Information about DOIs and Crossref prefixes") }}</p>
                 <p>
                   <router-link to="/prefix/info" class="btn btn-lg btn-dark d-none d-sm-inline-block" >
                     {{ $t("Prefix Information") }}
