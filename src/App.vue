@@ -52,8 +52,16 @@
               </router-link>
             </li>
 
+            <li class="nav-item me-3">
+              <router-link to="/members" active-class="text-warning" class="nav-link" @click="closeNavbar">
+                <i class="bi bi-list-check me-1"></i>
+                <span class="d-none d-md-inline">{{ $t("Members") }}</span>
+                <span class="d-inline d-md-none">{{ $t("Members") }}</span>
+              </router-link>
+            </li>
+
             <!-- AI LAB DROPDOWN -->
-            <li class="nav-item me-3 dropdown">
+            <li class="nav-item me-md-5 me-2 dropdown">
               <a class="nav-link dropdown-toggle text-warning-hover" href="#" id="aiLabDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-robot me-1"></i>
                 AI Lab
@@ -61,28 +69,25 @@
               <ul class="dropdown-menu dropdown-menu-dark shadow-lg border-0" aria-labelledby="aiLabDropdown">
                 <li>
                   <router-link to="/radar" class="dropdown-item py-2" @click="closeNavbar">
-                    <i class="bi bi-bullseye me-2 text-primary"></i>Radar de Innovación
+                    <i class="bi bi-bullseye me-2 text-primary"></i>{{ $t("Innovation Radar") }}
                   </router-link>
                 </li>
                 <li>
                   <router-link to="/daily-analysis" class="dropdown-item py-2" @click="closeNavbar">
-                    <i class="bi bi-activity me-2 text-success"></i>Análisis Diario
+                    <i class="bi bi-activity me-2 text-success"></i>{{ $t("Daily Analysis") }}
                   </router-link>
                 </li>
               </ul>
             </li>
 
-            <li class="nav-item me-md-5 me-2">
-              <router-link to="/members" active-class="text-warning" class="nav-link" @click="closeNavbar">
-                <i class="bi bi-list-check me-1"></i>
-                <span class="d-none d-md-inline">{{ $t("Members") }}</span>
-                <span class="d-inline d-md-none">{{ $t("Members") }}</span>
-              </router-link>
-            </li>
+
             <li class="nav-item dropdown mt-1" id="idioma">
               <el-dropdown trigger="click" class="nav-link dropdown-toggle">
                 <a class="el-dropdown-link">
-                  <span class="text-warning"><i class="bi bi-globe"></i> </span>
+                  <span class="text-warning">
+                    <i class="bi bi-globe me-1"></i>
+                    {{ $i18n.locale === 'es' ? 'Español' : $i18n.locale === 'ca' ? 'Català' : 'English' }}
+                  </span>
                 </a>
                 <template #dropdown>
                   <el-dropdown-menu class="language-selector">

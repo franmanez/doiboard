@@ -44,14 +44,14 @@
                   AI <span style="color: #4f5858; font-weight: bold;">Innovation Lab</span>
                   <i class="bi bi-robot mx-3 mb-2 d-none d-sm-inline" style="font-size: 2rem;"></i>
                 </h1>
-                <p class="text-dark d-none d-sm-block">Análisis semántico avanzado y Radar de innovación con Inteligencia Artificial.</p>
-                <p class="text-dark d-block d-sm-none small">Tendencias y análisis profundo con IA.</p>
+                <p class="text-dark d-none d-sm-block">{{ $t("Advanced semantic analysis and Innovation Radar with AI") }}</p>
+                <p class="text-dark d-block d-sm-none small">{{ $t("Trends and deep analysis with AI") }}</p>
                 <p>
                   <router-link to="/radar" class="btn btn-lg btn-dark d-none d-sm-inline-block">
-                    Explorar Tendencias
+                    {{ $t("Explore Trends") }}
                   </router-link>
                   <router-link to="/radar" class="btn btn-sm btn-dark d-inline-block d-sm-none">
-                    Explorar Tendencias
+                    {{ $t("Explore Trends") }}
                   </router-link>
                 </p>
               </div>
@@ -167,19 +167,18 @@
               <div class="col-lg-7 text-white">
                 <div class="d-inline-flex align-items-center badge bg-primary bg-opacity-25 border border-primary border-opacity-50 text-white rounded-pill px-3 py-2 mb-4">
                   <i class="bi bi-lightning-charge-fill me-2 text-warning"></i>
-                  NUEVAS FUNCIONALIDADES IA
+                  {{ $t("AI Generated") }}
                 </div>
-                <h2 class="display-4 fw-bold mb-3">AI Innovation Lab</h2>
+                <h2 class="display-4 fw-bold mb-3">{{ $t("AI Innovation Lab") }}</h2>
                 <p class="lead mb-4 opacity-75">
-                  Llevamos la minería de datos científicos al siguiente nivel. Descubre conexiones invisibles, 
-                  tendencias vanguardistas y explora el futuro de la investigación con nuestros algoritmos generativos.
+                  {{ $t("AI Lab Description") }}
                 </p>
                 <div class="row g-3">
                   <div class="col-md-6">
-                    <router-link to="/radar" class="btn btn-primary w-100 text-start py-3 px-4 rounded-4 shadow-sm h-100 d-flex align-items-center justify-content-between ai-action-btn">
+                    <router-link to="/radar" class="btn btn-warning w-100 text-start py-3 px-4 rounded-4 shadow-sm h-100 d-flex align-items-center justify-content-between ai-action-btn">
                       <div>
-                        <div class="fw-bold">Innovation Radar</div>
-                        <div class="small opacity-75">Tendencias semanales</div>
+                        <div class="fw-bold">{{ $t("Innovation Radar") }}</div>
+                        <div class="small opacity-75">{{ $t("Weekly Trends") }}</div>
                       </div>
                       <i class="bi bi-bullseye fs-3"></i>
                     </router-link>
@@ -187,8 +186,8 @@
                   <div class="col-md-6">
                     <router-link to="/daily-analysis" class="btn btn-outline-light w-100 text-start py-3 px-4 rounded-4 h-100 d-flex align-items-center justify-content-between ai-action-btn">
                       <div>
-                        <div class="fw-bold">Daily Scientific Analysis</div>
-                        <div class="small opacity-75">Análisis diario profundo</div>
+                        <div class="fw-bold">{{ $t("Daily Scientific Analysis") }}</div>
+                        <div class="small opacity-75">{{ $t("Deep daily analysis") }}</div>
                       </div>
                       <i class="bi bi-activity fs-3"></i>
                     </router-link>
