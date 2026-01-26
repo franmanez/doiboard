@@ -1,31 +1,58 @@
 <template>
   <div class="mt-5">
 
-    <div class="container">
-      <div class="row mb-2 mt-4">
-        <h4 class="mb-3">{{ title }}</h4>
-        <div class="input-group">
-          <input type="text" class="form-control form-control-lg rounded-0" v-model="prefixChild" @keyup.enter="doSearch" placeholder="10.nnnnnn">
-          <button class="btn btn-lg btn-warning rounded-0 d-none d-sm-inline-block" type="button" @click="doSearch">{{ $t("Search") }}</button>
-          <button class="btn btn-sm btn-warning rounded-0 d-inline-block d-sm-none" type="button" @click="doSearch">{{ $t("Search") }}</button>
+    <div class="container mb-0 pt-3">
+      <div class="row">
+        <div class="col-12">
+          <h4 class="mb-4 fw-bold"><i class="bi bi-person-badge me-2 text-warning"></i>{{ title }}</h4>
+          <div class="input-group input-group-lg shadow-sm search-container overflow-hidden rounded-3">
+            <input 
+              type="text" 
+              class="form-control border-light-subtle ps-4 px-3 py-3" 
+              v-model="prefixChild" 
+              @keyup.enter="doSearch" 
+              placeholder="10.nnnnnn"
+              style="font-size: 1.1rem;"
+            >
+            <button class="btn btn-warning px-4" type="button" @click="doSearch">
+              <span class="d-none d-sm-inline">{{ $t("Search") }}</span>
+              <i class="bi bi-search d-inline d-sm-none"></i>
+            </button>
+          </div>
         </div>
 
         <div class="col-12 mt-4" v-if="prefixStore !== ''">
 
-          <ul class="nav nav-pills nav-fill flex-column flex-sm-row mb-5">
-            <li class="nav-item me-1 mb-1">
-              <router-link :to="{ name: 'prefixInfo' }" class="nav-link rounded-0 small" :class="{ 'active': $route.path === '/prefix/info' }">{{ $t("Member Information") }}</router-link>
-            </li>
-            <li class="nav-item rounded-0 me-1 mb-1">
-              <router-link :to="{ name: 'prefixDois' }" class="nav-link rounded-0 small" :class="{ 'active': $route.path === '/prefix/dois' }">{{ $t("DOI List") }}</router-link>
-            </li>
-            <li class="nav-item rounded-0 me-1 mb-1">
-              <router-link :to="{ name: 'prefixReferencedDois' }" class="nav-link rounded-0 small" :class="{ 'active': $route.path === '/prefix/referenced/dois' }">{{ $t("Most referenced DOIs") }}</router-link>
-            </li>
-            <li class="nav-item rounded-0 me-1 mb-1">
-              <router-link :to="{ name: 'prefixReferencedOrcids' }" class="nav-link rounded-0 small" :class="{ 'active': $route.path === '/prefix/referenced/orcids' }">{{ $t("Most referenced ORCIDs") }}</router-link>
-            </li>
-          </ul>
+          <div class="nav-segmented d-flex flex-column flex-md-row mb-5 shadow-sm rounded-3 overflow-hidden border">
+            <router-link 
+              :to="{ name: 'prefixInfo' }" 
+              class="nav-segment flex-fill py-3 px-2 text-center text-decoration-none fw-bold transition-all" 
+              :class="{ 'active': $route.path === '/prefix/info' }"
+            >
+              <i class="bi bi-info-circle me-1"></i> {{ $t("Member Information") }}
+            </router-link>
+            <router-link 
+              :to="{ name: 'prefixDois' }" 
+              class="nav-segment flex-fill py-3 px-2 text-center text-decoration-none fw-bold transition-all border-start-md" 
+              :class="{ 'active': $route.path === '/prefix/dois' }"
+            >
+              <i class="bi bi-list-ul me-1"></i> {{ $t("DOI List") }}
+            </router-link>
+            <router-link 
+              :to="{ name: 'prefixReferencedDois' }" 
+              class="nav-segment flex-fill py-3 px-2 text-center text-decoration-none fw-bold transition-all border-start-md" 
+              :class="{ 'active': $route.path === '/prefix/referenced/dois' }"
+            >
+              <i class="bi bi-star me-1"></i> {{ $t("Most referenced DOIs") }}
+            </router-link>
+            <router-link 
+              :to="{ name: 'prefixReferencedOrcids' }" 
+              class="nav-segment flex-fill py-3 px-2 text-center text-decoration-none fw-bold transition-all border-start-md" 
+              :class="{ 'active': $route.path === '/prefix/referenced/orcids' }"
+            >
+              <i class="bi bi-person-badge me-1"></i> {{ $t("Most referenced ORCIDs") }}
+            </router-link>
+          </div>
 
 
           <!--nav class="nav nav-pills flex-column flex-sm-row mb-5">
@@ -111,15 +138,34 @@ export default {
 </script>
 
 <style scoped>
-
-.nav-pills .nav-link.active, .nav-tabs .nav-item.show .nav-link {
-  background-color: #ffd145;
-  color:black;
+.nav-segmented {
+  background-color: #434950;
+  border-color: #343a40 !important;
 }
 
-.nav-pills .nav-link, .nav-tabs .nav-item.show .nav-link {
-  background-color: #434950;
-  margin-left: 1px;
-  color:white;
+.nav-segment {
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+.nav-segment:hover {
+  color: #ffffff;
+  background-color: #5a6268;
+}
+
+.nav-segment.active {
+  background-color: #ffd145 !important;
+  color: #000000 !important;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.transition-all {
+  transition: all 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .border-start-md {
+    border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
 }
 </style>

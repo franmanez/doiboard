@@ -1,59 +1,60 @@
 <template>
-  <div class="list-group list-group-flush mt-3">
-    <div v-for="(item, index) in content" :key="index" class="list-group-item list-group-item-action  flex-column align-items-start">
+  <div class="mt-3 container px-0">
+    <div class="card border border-secondary-subtle shadow-sm rounded-4 overflow-hidden mb-5">
+      <div v-for="(item, index) in content" :key="index" class="modern-row p-4 border-bottom transition-all">
+        <div class="row align-items-start">
+          <!-- Main Content -->
+          <div class="col-12 col-lg-9 mb-3 mb-lg-0">
+            <div class="pe-lg-4">
+              <!-- Type and DOI -->
+              <div class="d-flex align-items-center mb-2 gap-2 flex-wrap">
+                <span class="badge rounded-pill border-0 py-1 px-3 fw-bold text-dark bg-warning shadow-sm" v-if="item.type" style="font-size: 0.7rem;">
+                  {{(item.type)}}
+                </span>
+                <a :href="'http://dx.doi.org/' + item.DOI" target="_blank" class="text-primary opacity-75 fw-medium text-decoration-none small d-flex align-items-center">
+                  <i class="bi bi-link-45deg me-1"></i> {{ item.DOI }}
+                </a>
+              </div>
 
-      <div class="mt-2 mb-2 row">
-        <div class="col-12 col-md-9 mb-3 mb-md-0">
-
-          <div>
-            <div class="mb-1 text-secondary" v-if="item.title">
-              <span class="h6 text-dark small">Title: </span><span class="small">{{ (item.title[0]) }}</span>
+              <!-- Title -->
+              <div class="mb-3" v-if="item.title">
+                <div class="fw-bold text-dark mb-1 leading-tight" style="font-size: 1rem;">{{ (item.title[0]) }}</div>
+                <div class="d-flex align-items-center gap-4 mt-2">
+                  <div v-if="item.deposited" class="d-flex align-items-center text-muted small">
+                    <i class="bi bi-calendar3 me-2"></i>
+                    <span>{{ item.deposited['date-time'].substring(0,10) }}</span>
+                  </div>
+                  <div class="d-flex align-items-center text-muted small">
+                    <i class="bi bi-chat-left-text me-2"></i>
+                    <span>{{ item['is-referenced-by-count'] }} <span class="opacity-75">citations</span></span>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <div class="mb-1">
-              <span class="h6 text-dark small">DOI: </span> <a :href="'http://dx.doi.org/' + item.DOI" target="_blank" class="small">{{ item.DOI }} <i class="bi bi-box-arrow-up-right"></i></a>
-            </div>
-
-            <div class="text-secondary mb-1" v-if="item.deposited">
-              <span class="h6 text-dark small">Deposited date: </span> <span class="small">{{ item.deposited['date-time'].substring(0,10)  }}</span>
-            </div>
-
-            <div class="text-secondary mb-1" >
-              <span class="h6 text-dark small">Referenced: </span> <span class="small">{{ item['is-referenced-by-count'] }}</span>
-            </div>
-
-            <div class="mt-1 text-dark badge bg-warning" v-if="item.type">
-              {{(item.type)}}
-            </div>
-
-            <div v-if="item[8]">
-              <span v-for="sub in item[8].split(';')" :key="sub"  class="badge rounded-pill bg-gray text-light mr-1 small">{{ sub }}</span>
-            </div>
-
           </div>
 
+          <!-- Authors Section -->
+          <div class="col-12 col-lg-3 border-start-lg ps-lg-4" v-if="item.author">
+            <div class="authors-list pt-1">
+              <div class="d-flex flex-column gap-2">
+                <template v-for="(author, aIndex) in item.author.slice(0, 4)" :key="aIndex">
+                  <div v-if="author.family" class="d-flex align-items-center small">
+                    <i class="bi bi-person text-muted me-2" style="font-size: 0.85rem;"></i>
+                    <span class="text-dark opacity-75">{{author.family}}<span v-if="author.given">, {{author.given}}</span></span>
+                    <a v-if="author.ORCID" :href="author.ORCID" target="_blank" class="ms-1 d-inline-flex align-items-center shadow-none">
+                      <img src="@/assets/logo-orcid-mini.png" height="12" alt="ORCID" class="opacity-75">
+                    </a>
+                  </div>
+                </template>
+                <div v-if="item.author.length > 4" class="mt-1">
+                   <span class="badge bg-warning-soft text-warning border border-warning border-opacity-10 rounded-pill px-2 py-1" style="font-size: 0.7rem;">
+                     <i class="bi bi-plus"></i> {{ item.author.length - 4 }} más
+                   </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div class="col-12 col-md-3">
-          <!--span class="h6 text-dark" v-if="item.author">Author</span-->
-          <div class="text-secondary mb-1 me-5"  v-for="(author, index) in item.author" :key="index">
-            <div v-if="author.family" class="mx-2">
-
-              <i class="bi bi-person-fill text-secondary me-1"></i>
-              <span class="small">
-                {{author.family}}, {{author.given}}
-                <a v-if="author.ORCID" :href="author.ORCID"><img src="@/assets/logo-orcid-mini.png" height="18" alt="ORCID"></a>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <!--div class="col-md-1 col-xs-12 d-none d-lg-block" >
-          <div class="mt-1 text-dark badge bg-warning" v-if="item.type">
-            {{(item.type)}}
-          </div>
-        </div-->
-
       </div>
     </div>
   </div>
@@ -84,23 +85,44 @@
 
 
 <style scoped>
-
-.list-group .list-group-item:nth-child(odd) {
-  background-color: #f5f5f5;
+.modern-row {
+  background-color: white;
 }
 
-.list-group .list-group-item:nth-child(even) {
-  background-color: #ffffff;
+.modern-row:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-/*.list-group .list-group-item:nth-child(odd):hover {
-  background-color: lightyellow;
+.modern-row:hover {
+  background-color: #fff8eb;
 }
 
-.list-group .list-group-item:nth-child(even):hover {
-  background-color: lightyellow;
-}*/
+.leading-tight {
+  line-height: 1.25;
+}
 
+.author-tag {
+  transition: all 0.2s ease;
+}
 
+.author-tag:hover {
+  border-color: #ffd145 !important;
+  background-color: #fff !important;
+}
+
+.bg-warning-soft {
+  background-color: #fff8eb;
+  color: #856404;
+}
+
+.transition-all {
+  transition: all 0.2s ease;
+}
+
+@media (min-width: 992px) {
+  .border-start-lg {
+    border-left: 1px solid #dee2e6 !important;
+  }
+}
 </style>
 

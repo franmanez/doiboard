@@ -4,9 +4,9 @@ import PrefixReferencedDois from "@/views/PrefixReferencedDois.vue";
 import PrefixReferencedOrcids from "@/views/PrefixReferencedOrcids.vue";
 import MembersList from "@/views/MembersList.vue";
 import PrefixDois from "@/views/PrefixDois.vue";
-import ChatGPT from "@/views/ChatGPT.vue";
-import AssistantGPT from "@/views/AssistantGPT.vue";
 import AboutView from "@/views/AboutView.vue";
+import RadarView from "@/views/RadarView.vue";
+import AIAnalysisView from "@/views/AIAnalysisView.vue";
 
 const routes = [
   {
@@ -23,7 +23,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ './views/DoiView.vue')
   },
   {
-    path: '/prefix/info/:id?',
+    path: '/prefix/info',
     name: 'prefixInfo',
     component: () => import(/* webpackChunkName: "about" */ './views/PrefixInfo.vue')
   },
@@ -58,19 +58,19 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ './samples/ParentComponent.vue')
   },
   {
-    path: '/chat',
-    name: 'chat',
-    component: ChatGPT
-  },
-  {
-    path: '/assistant',
-    name: 'assistant',
-    component: AssistantGPT
-  },
-  {
     path: '/about',
     name: 'about',
     component: AboutView
+  },
+  {
+    path: '/radar',
+    name: 'radar',
+    component: RadarView
+  },
+  {
+    path: '/daily-analysis',
+    name: 'dailyAnalysis',
+    component: AIAnalysisView
   },
 
   { path: '/:pathMatch(.*)*', name: 'error', component: Error },

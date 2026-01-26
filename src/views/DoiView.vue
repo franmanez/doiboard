@@ -4,13 +4,24 @@
 
     <LoadingComponent :is-loading="isLoading"></LoadingComponent>
 
-    <div class="container mb-5">
-      <div class="row mb-2 mt-3">
-        <h4 class="mb-3">{{ $t("DOI Search") }}</h4>
-        <div class="input-group">
-          <input type="text" class="form-control form-control-lg rounded-0" v-model="doi" @keyup.enter="getDOI" placeholder="10.nnnnnn/example">
-          <button class="btn btn-lg btn-warning rounded-0 d-none d-sm-inline-block" type="button" @click="getDOI">{{ $t("Search") }}</button>
-          <button class="btn btn-sm btn-warning rounded-0 d-inline-block d-sm-none" type="button" @click="getDOI">{{ $t("Search") }}</button>
+    <div class="container mb-5 pt-3">
+      <div class="row">
+        <div class="col-12">
+          <h4 class="mb-4 fw-bold"><i class="bi bi-search me-2 text-warning"></i>{{ $t("DOI Search") }}</h4>
+          <div class="input-group input-group-lg shadow-sm search-container overflow-hidden rounded-3">
+            <input 
+              type="text" 
+              class="form-control border-light-subtle ps-4 px-3 py-3" 
+              v-model="doi" 
+              @keyup.enter="getDOI" 
+              placeholder="10.nnnnnn/example"
+              style="font-size: 1.1rem;"
+            >
+            <button class="btn btn-warning px-4" type="button" @click="getDOI">
+              <span class="d-none d-sm-inline">{{ $t("Search") }}</span>
+              <i class="bi bi-search d-inline d-sm-none"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -20,7 +31,7 @@
 
       <div class="row d-flex justify-content-center align-items-center">
         <div class="col col-lg-12 mb-4">
-          <div class="card mb-3 rounded-0">
+          <div class="card mb-3 rounded-4 shadow border border-secondary-subtle overflow-hidden">
             <div class="row g-0">
               <div class="col-md-1 bg-doi-green text-center text-white d-none d-md-block">
                 <div class="d-flex justify-content-center align-items-center text-nowrap h2" style="height: 100%; width: 100%;">
@@ -149,7 +160,9 @@
 
     </div>
 
-    <div class="container col-12 alert alert-danger mt-4 rounded-0" v-if="error != null">{{error}}</div>
+    <div class="container col-12 alert alert-danger mt-4 rounded-3 shadow-sm border-0" v-if="error != null">
+      <i class="bi bi-exclamation-triangle me-2"></i>{{error}}
+    </div>
 
   </div>
 </template>

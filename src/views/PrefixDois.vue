@@ -6,63 +6,64 @@
 
     <PrefixHeader :title="$t('Prefix: DOI List')" v-model:prefix="prefix" :search="search"></PrefixHeader>
 
-    <div class="container"  v-if="content !== ''">
-
-      <div class="row mb-2">
-        <div class="col-12">
-
-          <div class="row mb-5">
-
-            <div class="col-12 col-md-4 mb-3 mb-md-0">
-              <div class="form-text text-secondary mb-2">{{ $t("First deposited date") }}</div>
-              <el-date-picker
-                  v-model="dates"
-                  type="daterange"
-                  unlink-panels
-                  range-separator="To"
-                  :start-placeholder="$t('Start deposited date')"
-                  :end-placeholder="$t('End deposited date')"
-                  :disabled-date="disabledFutureDates"
-                  :shortcuts="shortcuts"
-                  size="large"
-                  style="width: 100%;"
-              />
-
-            </div>
-
-
-            <div class="col-12 col-md-2 mb-3 mb-md-0">
-              <div class="form-text text-secondary mb-2">{{ $t("Document Type") }}</div>
-              <el-select v-model="type" filterable placeholder="Document type" size="large" @keyup.enter="search" style="width: 100%;">
-                <el-option :label="$t('Document Type All')" value=""></el-option>
-                <el-option
-                    v-for="item in types"
-                    :key="item.id"
-                    :label="item.label"
-                    :value="item.id"
+    <div class="container pb-4" v-if="content !== ''">
+      <div class="row">
+        <div class="col-12 px-4 px-md-3">
+          <div class="filter-card p-4 rounded-4 shadow-sm border bg-white mb-5">
+            <div class="row g-3 align-items-end">
+              <!-- Dates Picker -->
+              <div class="col-lg-4 col-md-6">
+                <label class="text-muted ms-1 mb-2 fw-normal opacity-75" style="font-size: 0.75rem;">{{ $t("First deposited date") }}</label>
+                <el-date-picker
+                    v-model="dates"
+                    type="daterange"
+                    unlink-panels
+                    range-separator="To"
+                    :start-placeholder="$t('Start deposited date')"
+                    :end-placeholder="$t('End deposited date')"
+                    :disabled-date="disabledFutureDates"
+                    :shortcuts="shortcuts"
+                    size="large"
+                    class="modern-picker w-100 shadow-sm border border-light-subtle"
                 />
-              </el-select>
+              </div>
 
-            </div>
+              <!-- Document Type -->
+              <div class="col-lg-2 col-md-4">
+                <label class="text-muted ms-1 mb-2 fw-normal opacity-75" style="font-size: 0.75rem;">{{ $t("Document Type") }}</label>
+                <el-select v-model="type" filterable placeholder="Select type" size="large" @keyup.enter="search" class="modern-select w-100 shadow-sm">
+                  <el-option :label="$t('Document Type All')" value=""></el-option>
+                  <el-option
+                      v-for="item in types"
+                      :key="item.id"
+                      :label="item.label"
+                      :value="item.id"
+                  />
+                </el-select>
+              </div>
 
+              <!-- Free text search -->
+              <div class="col-lg-5 col-md-8">
+                <label class="text-muted ms-1 mb-2 fw-normal opacity-75" style="font-size: 0.75rem;">
+                   {{ $t("Free form search") }} 
+                </label>
+                <div class="input-group input-group-lg shadow-sm rounded-3">
+                  <input type="text" class="form-control border-light-subtle" v-model="query" id="query" @keyup.enter="search" style="font-size: 1rem;" placeholder="Search term...">
+                </div>
+              </div>
 
-            <div class="col-12 col-md-5 mb-3 mb-md-0">
-              <div id="queryHelp" class="form-text text-secondary mb-2">{{ $t("Free form search") }}</div>
-              <div class="input-group">
-                <input type="text" class="form-control rounded-1" v-model="query" id="query" aria-describedby="queryHelp" @keyup.enter="search">
+              <!-- Filter Button -->
+              <div class="col-lg-1 col-md-3 text-end">
+                <button class="btn btn-warning btn-lg w-100 rounded-3 shadow-sm border-0 fw-bold" type="button" @click="search">
+                  <i class="bi bi-filter"></i>
+                </button>
               </div>
             </div>
-
-            <div class="col-12 col-md-1 mt-md-4 mt-0">
-              <button class="btn btn-dark rounded-1 w-100" type="button" @click="search">{{ $t("Filter") }}</button>
-            </div>
-
           </div>
 
-          <div class="d-flex flex-column flex-md-row justify-content-between">
-            <div class="mb-3 mb-md-0">
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
+            <div class="pagination-wrapper mb-3 mb-md-0">
               <PaginationTable
-                  class="container"
                   :show-pagination="true"
                   v-model:current-page="currentPage"
                   v-model:page-size="pageSize"
@@ -71,25 +72,17 @@
                   :handle-current-change="handleCurrentChange">
               </PaginationTable>
             </div>
-            <!--div class="ml-auto">
-              <CsvDownload :prefix="prefixStore" :query="query" :dates="dates" :type="type"></CsvDownload>
-            </div-->
           </div>
-
 
           <TableList :content="content"></TableList>
 
-
-
         </div>
       </div>
-
-
-
     </div>
 
-
-    <div class="container col-12 alert alert-danger mt-4 rounded-0" v-if="error != null">{{error}}</div>
+    <div class="container col-12 alert alert-danger mt-4 rounded-3 shadow-sm border-0" v-if="error != null">
+      <i class="bi bi-exclamation-triangle me-2"></i>{{error}}
+    </div>
 
   </div>
 </template>
@@ -284,11 +277,17 @@ export default {
 </script>
 
 <style scoped>
+:deep(.el-range-editor.el-input__wrapper) {
+  border: 1px solid #dee2e6 !important;
+  box-shadow: none !important;
+}
 
+:deep(.el-select .el-input__wrapper) {
+  border: 1px solid #dee2e6 !important;
+  box-shadow: none !important;
+}
 
-
-
-
-
-
+:deep(.el-range-editor.is-active), :deep(.el-select .el-input__wrapper.is-focus) {
+  border-color: #ffd145 !important;
+}
 </style>

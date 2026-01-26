@@ -51,6 +51,27 @@
                 {{ $t("Prefix Information") }}
               </router-link>
             </li>
+
+            <!-- AI LAB DROPDOWN -->
+            <li class="nav-item me-3 dropdown">
+              <a class="nav-link dropdown-toggle text-warning-hover" href="#" id="aiLabDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-robot me-1"></i>
+                AI Lab
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark shadow-lg border-0" aria-labelledby="aiLabDropdown">
+                <li>
+                  <router-link to="/radar" class="dropdown-item py-2" @click="closeNavbar">
+                    <i class="bi bi-bullseye me-2 text-primary"></i>Radar de Innovación
+                  </router-link>
+                </li>
+                <li>
+                  <router-link to="/daily-analysis" class="dropdown-item py-2" @click="closeNavbar">
+                    <i class="bi bi-activity me-2 text-success"></i>Análisis Diario
+                  </router-link>
+                </li>
+              </ul>
+            </li>
+
             <li class="nav-item me-md-5 me-2">
               <router-link to="/members" active-class="text-warning" class="nav-link" @click="closeNavbar">
                 <i class="bi bi-list-check me-1"></i>
@@ -82,15 +103,6 @@
     <router-view></router-view>
   </div>
 
-
-
-
-
-
-    <!-- FOR DEMO PURPOSE -->
-
-
-
     <!-- FOOTER -->
     <footer class="mt-5">
       <section class="hero text-white py-0 flex-grow-1" style="background-color: #434950">
@@ -106,9 +118,6 @@
                 <img src="@/assets/logo-sbpa-blanc.png" alt="Servei de Biblioteques, Publicacions i Arxius" title="Servei de Biblioteques, Publicacions i Arxius" class="grayscale d-none d-md-inline" height="80" style="max-width: 100%;">
                 <img src="@/assets/logo-sbpa-blanc.png" alt="Servei de Biblioteques, Publicacions i Arxius" title="Servei de Biblioteques, Publicacions i Arxius" class="grayscale d-inline d-md-none" height="50" style="max-width: 100%;">
               </a>
-              <!--a href="https://www.upc.edu/" target="_blank" rel="noreferrer noopener" title="Universitat Politècnica de Catalunya" class="me-5">
-                <img src="@/assets/logo-upc-color.png" alt="Universitat Politècnica de Catalunya" title="Universitat Politècnica de Catalunya" class="grayscale" height="80">
-              </a-->
               <a href="https://www.crossref.org/" target="_blank" rel="noreferrer noopener" title="Crossref" class="me-md-5 me-2 mb-2 d-inline-block">
                 <img src="@/assets/logo-crossref.svg" alt="Crossref" title="Crossref" class="grayscale d-none d-sm-inline" height="55" style="max-width: 100%;">
                 <img src="@/assets/logo-crossref.svg" alt="Crossref" title="Crossref" class="grayscale d-inline d-sm-none" height="35" style="max-width: 100%;">
@@ -187,26 +196,19 @@ export default {
   methods:{
     changeLanguage(language) {
       this.$i18n.locale = language;
-      //localStorage.setItem("userLanguage", language)
-      //location.reload()
     },
     closeNavbar() {
-      // Cerrar el menú desplegable cuando se hace clic en un enlace
       const navbarCollapse = document.getElementById('navbarNav');
       if (navbarCollapse && navbarCollapse.classList.contains('show')) {
-        // Usar Bootstrap Collapse API para cerrar el menú
         try {
-          // Intentar usar la API de Bootstrap si está disponible
           if (window.bootstrap) {
             const bsCollapse = window.bootstrap.Collapse.getInstance(navbarCollapse) || 
                               new window.bootstrap.Collapse(navbarCollapse, { toggle: false });
             bsCollapse.hide();
           } else {
-            // Fallback: remover la clase 'show' directamente
             navbarCollapse.classList.remove('show');
           }
         } catch (e) {
-          // Si hay algún error, simplemente remover la clase
           navbarCollapse.classList.remove('show');
         }
       }
@@ -222,24 +224,42 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  background-color: #333; /* Cambia el color de fondo a tu elección */
-  z-index: 1000; /* Puedes ajustar el valor de z-index según tus necesidades */
+  background-color: #333;
+  z-index: 1000;
 }
-/* ==========================================
-    FOR DEMO PURPOSE
-  ========================================== */
 
 footer {
   background: #212529;
-
-}
-/*img.grayscale {
-  transition: all .5s ease-out;
-  filter: grayscale(100%);
 }
 
-img.grayscale:hover {
-  transition: all .5s ease-out;
-  filter: grayscale(0);
-}*/
+.nav-link {
+  transition: all 0.3s ease;
+  border-radius: 0.5rem;
+  margin: 0 0.1rem;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  text-decoration: none !important;
+  color: white !important;
+}
+
+.text-warning-hover:hover {
+  color: #ffc107 !important;
+}
+
+.dropdown-item:hover {
+  background-color: #343a40 !important;
+  color: #ffc107 !important;
+}
+
+.dropdown-menu-dark {
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+}
+
+.dropdown-item {
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
 </style>
