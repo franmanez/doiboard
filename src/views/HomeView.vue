@@ -76,13 +76,15 @@
         <div class="col-lg-4 col-md-6">
           <router-link to="/prefix/info" class="text-decoration-none h-100">
             <div class="modern-tool-card h-100">
-              <div class="card-icon-wrapper mb-3">
+              <div class="card-icon-wrapper me-4">
                 <div class="circle-yellow shadow-sm">
                   <i class="bi bi-clipboard-data text-light" style="font-size: 2.2rem;"></i>
                 </div>
               </div>
-              <h5 class="fw-bold text-dark mb-2">{{ $t("Prefix: Member Information") }}</h5>
-              <p class="text-muted mb-0 lh-sm">{{$t("Prefix: Member Information Description")}}</p>
+              <div>
+                <h5 class="fw-bold text-dark mb-1">{{ $t("Prefix: Member Information") }}</h5>
+                <p class="text-muted mb-0 lh-sm">{{$t("Prefix: Member Information Description")}}</p>
+              </div>
             </div>
           </router-link>
         </div>
@@ -90,27 +92,31 @@
         <div class="col-lg-4 col-md-6">
           <router-link to="/prefix/dois" class="text-decoration-none h-100">
             <div class="modern-tool-card h-100">
-              <div class="card-icon-wrapper mb-3">
+              <div class="card-icon-wrapper me-4">
                 <div class="circle-dark shadow-sm">
                   <i class="bi bi-list-check text-light" style="font-size: 2.2rem;"></i>
                 </div>
               </div>
-              <h5 class="fw-bold text-dark mb-2">{{ $t("Prefix: DOI List") }}</h5>
-              <p class="text-muted mb-0 lh-sm">{{ $t("Prefix: DOI List Description") }}</p>
+              <div>
+                <h5 class="fw-bold text-dark mb-1">{{ $t("Prefix: DOI List") }}</h5>
+                <p class="text-muted mb-0 lh-sm">{{ $t("Prefix: DOI List Description") }}</p>
+              </div>
             </div>
           </router-link>
         </div>
-        <!-- Card 3 -->
+        <!-- Card 3: AI Lab Teaser -->
         <div class="col-lg-4 col-md-6">
-          <router-link to="/prefix/dois" class="text-decoration-none h-100">
+          <router-link to="/radar" class="text-decoration-none h-100">
             <div class="modern-tool-card h-100">
-              <div class="card-icon-wrapper mb-3">
+              <div class="card-icon-wrapper me-4">
                 <div class="circle-yellow shadow-sm">
-                  <i class="bi bi-filetype-csv text-light" style="font-size: 2.2rem;"></i>
+                  <i class="bi bi-robot text-light" style="font-size: 2.2rem;"></i>
                 </div>
               </div>
-              <h5 class="fw-bold text-dark mb-2">{{ $t("Prefix: DOI List (CSV file)") }}</h5>
-              <p class="text-muted mb-0 lh-sm">{{ $t("Prefix: DOI List (CSV file) Description") }}</p>
+              <div>
+                <h5 class="fw-bold text-dark mb-1">{{ $t("AI Innovation Lab") }}</h5>
+                <p class="text-muted mb-0 lh-sm">{{ $t("AI Lab Short Description") }}</p>
+              </div>
             </div>
           </router-link>
         </div>
@@ -118,13 +124,15 @@
         <div class="col-lg-4 col-md-6">
           <router-link to="/prefix/referenced/dois" class="text-decoration-none h-100">
             <div class="modern-tool-card h-100">
-              <div class="card-icon-wrapper mb-3">
+              <div class="card-icon-wrapper me-4">
                 <div class="circle-dark shadow-sm">
                   <i class="bi bi-graph-up-arrow text-light" style="font-size: 2.2rem;"></i>
                 </div>
               </div>
-              <h5 class="fw-bold text-dark mb-2">{{ $t("Prefix: DOIs and ORCIDs") }}</h5>
-              <p class="text-muted mb-0 lh-sm">{{ $t("Prefix: DOIs and ORCIDs Description") }}</p>
+              <div>
+                <h5 class="fw-bold text-dark mb-1">{{ $t("Prefix: DOIs and ORCIDs") }}</h5>
+                <p class="text-muted mb-0 lh-sm">{{ $t("Prefix: DOIs and ORCIDs Description") }}</p>
+              </div>
             </div>
           </router-link>
         </div>
@@ -132,13 +140,15 @@
         <div class="col-lg-4 col-md-6">
           <router-link to="/members" class="text-decoration-none h-100">
             <div class="modern-tool-card h-100">
-              <div class="card-icon-wrapper mb-3">
+              <div class="card-icon-wrapper me-4">
                 <div class="circle-yellow shadow-sm">
                   <i class="bi bi-person-bounding-box text-light" style="font-size: 2.2rem;"></i>
                 </div>
               </div>
-              <h5 class="fw-bold text-dark mb-2">{{ $t("Member Search") }}</h5>
-              <p class="text-muted mb-0 lh-sm">{{ $t("Member Search Description") }}</p>
+              <div>
+                <h5 class="fw-bold text-dark mb-1">{{ $t("Member Search") }}</h5>
+                <p class="text-muted mb-0 lh-sm">{{ $t("Member Search Description") }}</p>
+              </div>
             </div>
           </router-link>
         </div>
@@ -146,13 +156,15 @@
         <div class="col-lg-4 col-md-6">
           <router-link to="/doi" class="text-decoration-none h-100">
             <div class="modern-tool-card h-100">
-              <div class="card-icon-wrapper mb-3">
+              <div class="card-icon-wrapper me-4">
                 <div class="circle-dark shadow-sm">
                   <i class="bi bi-search text-light" style="font-size: 2.2rem;"></i>
                 </div>
               </div>
-              <h5 class="fw-bold text-dark mb-2">{{ $t("DOI Search") }}</h5>
-              <p class="text-muted mb-0 lh-sm">{{ $t("DOI Search Description") }}</p>
+              <div>
+                <h5 class="fw-bold text-dark mb-1">{{ $t("DOI Search") }}</h5>
+                <p class="text-muted mb-0 lh-sm">{{ $t("DOI Search Description") }}</p>
+              </div>
             </div>
           </router-link>
         </div>
@@ -247,11 +259,26 @@ export default {
 /* Modern Tool Cards */
 .modern-tool-card {
   background: white;
-  padding: 2rem;
+  padding: 1.5rem 1.8rem;
   border-radius: 1.5rem;
   border: 1px solid #f0f0f0;
   transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
   text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.modern-tool-card h5 {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.modern-tool-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #4b5563;
 }
 
 .modern-tool-card:hover {
@@ -263,6 +290,7 @@ export default {
 .card-icon-wrapper {
   display: flex;
   justify-content: flex-start;
+  flex-shrink: 0;
 }
 
 .circle-yellow {

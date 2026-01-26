@@ -45,7 +45,7 @@
                 <div class="card-body p-4">
 
                   <div class="d-flex flex-column flex-md-row justify-content-between">
-                    <div class="me-md-5 mb-2 mb-md-0"><h3 class="text-secondary h5 h-md-3">{{contentDOI.publisher}}</h3></div>
+                    <div class="me-md-5 mb-2 mb-md-0"><h3 class="text-secondary h2 h-md-3">{{contentDOI.publisher}}</h3></div>
                     <div><h4><p class="badge bg-doi-green">{{contentDOI.type}}</p></h4></div>
                   </div>
 
