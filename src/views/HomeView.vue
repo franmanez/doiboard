@@ -104,18 +104,18 @@
             </div>
           </router-link>
         </div>
-        <!-- Card 3: AI Lab Teaser -->
+        <!-- Card 3: Most Cited Works -->
         <div class="col-lg-4 col-md-6">
-          <router-link to="/radar" class="text-decoration-none h-100">
+          <router-link to="/crossref-analytics" class="text-decoration-none h-100">
             <div class="modern-tool-card h-100">
               <div class="card-icon-wrapper me-4">
                 <div class="circle-yellow shadow-sm">
-                  <i class="bi bi-robot text-light" style="font-size: 2.2rem;"></i>
+                  <i class="bi bi-graph-up-arrow text-light" style="font-size: 2.2rem;"></i>
                 </div>
               </div>
               <div>
-                <h5 class="fw-bold text-dark mb-1">{{ $t("AI Innovation Lab") }}</h5>
-                <p class="text-muted mb-0 lh-sm">{{ $t("AI Lab Short Description") }}</p>
+                <h5 class="fw-bold text-dark mb-1">{{ $t("Most Cited Works") }}</h5>
+                <p class="text-muted mb-0 lh-sm">{{ $t("Explore the most influential scientific publications in the Crossref network.") }}</p>
               </div>
             </div>
           </router-link>

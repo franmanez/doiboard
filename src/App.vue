@@ -35,10 +35,11 @@
           <ul class="navbar-nav">
             <li class="nav-item me-3">
               <router-link to="/" active-class="text-warning" class="nav-link" @click="closeNavbar">
-                <i class="bi bi-house me-1"></i>
+                <i class="bi bi-house-door me-1"></i>
                 {{ $t("Home") }}
               </router-link>
             </li>
+
             <li class="nav-item me-3">
               <router-link to="/doi" active-class="text-warning" class="nav-link" @click="closeNavbar">
                 <i class="bi bi-search me-1"></i>
@@ -52,12 +53,24 @@
               </router-link>
             </li>
 
-            <li class="nav-item me-3">
-              <router-link to="/members" active-class="text-warning" class="nav-link" @click="closeNavbar">
-                <i class="bi bi-list-check me-1"></i>
-                <span class="d-none d-md-inline">{{ $t("Members") }}</span>
-                <span class="d-inline d-md-none">{{ $t("Members") }}</span>
-              </router-link>
+            <!-- GLOBAL ANALYTICS DROPDOWN -->
+            <li class="nav-item me-3 dropdown">
+              <a class="nav-link dropdown-toggle text-warning-hover" href="#" id="globalAnalyticsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-globe me-1"></i>
+                {{ $t("Explore") }}
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark shadow-lg border-0" aria-labelledby="globalAnalyticsDropdown">
+                <li>
+                  <router-link to="/members" class="dropdown-item py-2" @click="closeNavbar">
+                    <i class="bi bi-building me-2 text-success"></i>{{ $t("Members") }}
+                  </router-link>
+                </li>
+                <li>
+                  <router-link to="/crossref-analytics" class="dropdown-item py-2" @click="closeNavbar">
+                    <i class="bi bi-graph-up-arrow me-2 text-warning"></i>{{ $t("Most Cited Works") }}
+                  </router-link>
+                </li>
+              </ul>
             </li>
 
             <!-- AI LAB DROPDOWN -->

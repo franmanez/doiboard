@@ -7,6 +7,7 @@ import PrefixDois from "@/views/PrefixDois.vue";
 import AboutView from "@/views/AboutView.vue";
 import RadarView from "@/views/RadarView.vue";
 import AIAnalysisView from "@/views/AIAnalysisView.vue";
+import CrossrefAnalyticsView from "@/views/CrossrefAnalyticsView.vue";
 
 const routes = [
   {
@@ -72,7 +73,11 @@ const routes = [
     name: 'dailyAnalysis',
     component: AIAnalysisView
   },
-
+  {
+    path: '/crossref-analytics',
+    name: 'crossrefAnalytics',
+    component: CrossrefAnalyticsView
+  },
   { path: '/:pathMatch(.*)*', name: 'error', component: Error },
 ]
 
