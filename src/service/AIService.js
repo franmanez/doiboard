@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-    baseURL: "http://localhost:8006/api/crossref",
+    baseURL: process.env.VUE_APP_API_URL,
     headers: {
         "Content-type": "application/json"
     }

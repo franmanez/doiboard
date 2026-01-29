@@ -176,7 +176,7 @@
           <div class="ai-master-card p-4 p-md-5 rounded-5 shadow-lg overflow-hidden position-relative animate__animated animate__fadeInUp">
             <div class="ai-card-glow"></div>
             <div class="row align-items-center position-relative z-1">
-              <div class="col-lg-7 text-white">
+              <div class="col-lg-8 text-white">
                 <div class="d-inline-flex align-items-center badge bg-primary bg-opacity-25 border border-primary border-opacity-50 text-white rounded-pill px-3 py-2 mb-4">
                   <i class="bi bi-lightning-charge-fill me-2 text-warning"></i>
                   {{ $t("AI Generated") }}
@@ -195,18 +195,27 @@
                       <i class="bi bi-bullseye fs-3"></i>
                     </router-link>
                   </div>
-                  <div class="col-md-6">
-                    <router-link to="/daily-analysis" class="btn btn-outline-light w-100 text-start py-3 px-4 rounded-4 h-100 d-flex align-items-center justify-content-between ai-action-btn">
+                  <div class="col-md-3">
+                    <router-link to="/monthly-synthesis" class="btn btn-outline-light w-100 text-start py-3 px-4 rounded-4 h-100 d-flex align-items-center justify-content-between ai-action-btn">
                       <div>
-                        <div class="fw-bold">{{ $t("Daily Scientific Analysis") }}</div>
-                        <div class="small opacity-75">{{ $t("Deep daily analysis") }}</div>
+                        <div class="fw-bold">{{ $t("Theme Core") }}</div>
+                        <div class="small opacity-75">{{ $t("Monthly Synthesis Sub") }}</div>
                       </div>
-                      <i class="bi bi-activity fs-3"></i>
+                      <i class="bi bi-calendar-check fs-3"></i>
+                    </router-link>
+                  </div>
+                  <div class="col-md-3">
+                    <router-link to="/quarterly-horizon" class="btn btn-outline-light w-100 text-start py-3 px-4 rounded-4 h-100 d-flex align-items-center justify-content-between ai-action-btn">
+                      <div>
+                        <div class="fw-bold">{{ $t("Frontier") }}</div>
+                        <div class="small opacity-75">{{ $t("Horizon Scanning Sub") }}</div>
+                      </div>
+                      <i class="bi bi-rocket-takeoff fs-3"></i>
                     </router-link>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-5 d-none d-lg-flex justify-content-center">
+              <div class="col-lg-4 d-none d-lg-flex justify-content-center">
                 <div class="ai-visual-box shadow-lg">
                   <i class="bi bi-robot display-1 text-white opacity-25"></i>
                   <div class="data-stream"></div>

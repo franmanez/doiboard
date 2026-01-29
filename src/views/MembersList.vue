@@ -24,7 +24,7 @@
               <span class="d-none d-sm-inline">{{ $t("Search") }}</span>
             </button>
           </div>
-          <div class="form-text text-muted ms-1 mb-5" style="font-size: 0.75rem;">{{ $t("Members list Info") }}</div>
+          <div class="form-text text-muted ms-1 mb-5" style="font-size: 0.9rem;">{{ $t("Members list Info") }}</div>
 
           <div v-if="content !== ''" class="mt-4">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">

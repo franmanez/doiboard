@@ -13,7 +13,11 @@
                 {{ $t("Crossref Global Analytics") }}
               </div>
               <h1 class="display-5 fw-bold mb-2">
-                {{ $t("Most Cited Works") }}
+                <i18n-t keypath="Most Cited Works Title" tag="span">
+                  <template #highlighted>
+                    <span class="text-warning">{{ $t("Most Cited Works Title Highlight") }}</span>
+                  </template>
+                </i18n-t>
               </h1>
               <p class="lead opacity-75 mb-0" style="max-width: 600px;">
                 {{ $t("Explore the most influential scientific publications in the Crossref network.") }}
@@ -41,7 +45,7 @@
     <!-- Filter Controls -->
     <div v-if="!loading && !error" class="row mb-4">
       <div class="col-12">
-        <div class="card shadow-sm border-0 rounded-4">
+        <div class="card bg-dark bg-opacity-10 border border-dark border-opacity-10 rounded-4 shadow-none">
           <div class="card-body p-4">
             <div class="row align-items-center g-3">
               <!-- Filter Mode Buttons -->

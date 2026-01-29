@@ -129,39 +129,37 @@
     <!-- FOOTER -->
     <footer class="mt-5">
       <section class="hero text-white py-0 flex-grow-1" style="background-color: #434950">
-        <div class="container py-2">
+        <div class="container py-1">
           <div class="row">
 
-            <div class="col-lg-12 text-center">
-              <a href="https://www.upc.edu/idp" target="_blank" rel="noreferrer noopener" title="Iniciativa Digital Politècnica" class="me-md-5 me-2 mb-2 d-inline-block">
+            <div class="col-lg-12 d-flex flex-wrap justify-content-center justify-content-lg-between align-items-center gap-4 py-2">
+              <a href="https://www.upc.edu/idp" target="_blank" rel="noreferrer noopener" title="Iniciativa Digital Politècnica" class="d-inline-block">
                 <img src="@/assets/logo-idp-blanco.png" alt="Iniciativa Digital Politècnica" title="Iniciativa Digital Politècnica" class="grayscale d-none d-md-inline" height="60" style="max-width: 100%;">
                 <img src="@/assets/logo-idp-blanco.png" alt="Iniciativa Digital Politècnica" title="Iniciativa Digital Politècnica" class="grayscale d-inline d-md-none" height="50" style="max-width: 100%;">
               </a>
-              <a href="https://bibliotecnica.upc.edu/" target="_blank" rel="noreferrer noopener" title="Servei de Biblioteques, Publicacions i Arxius" class="me-md-5 me-2 mb-2 d-inline-block">
+              <a href="https://bibliotecnica.upc.edu/" target="_blank" rel="noreferrer noopener" title="Servei de Biblioteques, Publicacions i Arxius" class="d-inline-block">
                 <img src="@/assets/logo-sbpa-blanc.png" alt="Servei de Biblioteques, Publicacions i Arxius" title="Servei de Biblioteques, Publicacions i Arxius" class="grayscale d-none d-md-inline" height="80" style="max-width: 100%;">
                 <img src="@/assets/logo-sbpa-blanc.png" alt="Servei de Biblioteques, Publicacions i Arxius" title="Servei de Biblioteques, Publicacions i Arxius" class="grayscale d-inline d-md-none" height="50" style="max-width: 100%;">
               </a>
-              <a href="https://www.crossref.org/" target="_blank" rel="noreferrer noopener" title="Crossref" class="me-md-5 me-2 mb-2 d-inline-block">
+              <a href="https://www.crossref.org/" target="_blank" rel="noreferrer noopener" title="Crossref" class="d-inline-block">
                 <img src="@/assets/logo-crossref.svg" alt="Crossref" title="Crossref" class="grayscale d-none d-sm-inline" height="55" style="max-width: 100%;">
                 <img src="@/assets/logo-crossref.svg" alt="Crossref" title="Crossref" class="grayscale d-inline d-sm-none" height="35" style="max-width: 100%;">
               </a>
-              <a href="https://www.doi.org/" target="_blank" rel="noreferrer noopener" title="DOI" class="me-md-5 me-2 mb-2 d-inline-block">
+              <a href="https://www.doi.org/" target="_blank" rel="noreferrer noopener" title="DOI" class="d-inline-block">
                 <img src="@/assets/logo-doi.svg" alt="DOI" title="DOI" class="grayscale d-none d-sm-inline" height="55" style="max-width: 100%;">
                 <img src="@/assets/logo-doi.svg" alt="DOI" title="DOI" class="grayscale d-inline d-sm-none" height="35" style="max-width: 100%;">
               </a>
-
             </div>
           </div>
         </div>
       </section>
       <div class="container py-4">
         <div class="row gy-4 gx-5">
-          <div class="col-lg-4 col-md-6">
+          <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
             <h5 class="h3 text-white">DOIBoard <span style="color: #4f5858; font-weight: bold;">Crossref</span></h5>
             <p class="small text-secondary">{{ $t("Information about DOIs and Crossref prefixes") }}</p>
-            <p class="small text-secondary mb-0">© UPC - Universitat Politècnica de Catalunya · BarcelonaTech</p>
           </div>
-          <div class="col-lg-2 col-md-6">
+          <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
             <h5 class="text-white mb-3">Info</h5>
             <ul class="list-unstyled text-secondary">
               <li class="mb-2"><a href="https://www.upc.edu/idp/ca/contact" target="_blank" class="text-secondary">{{ $t("Contact") }}</a></li>
@@ -173,34 +171,12 @@
               <li class="mb-2"><a href="https://www.upc.edu/ca/avis-legal" target="_blank" class="text-secondary">{{ $t("Legal warning") }}</a></li>
             </ul>
           </div>
-          <div class="col-lg-2 col-md-6">
-            <h5 class="text-white mb-3">Quick links</h5>
-            <ul class="list-unstyled text-secondary">
-              <li class="mb-2">
-                <router-link to="/doi" class="text-secondary">
-                  {{ $t("DOI Search") }}
-                </router-link>
-              </li>
-              <li class="mb-2">
-                <router-link to="/prefix/info" class="text-secondary">
-                  {{ $t("Prefix information") }}
-                </router-link>
-              </li>
-              <li class="mb-2">
-                <router-link to="/members" class="text-secondary">
-                  {{ $t("Members") }}
-                </router-link>
-              </li>
-            </ul>
-          </div>
           <div class="col-lg-4 col-md-6">
-            <h5 class="text-white mb-3">Developed by</h5>
-            <p class="small text-secondary"> Iniciativa Digital Politècnica.
+            <h5 class="text-white mb-3">{{ $t("Developed by") }}</h5>
+            <p class="small text-secondary"> Fran Máñez · <a href="mailto:francisco.manez@upc.edu">francisco.manez@upc.edu</a>
               <br>Servei de Biblioteques Publicacions i Arxius.
-              <br>Edifici K2M, Planta S1, Despatx S103-S104, Campus Nord
-              <br>C/ Jordi Girona 1-3, Barcelona
+              <br>© UPC - Universitat Politècnica de Catalunya · BarcelonaTech
               <br> <a href="mailto:info.idp@upc.edu">info.idp@upc.edu</a>
-
             </p>
           </div>
         </div>
