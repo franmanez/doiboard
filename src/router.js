@@ -6,7 +6,8 @@ import MembersList from "@/views/MembersList.vue";
 import PrefixDois from "@/views/PrefixDois.vue";
 import AboutView from "@/views/AboutView.vue";
 import RadarView from "@/views/RadarView.vue";
-import AIAnalysisView from "@/views/AIAnalysisView.vue";
+import MonthlySynthesisView from "@/views/MonthlySynthesisView.vue";
+import QuarterlyHorizonView from "@/views/QuarterlyHorizonView.vue";
 import CrossrefAnalyticsView from "@/views/CrossrefAnalyticsView.vue";
 
 const routes = [
@@ -69,9 +70,14 @@ const routes = [
     component: RadarView
   },
   {
-    path: '/daily-analysis',
-    name: 'dailyAnalysis',
-    component: AIAnalysisView
+    path: '/monthly-synthesis',
+    name: 'monthlySynthesis',
+    component: MonthlySynthesisView
+  },
+  {
+    path: '/quarterly-horizon',
+    name: 'quarterlyHorizon',
+    component: QuarterlyHorizonView
   },
   {
     path: '/crossref-analytics',

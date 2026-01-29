@@ -86,8 +86,13 @@
                   </router-link>
                 </li>
                 <li>
-                  <router-link to="/daily-analysis" class="dropdown-item py-2" @click="closeNavbar">
-                    <i class="bi bi-activity me-2 text-success"></i>{{ $t("Daily Analysis") }}
+                  <router-link to="/monthly-synthesis" class="dropdown-item py-2" @click="closeNavbar">
+                    <i class="bi bi-calendar-check me-2 text-success"></i>{{ $t("Monthly Synthesis") }}
+                  </router-link>
+                </li>
+                <li>
+                  <router-link to="/quarterly-horizon" class="dropdown-item py-2" @click="closeNavbar">
+                    <i class="bi bi-rocket-takeoff me-2 text-warning"></i>{{ $t("Horizon Scanning") }}
                   </router-link>
                 </li>
               </ul>

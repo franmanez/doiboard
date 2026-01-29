@@ -12,29 +12,24 @@ class AIService {
         return apiClient.get("/radar");
     }
 
-    getDailyConnection(date, lang = 'es') {
-        const params = date ? { date, lang } : { lang };
-        return apiClient.get("/analysis/connection", { params });
+    getMonthlyAnalysis(year, month, lang = 'es') {
+        const params = { year, month, lang };
+        return apiClient.get("/analysis/monthly", { params });
     }
 
-    getFrontier(date, lang = 'es') {
-        const params = date ? { date, lang } : { lang };
-        return apiClient.get("/analysis/frontier", { params });
+    getQuarterlyAnalysis(year, quarter, lang = 'es') {
+        const params = { year, quarter, lang };
+        return apiClient.get("/analysis/quarterly", { params });
     }
 
-    getGap(date, lang = 'es') {
-        const params = date ? { date, lang } : { lang };
-        return apiClient.get("/analysis/gap", { params });
+    computeMonthly(year, month) {
+        const params = { year, month };
+        return apiClient.get("/analysis/compute/monthly", { params });
     }
 
-    generateSample(date) {
-        const params = date ? { date } : {};
-        return apiClient.get("/sample", { params });
-    }
-
-    getDailySamples(date) {
-        const params = date ? { date } : {};
-        return apiClient.get("/daily-samples", { params });
+    computeQuarterly(year, quarter) {
+        const params = { year, quarter };
+        return apiClient.get("/analysis/compute/quarterly", { params });
     }
 }
 
