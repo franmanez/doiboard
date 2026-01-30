@@ -136,21 +136,31 @@
         </div>
       </div>
 
-      <!-- Trend Details -->
+      <!-- Trend Details Grouped by Domain -->
       <div class="col-12">
         <h3 class="h4 fw-bold mb-4 px-2 text-dark">{{ $t("Macrotrends Detail") }}</h3>
-        <div class="row g-4">
-          <div v-for="tag in radarData" :key="tag.tag" class="col-md-6 col-lg-4">
-            <div class="card h-100 border border-secondary-subtle shadow-sm rounded-4 trend-card">
-              <div class="card-header border-0 text-white p-3" :style="{ backgroundColor: getTrendColor(tag.trend) }">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="fw-bold text-uppercase font-16">{{ tag.trend === 'rising' ? $t("Rising") : tag.trend === 'new' ? $t("New / Disruptive") : $t("Consolidated") }}</span>
-                  <span class="badge bg-white text-dark rounded-pill">{{ tag.count }}</span>
+        
+        <div v-for="(trends, domain) in groupedRadarData" :key="domain" class="mb-5">
+          <div class="d-flex align-items-center mb-3 px-2">
+            <div class="domain-indicator me-3" :style="{ backgroundColor: getDomainColor(domain) }"></div>
+            <h4 class="h5 fw-bold mb-0 text-primary text-uppercase tracking-wider">{{ domain }}</h4>
+            <div class="ms-auto badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25 rounded-pill px-3">
+              {{ trends.length }} {{ trends.length === 1 ? $t('trend') : $t('trends') }}
+            </div>
+          </div>
+          
+          <div class="row g-4">
+            <div v-for="tag in trends" :key="tag.tag" class="col-md-6 col-lg-4">
+              <div class="card h-100 border border-secondary-subtle shadow-sm rounded-4 trend-card overflow-hidden">
+                <div class="card-header border-0 text-white p-3" :style="{ backgroundColor: getTrendColor(tag.trend) }">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="fw-bold text-uppercase font-14">{{ tag.trend === 'rising' ? $t("Rising") : tag.trend === 'new' ? $t("New / Disruptive") : $t("Consolidated") }}</span>
+                    <span class="badge bg-white text-dark rounded-pill">{{ tag.count }} {{ $t("Article Count") }}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="card-body p-3">
-                <h6 class="fw-bold mb-1" style="font-size: 1.1rem;">{{ tag.tag }}</h6>
-                <p class="text-muted mb-0 font-16">{{ tag.domain }}</p>
+                <div class="card-body p-3">
+                  <h6 class="fw-bold mb-0" style="font-size: 1.1rem; line-height: 1.3;">{{ tag.tag }}</h6>
+                </div>
               </div>
             </div>
           </div>
@@ -211,6 +221,40 @@ export default defineComponent({
       } finally {
         loading.value = false;
       }
+    };
+
+    const groupedRadarData = computed(() => {
+      const groups = {};
+      radarData.value.forEach(item => {
+        if (!groups[item.domain]) groups[item.domain] = [];
+        groups[item.domain].push(item);
+      });
+      
+      // Sort trends within each group by count descending
+      Object.keys(groups).forEach(domain => {
+        groups[domain].sort((a, b) => b.count - a.count);
+      });
+
+      // Sort domains by total count of their trends
+      const sortedEntries = Object.entries(groups).sort((a, b) => {
+        const sumA = a[1].reduce((sum, item) => sum + item.count, 0);
+        const sumB = b[1].reduce((sum, item) => sum + item.count, 0);
+        return sumB - sumA;
+      });
+
+      return Object.fromEntries(sortedEntries);
+    });
+
+    // Same palette used in chartOptions
+    const domainPalette = [
+      '#00a8ff', '#9c88ff', '#fbc531', '#4cd137', '#487eb0',
+      '#e84118', '#7f8fa6', '#273c75', '#c23616', '#192a56'
+    ];
+
+    const getDomainColor = (domainName) => {
+      const domains = Object.keys(groupedRadarData.value);
+      const index = domains.indexOf(domainName);
+      return domainPalette[index % domainPalette.length];
     };
 
     const chartOptions = computed(() => {
@@ -323,7 +367,9 @@ export default defineComponent({
       loading,
       error,
       chartOptions,
+      groupedRadarData,
       getTrendColor,
+      getDomainColor,
       fetchRadarData
     };
   }
@@ -362,5 +408,20 @@ export default defineComponent({
 .font-16 {
   font-size: 16px !important;
   font-family: 'Roboto', sans-serif !important;
+}
+
+.font-14 {
+  font-size: 14px !important;
+  font-family: 'Roboto', sans-serif !important;
+}
+
+.domain-indicator {
+  width: 8px;
+  height: 24px;
+  border-radius: 4px;
+}
+
+.tracking-wider {
+  letter-spacing: 0.05em;
 }
 </style>
