@@ -71,7 +71,7 @@
   "Trends and deep analysis with AI": "Tendencias y análisis profundo con IA.",
   "Explore Trends": "Explorar Tendencias",
   "Radar View Title": "Tendencias {highlighted}",
-  "Radar View Subtitle": "Visualización por dominios. Las burbujas externas (dominios) agrupan a las internas (tendencias específicas).",
+  "Radar View Subtitle": "Mapa interactivo de conceptos científicos clave. El tamaño de las burbujas y su color reflejan el volumen de impacto y su tendencia tecnológica actual.",
   "Interpretation Guide": "Guía de Interpretación",
   "Radar Description": "Este mapa visualiza la estructura del conocimiento científico global:",
   "Domains Explanation": "Dominios (Bolas grandes): Representan las áreas científicas principales que agrupan temas relacionados.",
@@ -85,10 +85,10 @@
   "Diameter Explanation": "El diámetro de las burbujas interiores indica el volumen de publicaciones detectado para cada tendencia.",
   "Publication Volume": "volumen de publicaciones",
   "Colors": "Colores",
-  "Moment Vital Explanation": "Representan el momento vital:",
+  "Moment Vital Explanation": "Identifica el estado de cada temática: si está consolidada como estándar, si es una tendencia en fuerte crecimiento o si se trata de una innovación científica reciente",
   "Rising": "En Alza",
-  "New / Disruptive": "Nueva / Disruptiva",
-  "Consolidated": "Consolidada",
+  "New / Disruptive": "Novedades",
+  "Consolidated": "Consolidados",
   "Detailed List Explanation": "Debajo del gráfico encontrarás el listado detallado con todas las tendencias ordenadas por número de trabajos.",
   "Detailed List": "listado detallado",
   "Analysis Period": "Análisis comprendido entre: {start} y {end}",
@@ -176,5 +176,15 @@
   "Frontier": "Frontera",
   "Horizon Scanning Sub": "Escaneo de horizonte",
   "trend": "tendencia",
-  "trends": "tendencias"
+  "trends": "tendencias",
+  "innovation_radar": {
+    "legend_size": "Tamaño",
+    "legend_volume": "Volumen de publicaciones",
+    "legend_rising": "En Alza",
+    "legend_new": "Nuevo / Disruptivo",
+    "legend_stable": "Consolidado",
+    "tooltip_presence": "Presencia",
+    "tooltip_trend": "Tendencia",
+    "series_name": "Tendencias científicas"
+  }
 }

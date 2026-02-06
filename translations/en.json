@@ -71,7 +71,7 @@
   "Trends and deep analysis with AI": "Trends and deep analysis with AI",
   "Explore Trends": "Explore Trends",
   "Radar View Title": "{highlighted} Trends",
-  "Radar View Subtitle": "Domain visualization. Outer bubbles (domains) group inner ones (specific trends).",
+  "Radar View Subtitle": "Interactive map of key scientific concepts. Bubble size and color reflect impact volume and current technological trends.",
   "Interpretation Guide": "Interpretation Guide",
   "Radar Description": "This map visualizes the structure of global scientific knowledge:",
   "Domains Explanation": "Domains (Large bubbles): Represent key scientific areas grouping related topics.",
@@ -85,9 +85,9 @@
   "Diameter Explanation": "The diameter of inner bubbles indicates the volume of publications detected for each trend.",
   "Publication Volume": "publication volume",
   "Colors": "Colors",
-  "Moment Vital Explanation": "They represent the vital stage:",
+  "Moment Vital Explanation": "Identifies the status of each topic: whether it is consolidated as a standard, a fast-growing trend, or a recent scientific innovation",
   "Rising": "Rising",
-  "New / Disruptive": "New / Disruptive",
+  "New / Disruptive": "New Trends",
   "Consolidated": "Consolidated",
   "Detailed List Explanation": "Below the chart you will find a detailed list of all trends ordered by number of works.",
   "Detailed List": "detailed list",
@@ -177,5 +177,15 @@
   "Frontier": "Frontier",
   "Horizon Scanning Sub": "Horizon Scanning",
   "trend": "trend",
-  "trends": "trends"
+  "trends": "trends",
+  "innovation_radar": {
+    "legend_size": "Size",
+    "legend_volume": "Publication Volume",
+    "legend_rising": "Rising",
+    "legend_new": "New / Disruptive",
+    "legend_stable": "Consolidated",
+    "tooltip_presence": "Presence",
+    "tooltip_trend": "Trend",
+    "series_name": "Scientific Trends"
+  }
 }

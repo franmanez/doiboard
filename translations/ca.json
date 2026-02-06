@@ -71,7 +71,7 @@
   "Trends and deep analysis with AI": "Tendències i anàlisi profunda amb IA.",
   "Explore Trends": "Explorar Tendències",
   "Radar View Title": "Tendències {highlighted}",
-  "Radar View Subtitle": "Visualització per dominis. Les bombolles externes (dominis) agrupen a les internes (tendències específiques).",
+  "Radar View Subtitle": "Mapa interactiu de conceptes científics clau. La mida de les bombolles i el seu color reflecteixen el volum d'impacte i la seva tendència tecnològica actual.",
   "Interpretation Guide": "Guia d'Interpretació",
   "Radar Description": "Aquest mapa visualitza l'estructura del coneixement científic global:",
   "Domains Explanation": "Dominis (Boles grans): Representen les àrees científiques principals que agrupen temes relacionats.",
@@ -85,10 +85,10 @@
   "Diameter Explanation": "El diàmetre de les bombolles interiors indica el volum de publicacions detectat per a cada tendència.",
   "Publication Volume": "volum de publicacions",
   "Colors": "Colors",
-  "Moment Vital Explanation": "Representen el moment vital:",
+  "Moment Vital Explanation": "Identifica l'estat de cada temàtica: si està consolidada com a estàndard, si és una tendència en fort creixement o si es tracta d'una innovació científica recent",
   "Rising": "En Alça",
-  "New / Disruptive": "Nova / Disruptiva",
-  "Consolidated": "Consolidada",
+  "New / Disruptive": "Novetats",
+  "Consolidated": "Consolidats",
   "Detailed List Explanation": "Sota el gràfic trobaràs el llistat detallat amb totes les tendències ordenades per nombre de treballs.",
   "Detailed List": "llistat detallat",
   "Analysis Period": "Anàlisi comprès entre: {start} i {end}",
@@ -177,5 +177,15 @@
   "Frontier": "Frontera",
   "Horizon Scanning Sub": "Escaneig d'horitzó",
   "trend": "tendència",
-  "trends": "tendències"
+  "trends": "tendències",
+  "innovation_radar": {
+    "legend_size": "Mida",
+    "legend_volume": "Volum de publicacions",
+    "legend_rising": "En Alça",
+    "legend_new": "Nova / Disruptiva",
+    "legend_stable": "Consolidada",
+    "tooltip_presence": "Presència",
+    "tooltip_trend": "Tendència",
+    "series_name": "Tendències científiques"
+  }
 }

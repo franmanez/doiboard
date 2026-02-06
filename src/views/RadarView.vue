@@ -33,10 +33,10 @@
                 </p>
                 <ul class="mb-3 ps-3">
                     <li class="mb-2">
-                        <strong>{{ $t("Domains Explanation").split(':')[0] }}:</strong> {{ $t("Domains Explanation").split(':')[1] }}
+                        <strong>{{ $t("innovation_radar.legend_size") }}:</strong> {{ $t("innovation_radar.legend_volume") }}
                     </li>
                     <li class="mb-2">
-                        <strong>{{ $t("Trends Explanation").split(':')[0] }}:</strong> {{ $t("Trends Explanation").split(':')[1] }}
+                        <strong>{{ $t("Colors") }}:</strong> {{ $t("Moment Vital Explanation") }}
                     </li>
                 </ul>
                 <div class="border-top border-white border-opacity-10 pt-2 mt-2">
@@ -51,115 +51,121 @@
     </div>
 
     <!-- Loading State -->
-    <div v-if="loading" class="text-center my-5 py-5">
-      <div class="spinner-border text-primary" role="status" style="width: 3.5rem; height: 3.5rem;">
+    <div v-if="loading" class="text-center my-5 py-5 loading-state">
+      <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">{{ $t("Search") }}...</span>
       </div>
       <p class="mt-3 text-secondary lead">{{ $t("Loading Radar") }}</p>
     </div>
 
     <!-- Error State -->
-    <div v-else-if="error" class="alert alert-warning rounded-4 shadow-sm p-4">
+    <div v-else-if="error" class="alert alert-warning rounded-4 shadow-sm p-4 error-state">
       <h4 class="alert-heading"><i class="bi bi-exclamation-triangle me-2"></i>{{ $t("Warning") }}</h4>
       <p>{{ error }}</p>
       <hr>
       <button class="btn btn-primary rounded-pill px-4" @click="fetchRadarData">{{ $t("Retry") }}</button>
     </div>
 
-    <!-- Info Banner (Simplified Explanation Box) -->
-    <div v-if="!loading && !error" class="info-card p-4 rounded-4 d-flex align-items-center gap-4 bg-dark bg-opacity-10 border border-dark border-opacity-25 mb-5">
-        <div class="d-flex align-items-start gap-4 w-100">
-          <div class="icon-box rounded-3 text-white p-3 flex-shrink-0 shadow-sm bg-dark">
-            <i class="bi bi-diagram-3 fs-3"></i>
-          </div>
-          <div>
-            <h4 class="fw-bold mb-1">{{ $t("Radar Guide") }}</h4>
-            <div style="line-height: 1.6;">
-              <p class="mb-2 font-16">
-                <strong>• {{ $t("Size") }}:</strong> {{ $t("Diameter Explanation") }}
-              </p>
-              <p class="mb-2 font-16">
-                <strong>• {{ $t("Colors") }}:</strong> {{ $t("Moment Vital Explanation") }} 
-                <span style="color: #ef5350" class="fw-bold">{{ $t("Rising") }}</span>, 
-                <span style="color: #66bb6a" class="fw-bold">{{ $t("New / Disruptive") }}</span>, 
-                <span style="color: #42a5f5" class="fw-bold">{{ $t("Consolidated") }}</span>.
-              </p>
-              <p class="mb-0 font-16">
-                <i class="bi bi-table me-1"></i> {{ $t("Detailed List Explanation") }}
-              </p>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <!-- Title and Date Range Section -->
-    <div v-if="!loading && !error" class="row align-items-center justify-content-between mb-4 px-2">
-      <div class="col-md-auto d-flex align-items-center gap-3">
-          <i class="bi bi-calendar-event fs-3 text-secondary"></i>
-          <h2 class="h3 fw-bold mb-0 text-dark">
-              <i18n-t keypath="Analysis Period" tag="span">
-                <template #start>
-                  <span class="text-warning">2025-07-01</span>
-                </template>
-                <template #end>
-                  <span class="text-warning">2025-12-31</span>
-                </template>
-              </i18n-t>
-          </h2>
-      </div>
-    </div>
-
     <!-- Chart Section -->
-    <div v-if="!loading && !error" class="row">
-      <div class="col-12">
-        <div class="card shadow-lg border-0 rounded-4 overflow-hidden mb-5">
-          <div class="card-body p-0">
-            <!-- Increased height to give more room for expansion -->
-            <highcharts :options="chartOptions" class="radar-chart-element" style="height: 900px;"></highcharts>
+    <div v-if="!loading && !error" class="chart-container">
+      <!-- Title and Date Range Section -->
+      <div class="row align-items-center justify-content-between mb-4 px-2">
+        <div class="col-md-auto d-flex align-items-center gap-3">
+            <i class="bi bi-calendar-event fs-3 text-secondary"></i>
+            <h2 class="h3 fw-bold mb-0 text-dark">
+                <i18n-t keypath="Analysis Period" tag="span">
+                  <template #start>
+                    <span class="text-warning">{{ startDate }}</span>
+                  </template>
+                  <template #end>
+                    <span class="text-warning">{{ endDate }}</span>
+                  </template>
+                </i18n-t>
+            </h2>
+        </div>
+      </div>
+
+      <div class="card shadow-lg border-0 rounded-4 overflow-hidden mb-5">
+        <div class="card-body p-0">
+          <div ref="chartRef" class="radar-chart-element" :style="{ height: chartHeight + 'px' }"></div>
+          
+          <!-- Static Legend -->
+          <div class="d-flex flex-wrap justify-content-center gap-4 py-4 border-top bg-light bg-opacity-50">
+            <div class="d-flex align-items-center gap-2 small text-muted">
+              <span class="dot size-indicator"></span>
+              <span><b>{{ $t('innovation_radar.legend_size') }}:</b> {{ $t('innovation_radar.legend_volume') }}</span>
+            </div>
             
-            <!-- Legend (Optional, keeping it for redundancy as requested not to touch graphics) -->
-            <div class="d-flex flex-wrap justify-content-center gap-4 py-3 border-top bg-light bg-opacity-50">
-              <div class="d-flex align-items-center gap-2">
-                <span class="dot" style="background: #ef5350; border: 2px solid #b71c1c"></span>
-                <span class="fw-bold font-16">{{ $t("Rising") }}</span>
-              </div>
-              <div class="d-flex align-items-center gap-2">
-                <span class="dot" style="background: #66bb6a; border: 2px solid #1b5e20"></span>
-                <span class="fw-bold font-16">{{ $t("New / Disruptive") }}</span>
-              </div>
-              <div class="d-flex align-items-center gap-2">
-                <span class="dot" style="background: #42a5f5; border: 2px solid #0d47a1"></span>
-                <span class="fw-bold font-16">{{ $t("Consolidated") }}</span>
-              </div>
+            <div class="interactive-legend-item">
+              <span class="dot color-rising"></span>
+              <span>{{ $t('innovation_radar.legend_rising') }}</span>
+            </div>
+
+            <div class="interactive-legend-item">
+              <span class="dot color-new"></span>
+              <span>{{ $t('innovation_radar.legend_new') }}</span>
+            </div>
+
+            <div class="interactive-legend-item">
+              <span class="dot color-stable"></span>
+              <span>{{ $t('innovation_radar.legend_stable') }}</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Trend Details Grouped by Domain -->
-      <div class="col-12">
-        <h3 class="h4 fw-bold mb-4 px-2 text-dark">{{ $t("Macrotrends Detail") }}</h3>
-        
-        <div v-for="(trends, domain) in groupedRadarData" :key="domain" class="mb-5">
-          <div class="d-flex align-items-center mb-3 px-2">
-            <div class="domain-indicator me-3" :style="{ backgroundColor: getDomainColor(domain) }"></div>
-            <h4 class="h5 fw-bold mb-0 text-primary text-uppercase tracking-wider">{{ domain }}</h4>
-            <div class="ms-auto badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25 rounded-pill px-3">
-              {{ trends.length }} {{ trends.length === 1 ? $t('trend') : $t('trends') }}
+      <!-- Detail list in three columns -->
+      <div class="col-12 mt-4">
+        <div class="row g-4">
+          <!-- CONSOLIDATED COLUMN -->
+          <div class="col-lg-4">
+            <div class="trend-column-container">
+              <div class="trend-column-header border-stable">
+                {{ $t("Consolidated").toUpperCase() }}
+              </div>
+              <div class="trend-items-list">
+                <div v-for="item in groupedByTrend.stable" :key="item.tag" class="trend-item-card border-left-stable">
+                  <span class="tag-name">{{ item.tag }}</span>
+                  <span class="tag-count-badge">{{ item.count }}</span>
+                </div>
+                <div v-if="groupedByTrend.stable.length === 0" class="empty-state-text">
+                  {{ $t("No items found") }}
+                </div>
+              </div>
             </div>
           </div>
-          
-          <div class="row g-4">
-            <div v-for="tag in trends" :key="tag.tag" class="col-md-6 col-lg-4">
-              <div class="card h-100 border border-secondary-subtle shadow-sm rounded-4 trend-card overflow-hidden">
-                <div class="card-header border-0 text-white p-3" :style="{ backgroundColor: getTrendColor(tag.trend) }">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span class="fw-bold text-uppercase font-14">{{ tag.trend === 'rising' ? $t("Rising") : tag.trend === 'new' ? $t("New / Disruptive") : $t("Consolidated") }}</span>
-                    <span class="badge bg-white text-dark rounded-pill">{{ tag.count }} {{ $t("Article Count") }}</span>
-                  </div>
+
+          <!-- RISING COLUMN -->
+          <div class="col-lg-4">
+            <div class="trend-column-container">
+              <div class="trend-column-header border-rising">
+                {{ $t("Rising").toUpperCase() }}
+              </div>
+              <div class="trend-items-list">
+                <div v-for="item in groupedByTrend.rising" :key="item.tag" class="trend-item-card border-left-rising">
+                  <span class="tag-name">{{ item.tag }}</span>
+                  <span class="tag-count-badge">{{ item.count }}</span>
                 </div>
-                <div class="card-body p-3">
-                  <h6 class="fw-bold mb-0" style="font-size: 1.1rem; line-height: 1.3;">{{ tag.tag }}</h6>
+                <div v-if="groupedByTrend.rising.length === 0" class="empty-state-text">
+                  {{ $t("No items found") }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- NEW COLUMN -->
+          <div class="col-lg-4">
+            <div class="trend-column-container">
+              <div class="trend-column-header border-new">
+                {{ $t("New / Disruptive").toUpperCase() }}
+              </div>
+              <div class="trend-items-list">
+                <div v-for="item in groupedByTrend.new" :key="item.tag" class="trend-item-card border-left-new">
+                  <span class="tag-name">{{ item.tag }}</span>
+                  <span class="tag-count-badge">{{ item.count }}</span>
+                </div>
+                <div v-if="groupedByTrend.new.length === 0" class="empty-state-text">
+                  {{ $t("No items found") }}
                 </div>
               </div>
             </div>
@@ -171,205 +177,179 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, computed } from 'vue';
+import { defineComponent, ref, onMounted, onUnmounted, computed, nextTick } from 'vue';
 import { useI18n } from 'vue-i18n';
 import AIService from '@/service/AIService';
 import Highcharts from 'highcharts';
-import { Chart } from 'highcharts-vue';
-import moreInit from 'highcharts/highcharts-more';
+import more from 'highcharts/highcharts-more';
 
-moreInit(Highcharts);
+more(Highcharts);
 
 export default defineComponent({
   name: 'RadarView',
-  components: {
-    highcharts: Chart
-  },
   setup() {
     const { t } = useI18n();
     const radarData = ref([]);
     const loading = ref(true);
     const error = ref(null);
-
-    const getTrendColor = (trend) => {
-      switch (trend) {
-        case 'rising': return '#ef5350'; // Rojo Suave
-        case 'new': return '#66bb6a';    // Verde Suave
-        case 'stable': return '#42a5f5'; // Azul Suave
-        default: return '#999999';
-      }
-    };
-
-    const getTrendBorderColor = (trend) => {
-      switch (trend) {
-        case 'rising': return '#b71c1c'; // Rojo Oscuro
-        case 'new': return '#1b5e20';    // Verde Oscuro
-        case 'stable': return '#0d47a1'; // Azul Oscuro
-        default: return '#333333';
-      }
-    };
+    const chartRef = ref(null);
+    const chartInstance = ref(null);
+    const chartHeight = ref(800);
+    const startDate = ref('');
+    const endDate = ref('');
 
     const fetchRadarData = async () => {
       loading.value = true;
       error.value = null;
       try {
         const response = await AIService.getRadar();
-        radarData.value = response.data.data || [];
+        const data = response.data.data || [];
+        radarData.value = data;
+        
+        if (response.data.meta) {
+            startDate.value = response.data.meta.startDate;
+            endDate.value = response.data.meta.endDate;
+        }
+
+        // Dynamic height
+        chartHeight.value = Math.max(800, 400 + (data.length * 20));
       } catch (err) {
         console.error("Error fetching radar data:", err);
         error.value = t("Warning") + ": " + (err.message || "Error");
       } finally {
         loading.value = false;
+        await nextTick();
+        renderChart();
       }
     };
 
-    const groupedRadarData = computed(() => {
-      const groups = {};
-      radarData.value.forEach(item => {
-        if (!groups[item.domain]) groups[item.domain] = [];
-        groups[item.domain].push(item);
-      });
-      
-      // Sort trends within each group by count descending
-      Object.keys(groups).forEach(domain => {
-        groups[domain].sort((a, b) => b.count - a.count);
-      });
-
-      // Sort domains by total count of their trends
-      const sortedEntries = Object.entries(groups).sort((a, b) => {
-        const sumA = a[1].reduce((sum, item) => sum + item.count, 0);
-        const sumB = b[1].reduce((sum, item) => sum + item.count, 0);
-        return sumB - sumA;
-      });
-
-      return Object.fromEntries(sortedEntries);
-    });
-
-    // Same palette used in chartOptions
-    const domainPalette = [
-      '#00a8ff', '#9c88ff', '#fbc531', '#4cd137', '#487eb0',
-      '#e84118', '#7f8fa6', '#273c75', '#c23616', '#192a56'
-    ];
-
-    const getDomainColor = (domainName) => {
-      const domains = Object.keys(groupedRadarData.value);
-      const index = domains.indexOf(domainName);
-      return domainPalette[index % domainPalette.length];
+    const getTrendColor = (trend) => {
+      switch (trend) {
+        case 'rising': return '#FF4757';
+        case 'new': return '#2ED573';
+        case 'stable': return '#1E90FF';
+        default: return '#999999';
+      }
     };
 
-    const chartOptions = computed(() => {
-      // Stronger specific colors for each Domain
-      const domainPalette = [
-        '#00a8ff', '#9c88ff', '#fbc531', '#4cd137', '#487eb0',
-        '#e84118', '#7f8fa6', '#273c75', '#c23616', '#192a56'
-      ];
-
-      // Group domains
-      const groups = {};
+    const groupedByTrend = computed(() => {
+      const groups = {
+        stable: [],
+        rising: [],
+        new: []
+      };
       radarData.value.forEach(item => {
-        if (!groups[item.domain]) groups[item.domain] = [];
-        groups[item.domain].push({
+        if (groups[item.trend]) {
+          groups[item.trend].push(item);
+        }
+      });
+      // Sort each group by count descending
+      groups.stable.sort((a, b) => b.count - a.count);
+      groups.rising.sort((a, b) => b.count - a.count);
+      groups.new.sort((a, b) => b.count - a.count);
+      return groups;
+    });
+
+    const renderChart = () => {
+      if (!chartRef.value || radarData.value.length === 0) return;
+
+      const filteredData = radarData.value
+        .map(item => ({
           name: item.tag,
           value: item.count,
-          color: getTrendColor(item.trend),
-          marker: {
-            lineWidth: 2,
-            lineColor: getTrendBorderColor(item.trend)
-          }
-        });
-      });
+          trendDisplay: item.trend === 'rising' ? t('innovation_radar.legend_rising') : (item.trend === 'new' ? t('innovation_radar.legend_new') : t('innovation_radar.legend_stable')),
+          color: getTrendColor(item.trend)
+        }));
 
-      // Build series strictly following reference logic
-      const series = Object.keys(groups).map((domainName, index) => {
-        const dColor = domainPalette[index % domainPalette.length];
-        return {
-          name: domainName,
-          color: dColor,
-          data: groups[domainName],
-          // This is key: Highcharts uses marker config from the series for the hull
-          marker: {
-            fillOpacity: 0.8, // VERY SOLID as requested
-            lineWidth: 3,
-            lineColor: dColor
-          }
-        };
-      });
-
-      return {
+      const options = {
         chart: {
           type: 'packedbubble',
-          backgroundColor: 'transparent'
+          height: chartHeight.value + 'px',
+          backgroundColor: 'transparent',
+          spacing: [20, 10, 20, 10],
+          animation: false
         },
         title: { text: '' },
         tooltip: {
           useHTML: true,
-          pointFormat: `<b>{point.name}</b>: {point.value} ${t("Article Count")}`
+          backgroundColor: 'rgba(255, 255, 255, 0.95)',
+          borderRadius: 12,
+          borderWidth: 1,
+          borderColor: '#ddd',
+          pointFormat: `
+            <div style="padding: 12px; min-width: 180px">
+              <span style="color:{point.color}; font-size: 16px; font-weight: bold">{point.name}</span><br/>
+              <div style="margin-top: 8px; font-size: 13px; color: #444">
+                <b>${t('innovation_radar.tooltip_presence')}:</b> {point.value} ${t('innovation_radar.legend_volume').toLowerCase()}<br/>
+                <b>${t('innovation_radar.tooltip_trend')}:</b> <span style="text-transform: capitalize">{point.trendDisplay}</span>
+              </div>
+            </div>
+          `
         },
         plotOptions: {
           packedbubble: {
-            minSize: '30%',
-            maxSize: '100%',
-            zMin: 0,
-            zMax: 100, // Based on counts in json
+            minSize: '40%',
+            maxSize: '150%',
             layoutAlgorithm: {
-              gravitationalConstant: 0.05,
-              splitSeries: true, // UseCase 2 requirement
-              seriesInteraction: false,
+              gravitationalConstant: 0.01,
+              splitSeries: false,
+              seriesInteraction: true,
               dragBetweenSeries: true,
-              parentNodeLimit: true
+              parentNodeLimit: true,
+              bubblePadding: 15,
+              enableSimulation: true,
+              initialAnimation: false
             },
-            marker: {
-              fillOpacity: 1, // Inner bubbles are solid
-              states: {
-                hover: {
-                  fillOpacity: 1
-                }
-              }
-            },
-            parentNodeOptions: {
-              marker: {
-                fillOpacity: 0.8 // Solid parents as requested
-              },
-              dataLabels: {
-                enabled: true,
-                format: '{point.name}',
-                style: {
-                  color: '#ffffff', // White text on solid color
-                  textOutline: 'none',
-                  fontWeight: 'bold',
-                  fontSize: '15px'
-                },
-                y: 0 
-              }
-            },
+            animation: false,
             dataLabels: {
               enabled: true,
               format: '{point.name}',
+              allowOverlap: false,
+              crop: false,
               style: {
-                color: 'black',
-                textOutline: 'none',
-                fontWeight: 'bold',
-                fontSize: '10px'
+                color: '#ffffff',
+                textOutline: '2px rgba(0,0,0,0.6)',
+                fontWeight: '600',
+                fontSize: '12px'
               }
             }
           }
         },
-        series: series,
-        credits: { enabled: false },
-        exporting: { enabled: false }
+        legend: { enabled: false },
+        series: [{
+          name: t('innovation_radar.series_name'),
+          data: filteredData
+        }],
+        exporting: { enabled: false },
+        credits: { enabled: false }
       };
-    });
+
+      if (!chartInstance.value) {
+        chartInstance.value = Highcharts.chart(chartRef.value, options);
+      } else {
+        chartInstance.value.update(options, true, true);
+      }
+    };
 
     onMounted(fetchRadarData);
 
+    onUnmounted(() => {
+      if (chartInstance.value) {
+        chartInstance.value.destroy();
+        chartInstance.value = null;
+      }
+    });
+
     return {
-      radarData,
       loading,
       error,
-      chartOptions,
-      groupedRadarData,
+      chartRef,
+      chartHeight,
+      radarData,
+      groupedByTrend,
+      startDate,
+      endDate,
       getTrendColor,
-      getDomainColor,
       fetchRadarData
     };
   }
@@ -392,11 +372,31 @@ export default defineComponent({
   z-index: 0;
 }
 
+.radar-chart-element {
+  width: 100%;
+  border-radius: 16px;
+  min-height: 800px;
+}
+
 .dot {
   width: 12px;
   height: 12px;
   border-radius: 50%;
   display: inline-block;
+}
+
+.dot.size-indicator { border: 1px solid #999; }
+.dot.color-rising { background: #FF4757; }
+.dot.color-new { background: #2ED573; }
+.dot.color-stable { background: #1E90FF; }
+
+.interactive-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
 }
 
 .trend-card { transition: transform 0.2s; }
@@ -415,13 +415,100 @@ export default defineComponent({
   font-family: 'Roboto', sans-serif !important;
 }
 
-.domain-indicator {
-  width: 8px;
-  height: 24px;
+.loading-state, .error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+}
+
+.loading-state .spinner-border {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 25px;
+  color: #6366f1 !important;
+}
+
+.chart-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+}
+
+.trend-column-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.trend-column-header {
+  font-weight: 800;
+  font-size: 0.9rem;
+  padding: 0.75rem 0.5rem;
+  letter-spacing: 0.05em;
+  background-color: #f8fafc;
   border-radius: 4px;
 }
 
-.tracking-wider {
-  letter-spacing: 0.05em;
+.border-stable { border-top: 4px solid #1E90FF; color: #1E90FF; }
+.border-rising { border-top: 4px solid #FF4757; color: #FF4757; }
+.border-new { border-top: 4px solid #2ED573; color: #2ED573; }
+
+.trend-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.trend-item-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.trend-item-card:hover {
+  background-color: #f8fafc;
+}
+
+.border-left-stable { border-left: 5px solid #1E90FF; }
+.border-left-rising { border-left: 5px solid #FF4757; }
+.border-left-new { border-left: 5px solid #2ED573; }
+
+.tag-name {
+  font-weight: 600;
+  color: #334155;
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.tag-count-badge {
+  background: #f1f5f9;
+  color: #64748b;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  min-width: 2.5rem;
+  text-align: center;
+  margin-left: 1rem;
+}
+
+.empty-state-text {
+  padding: 2.5rem;
+  text-align: center;
+  color: #94a3b8;
+  font-style: italic;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px dashed #cbd5e1;
 }
 </style>
