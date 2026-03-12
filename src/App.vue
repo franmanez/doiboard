@@ -173,7 +173,7 @@
           </div>
           <div class="col-lg-4 col-md-6">
             <h5 class="text-white mb-3">{{ $t("Developed by") }}</h5>
-            <p class="small text-secondary"> Fran Máñez · <a href="mailto:francisco.manez@upc.edu">francisco.manez@upc.edu</a>
+            <p class="small text-secondary"> 
               <br>Servei de Biblioteques Publicacions i Arxius.
               <br>© UPC - Universitat Politècnica de Catalunya · BarcelonaTech
               <br> <a href="mailto:info.idp@upc.edu">info.idp@upc.edu</a>
