@@ -265,10 +265,30 @@ class CrossrefService {
 
     getMembers = async (page, size, query) => {
         let filterQuery = ''
-        if(query){
+        if (query) {
             filterQuery = `&query=${query.replaceAll(' ', '+')}`
         }
-        const response = await http.get(`/members?offset=${page}&rows=${size}${filterQuery}${this.MAILTO}`)
+        let response = await http.get(`/members?offset=${page}&rows=${size}${filterQuery}${this.MAILTO}`)
+
+        // If the query has diacritics, always query the normalized version and merge the results.
+        if (query) {
+            const normalizedQuery = query.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            if (normalizedQuery !== query) {
+                const filterQueryNorm = `&query=${normalizedQuery.replaceAll(' ', '+')}`
+                const responseNorm = await http.get(`/members?offset=${page}&rows=${size}${filterQueryNorm}${this.MAILTO}`)
+                
+                const existingIds = new Set(response.data.message.items.map(item => item.id));
+                const newItems = responseNorm.data.message.items.filter(item => !existingIds.has(item.id));
+                
+                response.data.message.items = [...response.data.message.items, ...newItems];
+                
+                // Add to total results (approximation if there are duplicates on other pages, exact if entirely disjoint)
+                if (responseNorm.data.message['total-results'] > 0) {
+                     response.data.message['total-results'] += responseNorm.data.message['total-results'];
+                }
+            }
+        }
+
         return response.data.message
     }
 

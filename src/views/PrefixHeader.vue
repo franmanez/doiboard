@@ -96,7 +96,7 @@
 <script>
 
 import {useStore} from "vuex";
-import {computed, ref, toRefs} from "vue";
+import {computed, ref, toRefs, watch} from "vue";
 
 export default {
   name: 'PrefixView',
@@ -111,8 +111,13 @@ export default {
     const { search } = toRefs(props);
     const prefixFromStore = store.getters.prefix;
     const initialPrefix = prefixFromStore && prefixFromStore !== '' ? String(prefixFromStore) : '10.5821';
-    const prefixChild = ref(initialPrefix)
+    const prefixChild = ref(props.prefix || initialPrefix)
 
+    watch(() => props.prefix, (newVal) => {
+      if (newVal) {
+        prefixChild.value = newVal;
+      }
+    });
 
     const prefixStore = computed(() => { return store.getters.prefix})
     const memberName = computed(() => { return store.getters.memberName})
