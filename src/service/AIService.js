@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-    baseURL: process.env.VUE_APP_API_URL,
+    baseURL: process.env.VUE_APP_API_URL || 'https://doi.upc.edu/api',
     headers: {
         "Content-type": "application/json"
     }
